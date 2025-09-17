@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
-import { useAuthContext } from '../../auth/hooks';
+import { useAuthContext } from '../features/auth/hooks';
 import { useNavigate } from 'react-router';
 
-export function Header(): ReactElement {
+const Header = (): ReactElement => {
   const { isLoggedIn, logout } = useAuthContext();
   const navigate = useNavigate();
 
@@ -17,4 +17,6 @@ export function Header(): ReactElement {
       {isLoggedIn && <button onClick={handleOnLogout}>Logout</button>}
     </header>
   );
-}
+};
+
+export default Header;
