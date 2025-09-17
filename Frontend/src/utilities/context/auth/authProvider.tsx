@@ -1,10 +1,10 @@
 import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
-import { AuthContext } from '.';
-import { loginReq } from '../api';
-import { TOKENS } from '../constants';
-import { ITokens, IAuthContext } from '../types';
-import { CustomError } from '../../shared/classes';
+import { AuthContext } from './authContext';
+import { loginReq } from '../../api/api';
+import { TOKENS } from '../../constants';
+import { ITokens, IAuthContext } from '../../types';
+import { CustomError } from '../../../features/shared/classes';
 
 interface IAuthProviderProps {
   children: ReactNode;

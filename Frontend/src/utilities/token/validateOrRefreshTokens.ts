@@ -1,5 +1,5 @@
-import { hasTokenExpired } from '.';
-import { refreshTokens } from '../api';
+import { hasTokenExpired } from './';
+import { refreshTokens } from '../api/api';
 import { ITokens } from '../types';
 
 export async function validateOrRefreshTokens(tokens: ITokens | null): Promise<ITokens | null> {

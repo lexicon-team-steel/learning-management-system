@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { useAuthContext } from '../features/auth/hooks';
+import { useAuthContext } from '../utilities/hooks/useAuthContext';
 import { useNavigate } from 'react-router';
 
 const Header = (): ReactElement => {

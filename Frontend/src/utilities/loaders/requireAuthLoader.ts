@@ -1,5 +1,5 @@
 import { redirect, type LoaderFunctionArgs } from 'react-router';
-import { validateOrRefreshTokens } from '../utilities';
+import { validateOrRefreshTokens } from '../../utilities/token/validateOrRefreshTokens';
 import { TOKENS } from '../constants';
 import { ITokens } from '../types';
 

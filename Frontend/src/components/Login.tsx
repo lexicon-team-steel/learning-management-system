@@ -1,8 +1,8 @@
 import { FormEventHandler, ReactElement, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
-import { useAuthContext } from '../hooks/useAuthContext';
+import { useAuthContext } from '../utilities/hooks/useAuthContext';
 
-export function Login(): ReactElement {
+const Login = (): ReactElement => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [searchParams] = useSearchParams();
@@ -32,4 +32,6 @@ export function Login(): ReactElement {
       </form>
     </main>
   );
-}
+};
+
+export default Login;

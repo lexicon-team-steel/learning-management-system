@@ -1,5 +1,5 @@
-import { refreshTokens } from '../../auth/api';
-import { getTokens, hasTokenExpired, setTokens, addTokenToRequestInit } from '../../auth/utilities';
+import { refreshTokens } from '../../../utilities/api/api';
+import { getTokens, hasTokenExpired, setTokens, addTokenToRequestInit } from '../../../utilities/token';
 import { CustomError } from '../classes';
 import { fetchJson } from './fetchJson';
 

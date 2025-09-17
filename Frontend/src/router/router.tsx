@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router';
 import Layout from '../pages/Layout';
-import { Login } from '../features/auth/components';
-import { requireAuthLoader } from '../features/auth/loaders';
+import { Login } from '../components/Login';
+import { requireAuthLoader } from '../utilities/loaders/requireAuthLoader';
 import { Companies, Company } from '../features/companies/components';
 import { companiesLoader, companyLoader } from '../features/companies/loaders';
 

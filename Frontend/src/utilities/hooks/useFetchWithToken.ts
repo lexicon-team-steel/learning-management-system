@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
-import { CustomError } from '../classes';
-import { refreshTokens } from '../../auth/api';
-import { TOKENS } from '../../auth/constants';
-import { ITokens } from '../../auth/types';
-import { addTokenToRequestInit, hasTokenExpired } from '../../auth/utilities';
+import { CustomError } from '../../features/shared/classes';
+import { refreshTokens } from '../api/api';
+import { TOKENS } from '../constants';
+import { ITokens } from '../types';
+import { addTokenToRequestInit, hasTokenExpired } from '../token';
 
 interface IUseFetchReturn<T> {
   data: T | null;

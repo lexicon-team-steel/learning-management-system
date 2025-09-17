@@ -1,5 +1,5 @@
-import { TOKENS } from '../constants/index.ts';
-import { ITokens } from '../types/index.ts';
+import { TOKENS } from '../constants';
+import { ITokens } from '../types';
 
 export function getTokens(): ITokens | null {
   const raw = localStorage.getItem(TOKENS);
