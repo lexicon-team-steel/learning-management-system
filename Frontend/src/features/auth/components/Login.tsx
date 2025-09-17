@@ -24,19 +24,9 @@ export function Login(): ReactElement {
         <fieldset>
           <legend>Login</legend>
           <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            onChange={(e) => setUsername(e.target.value)}
-            type="text"
-            value={username}
-          />
+          <input id="username" onChange={(e) => setUsername(e.target.value)} type="text" value={username} />
           <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            value={password}
-          />
+          <input id="password" onChange={(e) => setPassword(e.target.value)} type="password" value={password} />
           <button type="submit">Submit</button>
         </fieldset>
       </form>

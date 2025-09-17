@@ -13,10 +13,7 @@ interface IUseFetchReturn<T> {
   requestFunc: () => Promise<void>;
 }
 
-export function useFetchWithToken<T>(
-  url: RequestInfo | URL,
-  options?: RequestInit
-): IUseFetchReturn<T> {
+export function useFetchWithToken<T>(url: RequestInfo | URL, options?: RequestInit): IUseFetchReturn<T> {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tokens, setTokens] = useLocalStorage<ITokens | null>(TOKENS, null);
