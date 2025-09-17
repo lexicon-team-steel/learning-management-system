@@ -16,7 +16,7 @@ export function Company(): ReactElement {
     <main className="company">
       <h2>This is the site for one company with {id}</h2>
       <Suspense fallback={<p>Loading...</p>}>
-        <Await children={(company) => renderCompany(company)} resolve={company} />
+        <Await resolve={company}>{(company) => renderCompany(company)}</Await>
       </Suspense>
     </main>
   );

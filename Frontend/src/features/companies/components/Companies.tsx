@@ -20,7 +20,7 @@ export function Companies(): ReactElement {
     <main id="companies" className="g-container">
       <h2>List of Companies</h2>
       <Suspense fallback={<p>Loading...</p>}>
-        <Await children={(companies) => renderCompanies(companies)} resolve={companies} />
+        <Await resolve={companies}>{(companies) => renderCompanies(companies)}</Await>
       </Suspense>
     </main>
   );
