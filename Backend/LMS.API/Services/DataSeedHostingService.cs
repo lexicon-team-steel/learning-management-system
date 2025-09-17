@@ -1,4 +1,4 @@
-﻿using Bogus;
+using Bogus;
 using LMS.Infractructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

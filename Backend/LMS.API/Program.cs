@@ -23,7 +23,7 @@ public class Program
         builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MapperProfile>());
         builder.Services.ConfigureCors();
         builder.Services.ConfigureOpenApi();
-       
+
 
         var app = builder.Build();
 
@@ -41,7 +41,7 @@ public class Program
         }
 
         app.UseHttpsRedirection();
-        app.UseCors("AllowAll"); 
+        app.UseCors("AllowAll");
 
         app.UseAuthentication();
         app.UseAuthorization();

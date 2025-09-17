@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Domain.Models.Entities;
 using LMS.Shared.DTOs.AuthDtos;
 

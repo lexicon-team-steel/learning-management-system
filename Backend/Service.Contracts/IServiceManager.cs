@@ -1,4 +1,4 @@
-﻿namespace Service.Contracts;
+namespace Service.Contracts;
 public interface IServiceManager
 {
     IAuthService AuthService { get; }

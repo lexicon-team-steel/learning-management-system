@@ -1,4 +1,4 @@
-﻿using LMS.Infractructure.Data;
+using LMS.Infractructure.Data;
 using LMS.Infractructure.Repositories;
 using LMS.Presentation;
 using LMS.Services;

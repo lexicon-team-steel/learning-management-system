@@ -1,4 +1,4 @@
-﻿using Domain.Contracts.Repositories;
+using Domain.Contracts.Repositories;
 using LMS.Infractructure.Data;
 
 namespace LMS.Infractructure.Repositories;

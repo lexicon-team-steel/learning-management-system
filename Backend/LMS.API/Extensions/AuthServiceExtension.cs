@@ -1,4 +1,4 @@
-﻿using Domain.Models.Configurations;
+using Domain.Models.Configurations;
 using LMS.Infractructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;

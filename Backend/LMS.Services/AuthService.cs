@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Domain.Models.Configurations;
 using Domain.Models.Entities;
 using Domain.Models.Exceptions;
@@ -14,6 +14,7 @@ using System.Security.Cryptography;
 using System.Text;
 
 namespace LMS.Services;
+
 public class AuthService : IAuthService
 {
     private readonly IMapper mapper;

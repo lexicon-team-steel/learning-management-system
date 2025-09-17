@@ -1,4 +1,4 @@
-﻿namespace LMS.Shared.DTOs.ForFrontEndTemplate;
+namespace LMS.Shared.DTOs.ForFrontEndTemplate;
 
 //Just for demo in frontend Template
 public class CompanyDto

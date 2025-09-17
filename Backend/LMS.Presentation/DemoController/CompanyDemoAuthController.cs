@@ -1,4 +1,4 @@
-﻿using Bogus;
+using Bogus;
 using LMS.Shared.DTOs.ForFrontEndTemplate;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

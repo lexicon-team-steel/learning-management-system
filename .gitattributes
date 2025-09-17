@@ -1,0 +1,36 @@
+# Force consistent line endings
+* text=auto eol=lf
+
+# Windows-specifika filer
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+
+# Scripts för Unix/Mac
+*.sh text eol=lf
+
+# C#-filer alltid LF
+*.cs text eol=lf
+*.csproj text eol=lf
+*.sln text eol=lf
+
+# JSON, YAML, JS/TS, HTML etc. → LF
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+
+# Binära filer (inga line endings)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.dll binary
+*.exe binary
+*.pdf binary

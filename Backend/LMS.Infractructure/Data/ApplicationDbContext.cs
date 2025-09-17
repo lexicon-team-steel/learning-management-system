@@ -1,4 +1,4 @@
-﻿using Domain.Models.Entities;
+using Domain.Models.Entities;
 using LMS.Infractructure.Data.Configurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

@@ -1,3 +1,3 @@
-﻿namespace LMS.Presentation;
+namespace LMS.Presentation;
 
 public class AssemblyReference { }

@@ -1,4 +1,4 @@
-﻿using LMS.Shared.DTOs.AuthDtos;
+using LMS.Shared.DTOs.AuthDtos;
 using Microsoft.AspNetCore.Identity;
 
 namespace Service.Contracts;
