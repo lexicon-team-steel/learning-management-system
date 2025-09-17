@@ -5,6 +5,16 @@ This is a fullstack project. Backend is built using .NET, Entity Framework and C
 Follow the guide below to run this project locally.
 
 ### Backend
+Add a `secrets.json` file in the `LMS.API` directory with the the following content:
+```
+{
+  "password": "password",
+  "JwtSettings": {
+    "secretkey": "ThisMustBeRealltLongDontWorkIfNot!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  }
+}
+```
+
 #### For Mac:
 - If you don't have Entity Framework you need to install this globally using `dotnet tool install --global dotnet-ef`.
 - Go to the Backend directory `cd Backend`.
