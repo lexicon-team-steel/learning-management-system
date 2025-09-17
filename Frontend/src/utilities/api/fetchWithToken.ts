@@ -1,7 +1,7 @@
-import { refreshTokens } from '../../../utilities/api/api';
-import { getTokens, hasTokenExpired, setTokens, addTokenToRequestInit } from '../../../utilities/token';
+import { refreshTokens } from '../api/api';
+import { getTokens, hasTokenExpired, setTokens, addTokenToRequestInit } from '../token';
 import { CustomError } from '../classes';
-import { fetchJson } from './fetchJson';
+import { fetchJson } from '../api/fetchJson';
 
 // Loader-friendly fetch with token-refresh
 export async function fetchWithToken<T>(input: RequestInfo | URL, options?: RequestInit): Promise<T> {

@@ -4,7 +4,7 @@ import { AuthContext } from './authContext';
 import { loginReq } from '../../api/api';
 import { TOKENS } from '../../constants';
 import { ITokens, IAuthContext } from '../../types';
-import { CustomError } from '../../../features/shared/classes';
+import { CustomError } from '../../classes';
 
 interface IAuthProviderProps {
   children: ReactNode;

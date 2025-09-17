@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
-import { CustomError } from '../../features/shared/classes';
+import { CustomError } from '../classes';
 import { refreshTokens } from '../api/api';
 import { TOKENS } from '../constants';
 import { ITokens } from '../types';

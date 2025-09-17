@@ -1,5 +1,5 @@
-import { CustomError } from '../../features/shared/classes';
-import { BASE_URL } from '../../features/shared/constants';
+import { CustomError } from '../../utilities/classes';
+import { BASE_URL } from '../../utilities/constants';
 import { ITokens } from '../types';
 
 export async function loginReq(username: string, password: string): Promise<ITokens> {
