@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router';
-import { App } from '../features/app';
+import Layout from '../pages/Layout';
 import { Login } from '../features/auth/components';
 import { requireAuthLoader } from '../features/auth/loaders';
 import { Companies, Company } from '../features/companies/components';
@@ -8,7 +8,7 @@ import { companiesLoader, companyLoader } from '../features/companies/loaders';
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <Layout />,
     loader: requireAuthLoader,
     children: [
       {
