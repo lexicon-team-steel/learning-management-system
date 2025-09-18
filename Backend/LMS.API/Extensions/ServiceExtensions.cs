@@ -88,7 +88,15 @@ public static class ServiceExtensions
     {
         services.AddScoped<IServiceManager, ServiceManager>();
 
-        services.AddScoped<IAuthService, AuthService>();
-        services.AddScoped(provider => new Lazy<IAuthService>(() => provider.GetRequiredService<IAuthService>()));
+        services.AddLazyService<IAuthService, AuthService>();
+        services.AddLazyService<IStudentService, StudentService>();
+    }
+
+    private static void AddLazyService<TInterface, TImplementation>(this IServiceCollection services)
+        where TInterface : class
+        where TImplementation : class, TInterface
+    {
+        services.AddScoped<TInterface, TImplementation>();
+        services.AddScoped(provider => new Lazy<TInterface>(() => provider.GetRequiredService<TInterface>()));
     }
 }
