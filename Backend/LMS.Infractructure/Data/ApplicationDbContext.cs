@@ -9,7 +9,7 @@ namespace LMS.Infractructure.Data
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : IdentityDbContext<ApplicationUser, IdentityRole, string>(options)
     {
-        public DbSet<Course> Courses { get; set; }
+        public DbSet<Course>? Courses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
