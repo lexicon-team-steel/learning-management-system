@@ -1,5 +1,5 @@
 namespace Domain.Models.Exceptions;
 
-public class NotFoundException(string message, string title = "Not Found")
+public class ConflictException(string message, string title = "Conflict")
     : ApiException(message, title)
 { }
