@@ -4,5 +4,5 @@ namespace Domain.Contracts.Repositories;
 
 public interface IStudentRepository : IRepositoryBase<ApplicationUser>
 {
-    public Task<ApplicationUser?> GetStudentAsync(string studentId);
+    public Task<ApplicationUser?> GetStudentWithCourseAsync(string studentId);
 }

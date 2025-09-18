@@ -10,7 +10,7 @@ public class StudentService(IMapper mapper, IUnitOfWork uow) : IStudentService
 {
     public async Task<CourseDto> GetCourseAsync(string userId)
     {
-        var user = await uow.Students.GetStudentAsync(userId)
+        var user = await uow.Students.GetStudentWithCourseAsync(userId)
             ?? throw new NotFoundException("Student was not found");
 
         var course = user.Courses.FirstOrDefault()
