@@ -21,10 +21,10 @@ export const router = createBrowserRouter([
         element: <Company />,
         loader: ({ params }) => companyLoader(params.id),
       },
-      {
-        path: '/login',
-        element: <Login />,
-      },
     ],
+  },
+  {
+    path: '/login',
+    element: <Login />,
   },
 ]);
