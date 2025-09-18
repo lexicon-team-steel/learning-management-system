@@ -43,7 +43,7 @@ Now you should be able to view the api documentation on [http://localhost:5166/s
 
 Now you should be able to access the project on [http://localhost:5173/](http://localhost:5173/).
 
-Now you can log in with `teacher@test.com` and `student@test.com` and the password is `password`
+You can log in with `teacher@test.com` and `student@test.com` and the password is `password`.
 
 ## Other commands
 
