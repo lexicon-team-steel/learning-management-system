@@ -1,6 +1,6 @@
-import { CustomError } from '../../shared/classes';
-import { BASE_URL } from '../../shared/constants';
-import { fetchWithToken } from '../../shared/utilities';
+import { CustomError } from '../../../utilities/classes';
+import { BASE_URL } from '../../../utilities/constants';
+import { fetchWithToken } from '../../../utilities/api/fetchWithToken';
 import { ICompaniesLoader, ICompany } from '../types';
 
 export function companiesLoader(): ICompaniesLoader {
