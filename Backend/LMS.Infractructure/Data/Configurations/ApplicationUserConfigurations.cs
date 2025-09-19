@@ -10,5 +10,9 @@ public class ApplicationUserConfigurations : IEntityTypeConfiguration<Applicatio
     {
         builder.ToTable("ApplicationUser");
         //Add more configurations here
+
+        builder.Property(c => c.FullName)
+            .IsRequired()
+            .HasMaxLength(200);
     }
 }
