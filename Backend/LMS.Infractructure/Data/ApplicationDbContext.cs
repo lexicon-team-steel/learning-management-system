@@ -16,6 +16,7 @@ namespace LMS.Infractructure.Data
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new ApplicationUserConfigurations());
             builder.ApplyConfiguration(new CourseConfiguration());
+            builder.ApplyConfiguration(new CourseModuleConfiguration());
         }
     }
 }
