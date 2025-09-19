@@ -43,21 +43,24 @@ public class UserSeeder(
 
     private async Task AddDemoUsersAsync()
     {
-        await AddUserToDb("teacher@test.com", TeacherRole);
-        await AddUserToDb("student@test.com", StudentRole);
+        await AddUserToDb("Teacher", "teacher@test.com", TeacherRole);
+        await AddUserToDb("Student", "student@test.com", StudentRole);
     }
 
     private async Task AddUsersAsync(int nrOfUsers)
     {
-        var faker = new Faker("sv");
+        var students = new Faker<ApplicationUser>("sv")
+            .RuleFor(u => u.Email, f => f.Person.Email)
+            .RuleFor(u => u.FullName, f => f.Person.FullName)
+            .Generate(nrOfUsers);
+
         for (int i = 0; i < nrOfUsers; i++)
         {
-            var email = faker.Internet.Email();
-            await AddUserToDb(email, StudentRole);
+            await AddUserToDb(students[i].FullName, students[i].Email!, StudentRole);
         }
     }
 
-    private async Task AddUserToDb(string email, string role)
+    private async Task AddUserToDb(string name, string email, string role)
     {
         var existing = await userManager.FindByEmailAsync(email);
         if (existing != null) return;
@@ -65,7 +68,7 @@ public class UserSeeder(
         var passWord = configuration["password"];
         ArgumentNullException.ThrowIfNull(passWord, nameof(passWord));
 
-        var user = new ApplicationUser { UserName = email, Email = email };
+        var user = new ApplicationUser { UserName = email, Email = email, FullName = name };
 
         var result = await userManager.CreateAsync(user, passWord);
         if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
