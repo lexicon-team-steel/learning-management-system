@@ -1,25 +1,25 @@
 import { createTheme } from '@mui/material/styles';
-
+import colors from './colors';
 // rules in theme will apply to all components of the project
 // example: color for variants, can be changed
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#2664eb',
+      main: colors.primaryBlue,
     },
     secondary: {
-      main: '#1f40ae',
+      main: colors.secondaryBlue,
     },
     error: {
-      main: '#d32f2f',
+      main: colors.error,
     },
     background: {
-      default: '#f7f9fa',
-      paper: '#ffffff',
+      default: colors.primaryBg,
+      paper: colors.lightBg,
     },
     text: {
-      primary: '#374152',
-      secondary: '#6c7180',
+      primary: colors.textColorDark,
+      secondary: colors.textColorLight,
     },
   },
   // example: typography, can be changed
@@ -47,16 +47,16 @@ const theme = createTheme({
     MuiChip: {
       styleOverrides: {
         root: {
-          backgroundColor: '#DBEAFE',
-          color: '#1E40AF',
+          backgroundColor: colors.chipBgColor,
+          color: colors.chipTextColor,
         },
       },
     },
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: '#FFF',
-          color: '#374152',
+          backgroundColor: colors.lightBg,
+          color: colors.textColorDark,
         },
       },
     },
