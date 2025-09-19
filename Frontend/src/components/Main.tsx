@@ -5,7 +5,7 @@ interface IMainProps {
 }
 
 const Main = ({ children }: IMainProps): ReactElement => {
-  return <Container>{children}</Container>;
+  return <Container style={{ padding: 24 }}>{children}</Container>;
 };
 
 export default Main;
