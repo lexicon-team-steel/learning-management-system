@@ -9,4 +9,5 @@ public class Course
     public DateTime EndDate { get; set; }
 
     public ICollection<ApplicationUser> Users { get; set; } = [];
+    public ICollection<CourseModule> Modules { get; set; } = [];
 }
