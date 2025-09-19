@@ -5,6 +5,7 @@ import { AppBar, Box, Button, Chip, Container, Toolbar, Typography, styled } fro
 import LogoutIcon from '@mui/icons-material/Logout';
 import decodeToken from '../utilities/token/decodeToken';
 import { getTokens } from '../utilities/token';
+import colors from '../styles/colors';
 
 const HeaderBox = styled(Box)(() => ({
   flexGrow: 1,
@@ -22,7 +23,7 @@ const StyledChip = styled(Chip)(({ theme }) => ({
 }));
 
 const StyledButton = styled(Button)(() => ({
-  color: '#374152',
+  color: colors.textColorDark,
 }));
 
 const Header = (): ReactElement => {
