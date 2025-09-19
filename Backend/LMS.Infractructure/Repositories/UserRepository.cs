@@ -5,10 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LMS.Infractructure.Repositories;
 
-public class StudentRepository(ApplicationDbContext context) : RepositoryBase<ApplicationUser>(context), IStudentRepository
+public class UserRepository(ApplicationDbContext context) : RepositoryBase<ApplicationUser>(context), IUserRepository
 {
     public Task<ApplicationUser?> GetStudentWithCourseAsync(string studentId)
     {
-        return FindByCondition(c => c.Id == studentId).Include(c => c.Courses).FirstOrDefaultAsync();
+        return FindByCondition(c => c.Id == studentId)
+            .Include(c => c.Courses)
+            .FirstOrDefaultAsync();
     }
 }
