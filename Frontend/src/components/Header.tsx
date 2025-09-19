@@ -6,8 +6,23 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import decodeToken from '../utilities/token/decodeToken';
 import { getTokens } from '../utilities/token';
 
-const StyledAppBar = styled(AppBar)(() => ({
-  backgroundColor: '#ffffff',
+const HeaderBox = styled(Box)(() => ({
+  flexGrow: 1,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+}));
+
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  marginRight: theme.spacing(2),
+}));
+
+const StyledChip = styled(Chip)(({ theme }) => ({
+  marginRight: theme.spacing(2),
+}));
+
+const StyledButton = styled(Button)(() => ({
+  color: '#374152',
 }));
 
 const Header = (): ReactElement => {
@@ -23,23 +38,23 @@ const Header = (): ReactElement => {
   };
 
   return (
-    <StyledAppBar position="static">
+    <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+          <HeaderBox>
             {isLoggedIn && (
               <>
-                <Typography sx={{ paddingRight: 2, color: 'text.primary' }}>{name}</Typography>
-                <Chip label={role} sx={{ backgroundColor: '#DBEAFE', color: '#1E40AF', marginRight: 2 }} />
-                <Button onClick={handleOnLogout} sx={{ color: 'text.primary' }}>
-                  <LogoutIcon sx={{ marginRight: 1 }} /> Logga ut
-                </Button>
+                <StyledTypography>{name}</StyledTypography>
+                <StyledChip label={role} />
+                <StyledButton onClick={handleOnLogout} startIcon={<LogoutIcon />}>
+                  Logga ut
+                </StyledButton>
               </>
             )}
-          </Box>
+          </HeaderBox>
         </Toolbar>
       </Container>
-    </StyledAppBar>
+    </AppBar>
   );
 };
 

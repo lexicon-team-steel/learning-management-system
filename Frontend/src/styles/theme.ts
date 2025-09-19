@@ -44,6 +44,22 @@ const theme = createTheme({
         },
       },
     },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#DBEAFE',
+          color: '#1E40AF',
+        },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#FFF',
+          color: '#374152',
+        },
+      },
+    },
   },
 });
 
