@@ -7,10 +7,6 @@ namespace LMS.Infractructure.Repositories;
 
 public class UserRepository(ApplicationDbContext context) : RepositoryBase<ApplicationUser>(context), IUserRepository
 {
-    public Task<ApplicationUser?> GetStudentWithCourseAsync(string studentId)
-    {
-        return FindByCondition(c => c.Id == studentId)
-            .Include(c => c.Courses)
-            .FirstOrDefaultAsync();
-    }
+    public Task<ApplicationUser?> GetUserAsync(string id) =>
+        FindByCondition(s => s.Id == id).FirstOrDefaultAsync();
 }
