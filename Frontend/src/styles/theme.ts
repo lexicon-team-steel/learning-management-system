@@ -2,6 +2,13 @@ import { createTheme } from '@mui/material/styles';
 import colors from './colors';
 // rules in theme will apply to all components of the project
 // example: color for variants, can be changed
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    'text-link': true;
+  }
+}
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -59,6 +66,20 @@ const theme = createTheme({
           color: colors.textColorDark,
         },
       },
+    },
+    MuiLink: {
+      variants: [
+        {
+          props: { variant: 'text-link' },
+          style: ({ theme }) => ({
+            color: theme.palette.text.secondary,
+            textDecoration: 'none',
+            '&:hover': {
+              color: theme.palette.primary.main,
+            },
+          }),
+        },
+      ],
     },
   },
 });
