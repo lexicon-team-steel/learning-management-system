@@ -8,22 +8,24 @@ interface IRegularCard {
 
 const StyledCardHeader = styled(CardHeader)(({ theme }) => ({
   padding: theme.spacing(2),
+
   [theme.breakpoints.up('sm')]: {
     padding: theme.spacing(4),
     paddingBottom: theme.spacing(2),
   },
+
   '& .MuiCardHeader-title': {
-    fontWeight: 500,
-    fontSize: '20px',
+    fontWeight: theme.typography.fontWeightMedium,
   },
 }));
 
 const StyledCardContent = styled(CardContent)(({ theme }) => ({
   padding: theme.spacing(2),
-  paddingTop: 0,
+  paddingTop: theme.spacing(0),
+
   [theme.breakpoints.up('sm')]: {
     padding: theme.spacing(4),
-    paddingTop: 0,
+    paddingTop: theme.spacing(0),
   },
 }));
 

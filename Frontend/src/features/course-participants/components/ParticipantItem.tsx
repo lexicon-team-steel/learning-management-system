@@ -1,41 +1,41 @@
 import { ReactElement } from 'react';
 import { Participant } from '../types';
-import { Avatar, ListItem, ListItemAvatar, ListItemText, styled } from '@mui/material';
-import colors from '../../../styles/colors';
+import { Avatar, ListItem, ListItemAvatar, ListItemText, styled, Typography } from '@mui/material';
+import EmailLink from '../../../components/Links/EmailLink';
 
 interface IParticipantItemProps {
   participant: Participant;
 }
 
-const StyledAvatar = styled(Avatar)(() => ({
-  backgroundColor: colors.primaryBlue,
+const StyledAvatar = styled(Avatar)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.main,
 }));
 
-const StyledListItem = styled(ListItem)(() => ({
-  paddingLeft: 0,
-  paddingRight: 0,
+const StyledListItem = styled(ListItem)(({ theme }) => ({
+  paddingLeft: theme.spacing(0),
+  paddingRight: theme.spacing(0),
 }));
 
-const StyledListItemText = styled(ListItemText)({
+const StyledListItemText = styled(ListItemText)(({ theme }) => ({
   '& .MuiListItemText-primary': {
-    fontWeight: '500',
+    fontWeight: theme.typography.fontWeightMedium,
   },
-  '& .MuiListItemText-secondary': {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  },
-});
+}));
 
 const ParticipantItem = ({ participant }: IParticipantItemProps): ReactElement => {
   const firstLetter = participant.fullname.charAt(0);
+  const emailItem = (
+    <Typography noWrap>
+      <EmailLink email={participant.email} />
+    </Typography>
+  );
 
   return (
     <StyledListItem>
       <ListItemAvatar>
         <StyledAvatar>{firstLetter}</StyledAvatar>
       </ListItemAvatar>
-      <StyledListItemText primary={participant.fullname} secondary={participant.email} />
+      <StyledListItemText primary={participant.fullname} secondary={emailItem} />
     </StyledListItem>
   );
 };
