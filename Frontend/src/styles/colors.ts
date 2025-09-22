@@ -3,6 +3,7 @@ const colors = {
   gray: '#6c7180',
   darkGray: '#374152',
   lightgray: '#f7f9fa',
+  lightGray2: '#E5E7EB',
   white: '#ffffff',
   blue: '#2664eb',
   darkBlue: '#1E40AF',
@@ -20,5 +21,5 @@ export default {
   textColorLight: colors.gray,
   chipTextColor: colors.darkBlue,
   chipBgColor: colors.lightblue,
-  borderLight: colors.lightgray,
+  border: colors.lightGray2,
 };
