@@ -20,6 +20,11 @@ const StyledListItemText = styled(ListItemText)({
   '& .MuiListItemText-primary': {
     fontWeight: '500',
   },
+  '& .MuiListItemText-secondary': {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
 });
 
 const ParticipantItem = ({ participant }: IParticipantItemProps): ReactElement => {

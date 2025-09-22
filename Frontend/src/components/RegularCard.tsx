@@ -6,17 +6,25 @@ interface IRegularCard {
   children: ReactNode;
 }
 
-const StyledCardHeader = styled(CardHeader)(() => ({
-  padding: '24px',
+const StyledCardHeader = styled(CardHeader)(({ theme }) => ({
+  padding: theme.spacing(2),
+  [theme.breakpoints.up('sm')]: {
+    padding: theme.spacing(4),
+    paddingBottom: theme.spacing(2),
+  },
   '& .MuiCardHeader-title': {
     fontWeight: 500,
     fontSize: '20px',
   },
 }));
 
-const StyledCardContent = styled(CardContent)(() => ({
-  padding: '24px',
+const StyledCardContent = styled(CardContent)(({ theme }) => ({
+  padding: theme.spacing(2),
   paddingTop: 0,
+  [theme.breakpoints.up('sm')]: {
+    padding: theme.spacing(4),
+    paddingTop: 0,
+  },
 }));
 
 const RegularCard = ({ title, children }: IRegularCard): ReactElement => {
