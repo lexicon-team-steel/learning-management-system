@@ -1,21 +1,16 @@
-import { styled } from '@mui/material';
-import Container from '@mui/material/Container';
+import { styled, Container, ContainerProps } from '@mui/material';
 import { ReactElement, ReactNode } from 'react';
 
 interface IMainProps {
   children: ReactNode;
 }
 
-const StyledContainer = styled(Container)(() => ({
-  padding: '1.5rem',
+const StyledContainer = styled(Container)<ContainerProps>(({ theme }) => ({
+  padding: theme.spacing(3),
 }));
 
 const Main = ({ children }: IMainProps): ReactElement => {
-  return (
-    <StyledContainer>
-      <Container component="main">{children}</Container>
-    </StyledContainer>
-  );
+  return <StyledContainer component="main">{children}</StyledContainer>;
 };
 
 export default Main;
