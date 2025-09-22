@@ -1,6 +1,8 @@
 import { FormEventHandler, ReactElement, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import { useAuthContext } from '../utilities/hooks/useAuthContext';
+import { Box, Button, TextField } from '@mui/material';
+import LoginIcon from '@mui/icons-material/Logout';
 
 const Login = (): ReactElement => {
   const [username, setUsername] = useState<string>('');
@@ -19,18 +21,30 @@ const Login = (): ReactElement => {
   };
 
   return (
-    <main id="login-page" className="g-container">
-      <form className="login-form" onSubmit={handleOnSubmit}>
-        <fieldset>
-          <legend>Login</legend>
-          <label htmlFor="username">Username</label>
-          <input id="username" onChange={(e) => setUsername(e.target.value)} type="text" value={username} />
-          <label htmlFor="password">Password</label>
-          <input id="password" onChange={(e) => setPassword(e.target.value)} type="password" value={password} />
-          <button type="submit">Submit</button>
-        </fieldset>
-      </form>
-    </main>
+    <form onSubmit={handleOnSubmit}>
+      <Box display="flex" flexDirection="column" alignItems="center" gap={2} maxWidth={450}>
+        <TextField
+          label="Användarnamn"
+          name="username"
+          variant="outlined"
+          onChange={(e) => setUsername(e.target.value)}
+          fullWidth
+          required
+        />
+        <TextField
+          label="Lösenord"
+          name="password"
+          type="password"
+          variant="outlined"
+          onChange={(e) => setPassword(e.target.value)}
+          fullWidth
+          required
+        />
+        <Button type="submit" variant="contained" startIcon={<LoginIcon />} fullWidth>
+          Logga in
+        </Button>
+      </Box>
+    </form>
   );
 };
 
