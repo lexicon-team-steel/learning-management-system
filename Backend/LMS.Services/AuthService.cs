@@ -81,8 +81,10 @@ public class AuthService : IAuthService
 
         var claims = new List<Claim>()
         {
-            new Claim(ClaimTypes.Name, user.UserName!),
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.Name, user.UserName!),
+            new Claim(JwtRegisteredClaimNames.Profile, user.FullName),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email!),
             //Add more if needed
         };
 
@@ -90,7 +92,7 @@ public class AuthService : IAuthService
 
         foreach (var role in roles)
         {
-            claims.Add(new Claim(ClaimTypes.Role, role));
+            claims.Add(new Claim("role", role));
         }
 
         return claims;
