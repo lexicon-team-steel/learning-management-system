@@ -20,4 +20,5 @@ export default {
   textColorLight: colors.gray,
   chipTextColor: colors.darkBlue,
   chipBgColor: colors.lightblue,
+  borderLight: colors.lightgray,
 };
