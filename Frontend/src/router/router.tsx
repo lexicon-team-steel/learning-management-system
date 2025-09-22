@@ -2,8 +2,7 @@ import { createBrowserRouter } from 'react-router';
 import Layout from '../pages/Layout';
 import Login from '../components/Login';
 import { requireAuthLoader } from '../utilities/loaders/requireAuthLoader';
-import { Companies, Company } from '../features/companies/components';
-import { companiesLoader, companyLoader } from '../features/companies/loaders';
+import Dashboard from '../pages/Dashboard';
 
 export const router = createBrowserRouter([
   {
@@ -13,13 +12,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Companies />,
-        loader: companiesLoader,
-      },
-      {
-        path: 'companies/:id',
-        element: <Company />,
-        loader: ({ params }) => companyLoader(params.id),
+        element: <Dashboard />,
       },
     ],
   },
