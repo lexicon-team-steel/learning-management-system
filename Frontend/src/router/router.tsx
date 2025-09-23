@@ -1,10 +1,10 @@
 import { createBrowserRouter } from 'react-router';
 import Layout from '../pages/Layout';
-import Login from '../components/Login';
 import { requireAuthLoader } from '../utilities/loaders/requireAuthLoader';
 import { Companies, Company } from '../features/companies/components';
 import { companiesLoader, companyLoader } from '../features/companies/loaders';
 import Sandbox from '../pages/Sandbox';
+import LoginPage from '../pages/LoginPage';
 
 import { participantsLoader } from '../features/course-participants/loaders/participantsLoader';
 
@@ -33,6 +33,6 @@ export const router = createBrowserRouter([
   },
   {
     path: '/login',
-    element: <Login />,
+    element: <LoginPage />,
   },
 ]);
