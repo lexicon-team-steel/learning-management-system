@@ -1,7 +1,7 @@
 import { FormEventHandler, ReactElement, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import { useAuthContext } from '../utilities/hooks/useAuthContext';
-import { Button, styled, TextField } from '@mui/material';
+import { Alert, Button, styled, TextField } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Logout';
 import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
 import theme from '../styles/theme';
@@ -26,14 +26,21 @@ const StyledIcon = styled(ImportContactsOutlinedIcon)(() => ({
 const Login = (): ReactElement => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
   const [searchParams] = useSearchParams();
   const { login } = useAuthContext();
   const navigate = useNavigate();
 
   const handleOnSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+    setError(null);
 
-    await login(username, password);
+    const result = await login(username, password);
+
+    if (!result.success && result.message) {
+      setError(result.message);
+      return;
+    }
 
     const redirectTo = searchParams.get('redirectTo') || '/';
     navigate(redirectTo, { replace: true });
@@ -60,6 +67,7 @@ const Login = (): ReactElement => {
         fullWidth
         required
       />
+      {error && <Alert severity="error">{error}</Alert>}
       <Button
         type="submit"
         variant="contained"
