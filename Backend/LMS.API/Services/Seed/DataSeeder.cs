@@ -4,34 +4,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LMS.API.Services.Seed;
 
-public class DataSeeder
+public class DataSeeder(
+    UserSeeder userSeeder,
+    CourseSeeder courseSeeder,
+    ApplicationDbContext context,
+    UserManager<ApplicationUser> userManager)
 {
-    private readonly UserSeeder userSeeder;
-    private readonly CourseSeeder courseSeeder;
-    private readonly ApplicationDbContext context;
-    private readonly UserManager<ApplicationUser> userManager;
-
-    public DataSeeder(
-        UserSeeder userSeeder,
-        CourseSeeder courseSeeder,
-        ApplicationDbContext context,
-        UserManager<ApplicationUser> userManager)
-    {
-        this.userSeeder = userSeeder;
-        this.courseSeeder = courseSeeder;
-        this.context = context;
-        this.userManager = userManager;
-    }
+    private readonly UserSeeder userSeeder = userSeeder;
+    private readonly CourseSeeder courseSeeder = courseSeeder;
+    private readonly ApplicationDbContext context = context;
+    private readonly UserManager<ApplicationUser> userManager = userManager;
 
     public async Task SeedAsync(CancellationToken cancellationToken)
     {
         await userSeeder.SeedAsync(cancellationToken);
         await courseSeeder.SeedAsync(cancellationToken);
 
-        await AssignStudentsToCourse(cancellationToken);
+        await AssignStudentsToCourse();
     }
 
-    private async Task AssignStudentsToCourse(CancellationToken cancellationToken)
+    private async Task AssignStudentsToCourse()
     {
         var course = await context.Courses.Include(c => c.Users).FirstAsync();
 
