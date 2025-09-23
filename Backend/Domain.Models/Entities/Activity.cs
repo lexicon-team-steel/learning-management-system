@@ -7,8 +7,9 @@ public class Activity
     public string Description { get; set; } = null!;
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
-    // TODO: Add ActivityType entity and relation to Activity
 
-    public Guid ModuleId { get; set; }
+    public Guid ActivityTypeId { get; set; }
+    public ActivityType ActivityType { get; set; } = null!;
+    public Guid CourseModuleId { get; set; }
     public CourseModule CourseModule { get; set; } = null!;
 }
