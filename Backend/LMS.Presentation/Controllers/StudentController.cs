@@ -63,6 +63,6 @@ public class StudentsController(IServiceManager serviceManager) : ControllerBase
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (userId == null) return Unauthorized();
 
-        return Ok(await studentService.GetClassmates(userId));
+        return Ok(await studentService.GetClassmatesAsync(userId));
     }
 }

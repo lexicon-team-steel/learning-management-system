@@ -16,7 +16,7 @@ public class StudentService(IMapper mapper, IUnitOfWork uow) : IStudentService
     public Task<CourseDto> GetCourseWithModulesAsync(string studentId) =>
         GetCourseInternalAsync(studentId, includeModules: true);
 
-    public async Task<IEnumerable<StudentDto>> GetClassmates(string studentId)
+    public async Task<IEnumerable<StudentDto>> GetClassmatesAsync(string studentId)
     {
         await VerifyUserExistsAsync(studentId);
 

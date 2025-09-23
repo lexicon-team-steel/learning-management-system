@@ -7,5 +7,5 @@ public interface IStudentService
 {
     public Task<CourseDto> GetCourseAsync(string userId);
     public Task<CourseDto> GetCourseWithModulesAsync(string userId);
-    public Task<IEnumerable<StudentDto>> GetClassmates(string userId);
+    public Task<IEnumerable<StudentDto>> GetClassmatesAsync(string userId);
 }
