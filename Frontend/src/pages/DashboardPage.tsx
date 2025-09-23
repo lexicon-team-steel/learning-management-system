@@ -1,6 +1,6 @@
 import { Box, styled, Typography } from '@mui/material';
 import { IActivity, mockCourse } from '../utilities/data/mockData';
-import LearningBox from '../components/EntityCard';
+import EntityCard from '../components/EntityCard';
 import Card from '../components/Card';
 import CollapsibleList from '../components/CollapsibleList';
 import ActivityItem from '../components/ActivityItem';
@@ -8,6 +8,7 @@ import { useAuthContext } from '../utilities/hooks/useAuthContext';
 import { Await, useLoaderData } from 'react-router';
 import { Suspense } from 'react';
 import { ICourse } from '../utilities/types';
+import { formatDate } from '../utilities/helpers';
 
 const DashboardGrid = styled(Box)(({ theme }) => ({
   display: 'grid',
@@ -28,11 +29,6 @@ const CardGrid = styled(Box)(({ theme }) => ({
   },
 }));
 
-// TODO: move to utilities / use library
-const formatDate = (date: string) => {
-  const dateFromString = new Date(date);
-  return new Intl.DateTimeFormat('sv-SE').format(dateFromString);
-};
 
 const DashboardPage = () => {
   const { user } = useAuthContext();
@@ -52,7 +48,7 @@ const DashboardPage = () => {
             <Suspense>
               <Await resolve={course}>
                 {(course: ICourse) => (
-                  <LearningBox
+                  <EntityCard
                     title={course.name}
                     text={course.description.substring(0, 50) + '...'} // TODO: do better
                     date={{ start: formatDate(course.startDate) }}

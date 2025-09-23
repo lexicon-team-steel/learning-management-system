@@ -1,9 +1,10 @@
 import { ReactElement, ReactNode } from 'react';
-import { Card, CardContent, CardHeader, styled } from '@mui/material';
+import { Card, CardContent, CardHeader, styled, Box } from '@mui/material';
 
 interface IBasicCard {
   title: string;
   children: ReactNode;
+  gap?: number; // nytt props
 }
 
 const StyledCardHeader = styled(CardHeader)(({ theme }) => ({
@@ -29,11 +30,15 @@ const StyledCardContent = styled(CardContent)(({ theme }) => ({
   },
 }));
 
-const BasicCard = ({ title, children }: IBasicCard): ReactElement => {
+const BasicCard = ({ title, children, gap = 0 }: IBasicCard): ReactElement => {
   return (
     <Card>
       <StyledCardHeader title={title} />
-      <StyledCardContent>{children}</StyledCardContent>
+      <StyledCardContent>
+        <Box display="flex" flexDirection="column" gap={gap}>
+          {children}
+        </Box>
+      </StyledCardContent>
     </Card>
   );
 };
