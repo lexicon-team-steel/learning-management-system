@@ -83,7 +83,8 @@ public static class ServiceExtensions
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        services.AddLazyService<IStudentRepository, StudentRepository>();
+        services.AddLazyService<IUserRepository, UserRepository>();
+        services.AddLazyService<ICourseRepository, CourseRepository>();
     }
 
     public static void AddServiceLayer(this IServiceCollection services)

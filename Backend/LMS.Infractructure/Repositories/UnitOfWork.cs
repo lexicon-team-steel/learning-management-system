@@ -3,8 +3,10 @@ using LMS.Infractructure.Data;
 
 namespace LMS.Infractructure.Repositories;
 
-public class UnitOfWork(ApplicationDbContext context, Lazy<IStudentRepository> studentRepository) : IUnitOfWork
+public class UnitOfWork(ApplicationDbContext context, Lazy<IUserRepository> UserRepository,
+Lazy<ICourseRepository> CourseRepository) : IUnitOfWork
 {
-    public IStudentRepository Students => studentRepository.Value;
+    public IUserRepository Students => UserRepository.Value;
+    public ICourseRepository Courses => CourseRepository.Value;
     public async Task CompleteAsync() => await context.SaveChangesAsync();
 }
