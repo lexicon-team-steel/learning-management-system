@@ -1,6 +1,6 @@
 import { Box, styled, Typography } from '@mui/material';
 import { IActivity, mockCourse, mockUser } from '../components/boxes/mockData';
-import LearningBox from '../components/boxes/LearningBox';
+import LearningBox from '../components/LearningBox';
 import Card from '../components/Card';
 import CollapsibleList from '../components/CollapsibleList';
 import ListActivity from '../components/ListActivity';

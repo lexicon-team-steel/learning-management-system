@@ -1,6 +1,6 @@
 import { Box, styled, Typography } from '@mui/material';
 import { ReactElement } from 'react';
-import Heading from '../Heading';
+import Heading from './Heading';
 import Date from './Date';
 
 interface ICourseBoxProps {
@@ -32,16 +32,12 @@ const StyledTypography = styled(Typography)(() => ({
   overflowWrap: 'anywhere',
 }));
 
-const LearningBox = ({ course, info, dateStart, dateEnd }: ICourseBoxProps): ReactElement => {
-  const renderDate = () => {
-    if (!dateStart && !dateEnd) return null;
-    return <Date start={dateStart} />;
-  };
+const LearningBox = ({ course, info, dateStart }: ICourseBoxProps): ReactElement => {
   return (
     <InnerBox>
       {course && <Heading variant="h3" title={course} />}
-      {info && <StyledTypography variant="body1">{info}</StyledTypography>}
-      {renderDate()}
+      <StyledTypography variant="body1">{info}</StyledTypography>
+      {dateStart && <Date start={dateStart} />}
     </InnerBox>
   );
 };
