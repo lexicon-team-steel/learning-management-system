@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { IActivity } from '../utilities/data/mockData';
 import { ListItem, ListItemText, styled, Typography } from '@mui/material';
 
-interface IListActivityProps {
+interface IActivityItemProps {
   activity: IActivity;
 }
 
@@ -13,7 +13,7 @@ const StyledDate = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const ListActivity = ({ activity }: IListActivityProps): ReactElement => {
+const ActivityItem = ({ activity }: IActivityItemProps): ReactElement => {
   return (
     <ListItem disableGutters disablePadding>
       <ListItemText
@@ -32,4 +32,4 @@ const ListActivity = ({ activity }: IListActivityProps): ReactElement => {
   );
 };
 
-export default ListActivity;
+export default ActivityItem;

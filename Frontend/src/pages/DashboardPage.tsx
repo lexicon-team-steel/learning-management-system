@@ -3,7 +3,7 @@ import { IActivity, mockCourse, mockUser } from '../utilities/data/mockData';
 import LearningBox from '../components/LearningBox';
 import Card from '../components/Card';
 import CollapsibleList from '../components/CollapsibleList';
-import ListActivity from '../components/ListActivity';
+import ActivityItem from '../components/ActivityItem';
 
 const DashboardGrid = styled(Box)(({ theme }) => ({
   display: 'grid',
@@ -49,7 +49,7 @@ const DashboardPage = () => {
           <CollapsibleList
             items={mockCourse.activities}
             keyField="id"
-            renderItem={(item: IActivity) => <ListActivity activity={item} />}
+            renderItem={(item: IActivity) => <ActivityItem activity={item} />}
           />
         </Card>
       </DashboardGrid>
