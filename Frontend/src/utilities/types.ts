@@ -1,6 +1,6 @@
 export interface IAuthContext {
   isLoggedIn: boolean;
-  login: (username: string, password: string) => Promise<void>;
+  login: (username: string, password: string) => Promise<{ success: boolean; message?: string }>;
   logout: () => void;
 }
 

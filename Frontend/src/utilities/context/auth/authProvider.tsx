@@ -20,10 +20,13 @@ export function AuthProvider({ children }: IAuthProviderProps): ReactElement {
     try {
       const tokens = await loginReq(username, password);
       setTokens(tokens);
+      return { success: true };
     } catch (error) {
       if (error instanceof CustomError) {
         console.log(error);
+        return { success: false, message: error.message };
       }
+      return { success: false, message: 'Något gick fel vid inloggningen' };
     }
   }
 

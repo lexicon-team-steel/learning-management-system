@@ -1,25 +1,32 @@
 import { createTheme } from '@mui/material/styles';
-
+import colors from './colors';
 // rules in theme will apply to all components of the project
 // example: color for variants, can be changed
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    'secondary-link': true;
+  }
+}
+
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#2664eb',
+      main: colors.primaryBlue,
     },
     secondary: {
-      main: '#1f40ae',
+      main: colors.secondaryBlue,
     },
     error: {
-      main: '#d32f2f',
+      main: colors.error,
     },
     background: {
-      default: '#f7f9fa',
-      paper: '#ffffff',
+      default: colors.primaryBg,
+      paper: colors.lightBg,
     },
     text: {
-      primary: '#374152',
-      secondary: '#6c7180',
+      primary: colors.textColorDark,
+      secondary: colors.textColorLight,
     },
   },
   // example: typography, can be changed
@@ -32,6 +39,7 @@ const theme = createTheme({
     h5: { fontSize: '1rem', fontWeight: 500 },
     body1: { fontSize: '1rem' },
     body2: { fontSize: '0.875rem' },
+    caption: { color: colors.textColorLight },
   },
   spacing: 8, // if we use spacing in styling 1 will be 8px, 2 16px etc
   shape: {
@@ -46,6 +54,36 @@ const theme = createTheme({
           textTransform: 'none',
         },
       },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          backgroundColor: colors.chipBgColor,
+          color: colors.chipTextColor,
+        },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: colors.lightBg,
+          color: colors.textColorDark,
+        },
+      },
+    },
+    MuiLink: {
+      variants: [
+        {
+          props: { variant: 'secondary-link' },
+          style: ({ theme }) => ({
+            color: theme.palette.text.secondary,
+            textDecoration: 'none',
+            '&:hover': {
+              color: theme.palette.primary.main,
+            },
+          }),
+        },
+      ],
     },
   },
 });
