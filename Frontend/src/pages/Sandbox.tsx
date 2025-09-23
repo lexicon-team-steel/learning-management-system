@@ -1,13 +1,12 @@
 import { Box } from '@mui/material';
 import Main from '../components/Main';
 import BasicCard from '../components/BasicCard';
-import { IParticipantLoader } from '../features/course-participants/types';
-import ParticipantItem from '../features/course-participants/components/ParticipantItem';
 import CollapsibleList from '../components/CollapsibleList';
 
 import { Await, useLoaderData } from 'react-router';
-import { IStudent } from '../utilities/types';
+import { IParticipantLoader, IStudent } from '../utilities/types';
 import { Suspense } from 'react';
+import ParticipantItem from '../components/ParticipantItem';
 
 const Sandbox = () => {
   const { participants } = useLoaderData<IParticipantLoader>();

@@ -14,3 +14,7 @@ export interface IStudent {
   fullName: string;
   email: string;
 }
+
+export interface IParticipantLoader {
+  participants: Promise<IStudent[]>;
+}

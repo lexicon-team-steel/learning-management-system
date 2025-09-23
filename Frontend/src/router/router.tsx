@@ -5,8 +5,7 @@ import { Companies, Company } from '../features/companies/components';
 import { companiesLoader, companyLoader } from '../features/companies/loaders';
 import Sandbox from '../pages/Sandbox';
 import LoginPage from '../pages/LoginPage';
-
-import { participantsLoader } from '../features/course-participants/loaders/participantsLoader';
+import { participantsLoader } from '../utilities/loaders/participantsLoader';
 
 export const router = createBrowserRouter([
   {
