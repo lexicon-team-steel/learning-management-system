@@ -1,4 +1,5 @@
-export type Participant = {
-  fullname: string;
-  email: string;
-};
+import { IStudent } from '../../../utilities/types';
+
+export interface IParticipantLoader {
+  participants: Promise<IStudent[]>;
+}
