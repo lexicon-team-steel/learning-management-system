@@ -3,6 +3,7 @@ import Layout from '../pages/Layout';
 import { requireAuthLoader } from '../utilities/loaders/requireAuthLoader';
 import { Companies, Company } from '../features/companies/components';
 import { companiesLoader, companyLoader } from '../features/companies/loaders';
+import Sandbox from '../pages/Sandbox';
 import LoginPage from '../pages/LoginPage';
 
 export const router = createBrowserRouter([
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
         path: 'companies/:id',
         element: <Company />,
         loader: ({ params }) => companyLoader(params.id),
+      },
+      {
+        path: 'sandbox',
+        element: <Sandbox />,
       },
     ],
   },

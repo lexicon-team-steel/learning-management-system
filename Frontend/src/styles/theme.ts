@@ -2,6 +2,13 @@ import { createTheme } from '@mui/material/styles';
 import colors from './colors';
 // rules in theme will apply to all components of the project
 // example: color for variants, can be changed
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    'secondary-link': true;
+  }
+}
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -29,6 +36,7 @@ const theme = createTheme({
     h2: { fontSize: '1.5rem', fontWeight: 600 },
     body1: { fontSize: '1rem' },
     body2: { fontSize: '0.875rem' },
+    caption: { color: colors.textColorLight },
   },
   spacing: 8, // if we use spacing in styling 1 will be 8px, 2 16px etc
   shape: {
@@ -59,6 +67,20 @@ const theme = createTheme({
           color: colors.textColorDark,
         },
       },
+    },
+    MuiLink: {
+      variants: [
+        {
+          props: { variant: 'secondary-link' },
+          style: ({ theme }) => ({
+            color: theme.palette.text.secondary,
+            textDecoration: 'none',
+            '&:hover': {
+              color: theme.palette.primary.main,
+            },
+          }),
+        },
+      ],
     },
   },
 });
