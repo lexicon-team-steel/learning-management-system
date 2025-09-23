@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode } from 'react';
 import { Card, CardContent, CardHeader, styled } from '@mui/material';
 
-interface IRegularCard {
+interface IBasicCard {
   title: string;
   children: ReactNode;
 }
@@ -29,7 +29,7 @@ const StyledCardContent = styled(CardContent)(({ theme }) => ({
   },
 }));
 
-const RegularCard = ({ title, children }: IRegularCard): ReactElement => {
+const BasicCard = ({ title, children }: IBasicCard): ReactElement => {
   return (
     <Card>
       <StyledCardHeader title={title} />
@@ -38,4 +38,4 @@ const RegularCard = ({ title, children }: IRegularCard): ReactElement => {
   );
 };
 
-export default RegularCard;
+export default BasicCard;

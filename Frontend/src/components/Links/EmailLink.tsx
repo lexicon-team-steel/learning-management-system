@@ -7,7 +7,7 @@ interface IEmailLinkProps {
 
 const EmailLink = ({ email }: IEmailLinkProps): ReactElement => {
   return (
-    <Link href={`mailto:${email}`} variant="text-link">
+    <Link href={`mailto:${email}`} variant="secondary-link">
       {email}
     </Link>
   );

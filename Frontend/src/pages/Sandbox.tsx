@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import Main from '../components/Main';
-import RegularCard from '../components/RegularCard';
+import BasicCard from '../components/BasicCard';
 import { Participant } from '../features/course-participants/types';
 import ParticipantItem from '../features/course-participants/components/ParticipantItem';
 import CollapsibleList from '../components/CollapsibleList';
@@ -10,13 +10,13 @@ const Sandbox = () => {
   return (
     <Main>
       <Box sx={{ maxWidth: '360px' }}>
-        <RegularCard title="Kursdeltagare">
+        <BasicCard title="Kursdeltagare">
           <CollapsibleList
             items={participants}
             keyField="email"
             renderItem={(item: Participant) => <ParticipantItem participant={item} />}
           />
-        </RegularCard>
+        </BasicCard>
       </Box>
     </Main>
   );

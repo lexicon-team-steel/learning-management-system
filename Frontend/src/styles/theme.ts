@@ -5,7 +5,7 @@ import colors from './colors';
 
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
-    'text-link': true;
+    'secondary-link': true;
   }
 }
 
@@ -70,7 +70,7 @@ const theme = createTheme({
     MuiLink: {
       variants: [
         {
-          props: { variant: 'text-link' },
+          props: { variant: 'secondary-link' },
           style: ({ theme }) => ({
             color: theme.palette.text.secondary,
             textDecoration: 'none',
