@@ -6,6 +6,8 @@ import { Companies, Company } from '../features/companies/components';
 import { companiesLoader, companyLoader } from '../features/companies/loaders';
 import Sandbox from '../pages/Sandbox';
 
+import { participantsLoader } from '../features/course-participants/loaders/participantsLoader';
+
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -25,6 +27,7 @@ export const router = createBrowserRouter([
       {
         path: 'sandbox',
         element: <Sandbox />,
+        loader: participantsLoader,
       },
     ],
   },
