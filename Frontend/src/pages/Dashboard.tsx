@@ -2,7 +2,7 @@ import { Box, Container, styled } from '@mui/material';
 import GreetingUser from '../components/GreetingUser';
 import { mockCourse, mockUser } from '../components/boxes/mockData';
 import Heading from '../components/Heading';
-import CourseBox from '../components/boxes/CourseBox';
+import LearningBox from '../components/boxes/LearningBox';
 import LmsBox from '../components/boxes/LmsBox';
 import Activities from '../components/Activities';
 
@@ -37,7 +37,7 @@ const Dashboard = () => {
           <Heading variant={'h2'} title="Min kurs" />
           <InnerGridBox>
             {course && info && dateStart && (
-              <CourseBox course={course} info={info} dateStart={dateStart} dateEnd={dateEnd} />
+              <LearningBox course={course} info={info} dateStart={dateStart} dateEnd={dateEnd} />
             )}
           </InnerGridBox>
         </LmsBox>

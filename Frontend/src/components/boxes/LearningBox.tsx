@@ -32,7 +32,7 @@ const StyledTypography = styled(Typography)(() => ({
   overflowWrap: 'anywhere',
 }));
 
-const CourseBox = ({ course, info, dateStart, dateEnd }: ICourseBoxProps): ReactElement => {
+const LearningBox = ({ course, info, dateStart, dateEnd }: ICourseBoxProps): ReactElement => {
   const renderDate = () => {
     if (!dateStart && !dateEnd) return null;
     return <Meta start={dateStart} />;
@@ -46,4 +46,4 @@ const CourseBox = ({ course, info, dateStart, dateEnd }: ICourseBoxProps): React
   );
 };
 
-export default CourseBox;
+export default LearningBox;
