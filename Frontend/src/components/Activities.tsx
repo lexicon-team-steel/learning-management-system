@@ -9,7 +9,7 @@ interface IListActivitiesProps {
 
 const Activities = ({ activities }: IListActivitiesProps): ReactElement => {
   return (
-    <Container>
+    <Container disableGutters>
       {activities.map((act) => (
         <ListActivity key={act.name} activity={act} />
       ))}

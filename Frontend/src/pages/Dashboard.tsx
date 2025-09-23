@@ -42,7 +42,7 @@ const Dashboard = () => {
           </InnerGridBox>
         </LmsBox>
         <LmsBox size="xs">
-          <Heading variant={'h4'} title="Kommande aktivititer" />
+          <Heading variant={'h2'} title="Kommande aktivititer" />
           <Activities activities={mockCourse.activities} />
         </LmsBox>
       </DashboardGrid>
