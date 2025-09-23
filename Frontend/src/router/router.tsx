@@ -5,7 +5,8 @@ import DashboardPage from '../pages/DashboardPage';
 import Sandbox from '../pages/Sandbox';
 import LoginPage from '../pages/LoginPage';
 import { dashboardLoader } from '../utilities/loaders/dashboardLoader';
-import MyCourses from '../pages/MyCourses';
+import CoursePage from '../pages/CoursePage';
+import { courseLoader } from '../utilities/loaders/courseLoader';
 
 export const router = createBrowserRouter([
   {
@@ -24,7 +25,8 @@ export const router = createBrowserRouter([
       },
       {
         path: 'courses',
-        element: <MyCourses />,
+        element: <CoursePage />,
+        loader: courseLoader
       },
     ],
   },
