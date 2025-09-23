@@ -22,7 +22,7 @@ const CollapsibleList = <T,>({
   isCollapsed = true,
   hasDivider = true,
   showMoreLabel = 'Visa fler',
-  showLessLabel = 'Visa mindre',
+  showLessLabel = 'Visa färre',
   sx,
 }: ICollapsibleListProps<T>): ReactElement => {
   const { collapsed, toggleCollapse } = useCollapse(isCollapsed);
