@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 import { Avatar, ListItem, ListItemAvatar, ListItemText, styled, Typography } from '@mui/material';
 import EmailLink from '../../../components/Links/EmailLink';
 import { IStudent } from '../../../utilities/types';
+import { useAuthContext } from '../../../utilities/hooks/useAuthContext';
 
 interface IParticipantItemProps {
   participant: IStudent;
@@ -24,8 +25,9 @@ const StyledListItemText = styled(ListItemText)(({ theme }) => ({
 
 const ParticipantItem = ({ participant }: IParticipantItemProps): ReactElement => {
   const firstLetter = participant.fullName.charAt(0);
+  useAuthContext();
   const emailItem = (
-    <Typography noWrap>
+    <Typography noWrap variant="body2">
       <EmailLink email={participant.email} />
     </Typography>
   );
