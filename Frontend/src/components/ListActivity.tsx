@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { IActivity } from './boxes/mockData';
+import { IActivity } from '../utilities/data/mockData';
 import { ListItem, ListItemText, styled, Typography } from '@mui/material';
 
 interface IListActivityProps {
