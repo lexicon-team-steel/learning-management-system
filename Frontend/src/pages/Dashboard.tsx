@@ -1,10 +1,9 @@
-import { Box, Container, styled } from '@mui/material';
-import GreetingUser from '../components/GreetingUser';
-import { mockCourse, mockUser } from '../components/boxes/mockData';
-import Heading from '../components/Heading';
+import { Box, styled, Typography } from '@mui/material';
+import { IActivity, mockCourse, mockUser } from '../components/boxes/mockData';
 import LearningBox from '../components/boxes/LearningBox';
-import LmsBox from '../components/boxes/LmsBox';
-import Activities from '../components/Activities';
+import Card from '../components/Card';
+import CollapsibleList from '../components/CollapsibleList';
+import ListActivity from '../components/ListActivity';
 
 const DashboardGrid = styled(Box)(({ theme }) => ({
   display: 'grid',
@@ -15,8 +14,8 @@ const DashboardGrid = styled(Box)(({ theme }) => ({
     gridTemplateColumns: '2fr 1fr',
   },
 }));
-const InnerGridBox = styled(Box)(({ theme }) => ({
-  cursor: 'pointer',
+
+const CardGrid = styled(Box)(({ theme }) => ({
   display: 'grid',
   gap: theme.spacing(2),
   gridTemplateColumns: '1fr',
@@ -30,23 +29,31 @@ const Dashboard = () => {
   const { firstName, lastName } = mockUser;
 
   return (
-    <Container component="section">
-      <GreetingUser firstName={firstName} lastName={lastName} />
+    <>
+      <Typography variant="h1" sx={{ marginBottom: '1rem' }}>
+        Välkommen {firstName} {lastName}!
+      </Typography>
       <DashboardGrid>
-        <LmsBox size="md">
-          <Heading variant={'h2'} title="Min kurs" />
-          <InnerGridBox>
+        <Card>
+          <Typography variant="h2" sx={{ marginBottom: '1rem' }}>
+            Min kurs
+          </Typography>
+          <CardGrid>
             {course && info && dateStart && (
               <LearningBox course={course} info={info} dateStart={dateStart} dateEnd={dateEnd} />
             )}
-          </InnerGridBox>
-        </LmsBox>
-        <LmsBox size="xs">
-          <Heading variant={'h2'} title="Kommande aktivititer" />
-          <Activities activities={mockCourse.activities} />
-        </LmsBox>
+          </CardGrid>
+        </Card>
+        <Card>
+          <Typography variant="h2">Kommande aktiviteter</Typography>
+          <CollapsibleList
+            items={mockCourse.activities}
+            keyField="id"
+            renderItem={(item: IActivity) => <ListActivity activity={item} />}
+          />
+        </Card>
       </DashboardGrid>
-    </Container>
+    </>
   );
 };
 
