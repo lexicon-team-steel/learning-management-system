@@ -2,7 +2,7 @@ import { Card, Link, styled, Typography } from '@mui/material';
 import { ReactElement } from 'react';
 import Date from './Date';
 
-interface ICourseBoxProps {
+interface IEntityCardProps {
   title: string;
   text: string;
   link: string;
@@ -25,7 +25,7 @@ const StyledTypography = styled(Typography)(() => ({
   overflowWrap: 'anywhere',
 }));
 
-const LearningBox = ({ title, text, link, date }: ICourseBoxProps): ReactElement => {
+const EntityCard = ({ title, text, link, date }: IEntityCardProps): ReactElement => {
   return (
     <Link href={link} underline="none">
       <StyledCard variant="outlined">
@@ -37,4 +37,4 @@ const LearningBox = ({ title, text, link, date }: ICourseBoxProps): ReactElement
   );
 };
 
-export default LearningBox;
+export default EntityCard;
