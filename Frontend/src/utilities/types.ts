@@ -8,3 +8,9 @@ export interface ITokens {
   accessToken: string;
   refreshToken: string;
 }
+
+export interface IStudent {
+  id: string;
+  fullName: string;
+  email: string;
+}

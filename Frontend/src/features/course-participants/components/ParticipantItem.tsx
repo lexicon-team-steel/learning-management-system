@@ -1,10 +1,10 @@
 import { ReactElement } from 'react';
-import { Participant } from '../types';
 import { Avatar, ListItem, ListItemAvatar, ListItemText, styled, Typography } from '@mui/material';
 import EmailLink from '../../../components/Links/EmailLink';
+import { IStudent } from '../../../utilities/types';
 
 interface IParticipantItemProps {
-  participant: Participant;
+  participant: IStudent;
 }
 
 const StyledAvatar = styled(Avatar)(({ theme }) => ({
@@ -23,7 +23,7 @@ const StyledListItemText = styled(ListItemText)(({ theme }) => ({
 }));
 
 const ParticipantItem = ({ participant }: IParticipantItemProps): ReactElement => {
-  const firstLetter = participant.fullname.charAt(0);
+  const firstLetter = participant.fullName.charAt(0);
   const emailItem = (
     <Typography noWrap>
       <EmailLink email={participant.email} />
@@ -35,7 +35,7 @@ const ParticipantItem = ({ participant }: IParticipantItemProps): ReactElement =
       <ListItemAvatar>
         <StyledAvatar>{firstLetter}</StyledAvatar>
       </ListItemAvatar>
-      <StyledListItemText primary={participant.fullname} secondary={emailItem} />
+      <StyledListItemText primary={participant.fullName} secondary={emailItem} />
     </StyledListItem>
   );
 };
