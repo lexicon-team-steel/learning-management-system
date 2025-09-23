@@ -24,7 +24,7 @@ const CardGrid = styled(Box)(({ theme }) => ({
   },
 }));
 
-const Dashboard = () => {
+const DashboardPage = () => {
   const { course, info, dateStart, dateEnd } = mockCourse;
   const { firstName, lastName } = mockUser;
 
@@ -57,4 +57,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardPage;

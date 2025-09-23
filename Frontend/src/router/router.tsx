@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router';
 import Layout from '../pages/Layout';
 import { requireAuthLoader } from '../utilities/loaders/requireAuthLoader';
-import Dashboard from '../pages/Dashboard';
+import DashboardPage from '../pages/DashboardPage';
 import Sandbox from '../pages/Sandbox';
 import LoginPage from '../pages/LoginPage';
 
@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Dashboard />,
+        element: <DashboardPage />,
       },
       {
         path: 'sandbox',
