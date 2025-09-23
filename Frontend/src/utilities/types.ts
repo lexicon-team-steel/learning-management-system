@@ -24,4 +24,15 @@ export interface ITokens {
   refreshToken: string;
 }
 
+export interface ICourse {
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+}
+
+export interface IDashboardLoader {
+  course: Promise<ICourse>;
+}
+
 export type HeadingLevel = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';

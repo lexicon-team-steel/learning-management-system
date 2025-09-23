@@ -4,6 +4,7 @@ import { requireAuthLoader } from '../utilities/loaders/requireAuthLoader';
 import DashboardPage from '../pages/DashboardPage';
 import Sandbox from '../pages/Sandbox';
 import LoginPage from '../pages/LoginPage';
+import { dashboardLoader } from '../utilities/loaders/dashboardLoader';
 
 export const router = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <DashboardPage />,
+        loader: dashboardLoader,
       },
       {
         path: 'sandbox',

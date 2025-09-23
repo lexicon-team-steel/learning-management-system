@@ -1,10 +1,13 @@
 import { Box, styled, Typography } from '@mui/material';
-import { IActivity, mockCourse, mockUser } from '../utilities/data/mockData';
+import { IActivity, mockCourse } from '../utilities/data/mockData';
 import LearningBox from '../components/EntityCard';
 import Card from '../components/Card';
 import CollapsibleList from '../components/CollapsibleList';
 import ActivityItem from '../components/ActivityItem';
 import { useAuthContext } from '../utilities/hooks/useAuthContext';
+import { Await, useLoaderData } from 'react-router';
+import { Suspense } from 'react';
+import { ICourse } from '../utilities/types';
 
 const DashboardGrid = styled(Box)(({ theme }) => ({
   display: 'grid',
@@ -25,9 +28,15 @@ const CardGrid = styled(Box)(({ theme }) => ({
   },
 }));
 
+// TODO: move to utilities / use library
+const formatDate = (date: string) => {
+  const dateFromString = new Date(date);
+  return new Intl.DateTimeFormat('sv-SE').format(dateFromString);
+};
+
 const DashboardPage = () => {
-  const { course, info, dateStart } = mockCourse;
   const { user } = useAuthContext();
+  const { course } = useLoaderData();
 
   return (
     <>
@@ -40,9 +49,18 @@ const DashboardPage = () => {
             Min kurs
           </Typography>
           <CardGrid>
-            {course && info && dateStart && (
-              <LearningBox title={course} text={info} date={{ start: dateStart }} link="/course" />
-            )}
+            <Suspense>
+              <Await resolve={course}>
+                {(course: ICourse) => (
+                  <LearningBox
+                    title={course.name}
+                    text={course.description.substring(0, 50) + '...'} // TODO: do better
+                    date={{ start: formatDate(course.startDate) }}
+                    link="/course"
+                  />
+                )}
+              </Await>
+            </Suspense>
           </CardGrid>
         </Card>
         <Card>
