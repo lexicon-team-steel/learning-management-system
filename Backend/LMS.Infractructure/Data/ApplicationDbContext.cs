@@ -11,6 +11,9 @@ namespace LMS.Infractructure.Data
     {
         public DbSet<Course> Courses { get; set; } = default!;
         public DbSet<CourseModule> CourseModules { get; set; } = default!;
+        public DbSet<Activity> Activities { get; set; } = default!;
+        public DbSet<ActivityType> ActivityTypes { get; set; } = default!;
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -18,6 +21,8 @@ namespace LMS.Infractructure.Data
             builder.ApplyConfiguration(new ApplicationUserConfigurations());
             builder.ApplyConfiguration(new CourseConfiguration());
             builder.ApplyConfiguration(new CourseModuleConfiguration());
+            builder.ApplyConfiguration(new ActivityConfiguration());
+            builder.ApplyConfiguration(new ActivityTypeConfiguration());
         }
     }
 }
