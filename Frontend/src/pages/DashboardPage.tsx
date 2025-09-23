@@ -25,7 +25,7 @@ const CardGrid = styled(Box)(({ theme }) => ({
 }));
 
 const DashboardPage = () => {
-  const { course, info, dateStart, dateEnd } = mockCourse;
+  const { course, info, dateStart } = mockCourse;
   const { firstName, lastName } = mockUser;
 
   return (
@@ -40,7 +40,7 @@ const DashboardPage = () => {
           </Typography>
           <CardGrid>
             {course && info && dateStart && (
-              <LearningBox course={course} info={info} dateStart={dateStart} dateEnd={dateEnd} />
+              <LearningBox title={course} text={info} date={{ start: dateStart }} link="/course" />
             )}
           </CardGrid>
         </Card>

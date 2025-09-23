@@ -1,26 +1,19 @@
-import { Box, styled, Typography } from '@mui/material';
+import { Card, Link, styled, Typography } from '@mui/material';
 import { ReactElement } from 'react';
-import Heading from './Heading';
 import Date from './Date';
 
 interface ICourseBoxProps {
-  course: string;
-  info: string;
-  dateStart: string;
-  dateEnd?: string;
+  title: string;
+  text: string;
+  link: string;
+  date: { start: string; end?: string };
 }
 
-const InnerBox = styled(Box)(({ theme }) => ({
-  boxSizing: 'border-box',
-  minWidth: 0,
+const StyledCard = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(1.25),
   padding: theme.spacing(2.5),
-  backgroundColor: theme.palette.background.paper,
-  border: `1px solid ${theme.palette.divider}`,
-  borderRadius: 14,
-  boxShadow: theme.shadows[0],
   transition: 'box-shadow .2s ease, transform .2s ease',
   '&:hover': {
     boxShadow: theme.shadows[2],
@@ -32,13 +25,15 @@ const StyledTypography = styled(Typography)(() => ({
   overflowWrap: 'anywhere',
 }));
 
-const LearningBox = ({ course, info, dateStart }: ICourseBoxProps): ReactElement => {
+const LearningBox = ({ title, text, link, date }: ICourseBoxProps): ReactElement => {
   return (
-    <InnerBox>
-      {course && <Heading variant="h3" title={course} />}
-      <StyledTypography variant="body1">{info}</StyledTypography>
-      {dateStart && <Date start={dateStart} />}
-    </InnerBox>
+    <Link href={link} underline="none">
+      <StyledCard variant="outlined">
+        <Typography variant="h3">{title}</Typography>
+        <StyledTypography variant="body1">{text}</StyledTypography>
+        <Date start={date.start} end={date.end && date.end} />
+      </StyledCard>
+    </Link>
   );
 };
 
