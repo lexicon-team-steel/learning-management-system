@@ -32,10 +32,11 @@ const theme = createTheme({
   // example: typography, can be changed
   typography: {
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    h1: { fontSize: '2rem', fontWeight: 600 },
-    h2: { fontSize: '1.5rem', fontWeight: 600 },
-    body1: { fontSize: '1rem' },
-    body2: { fontSize: '0.875rem' },
+    h1: { fontSize: '1.5rem', fontWeight: 600 },
+    h2: { fontSize: '1.2rem', fontWeight: 600 },
+    h3: { fontSize: '1rem', fontWeight: 600 },
+    h4: { fontSize: '0.8rem', fontWeight: 600 },
+    body1: { fontSize: '0.75rem' },
     caption: { color: colors.textColorLight },
   },
   spacing: 8, // if we use spacing in styling 1 will be 8px, 2 16px etc
@@ -72,11 +73,11 @@ const theme = createTheme({
       variants: [
         {
           props: { variant: 'secondary-link' },
-          style: ({ theme }) => ({
-            color: theme.palette.text.secondary,
+          style: () => ({
+            color: colors.textColorLight,
             textDecoration: 'none',
             '&:hover': {
-              color: theme.palette.primary.main,
+              color: colors.primaryBlue,
             },
           }),
         },
