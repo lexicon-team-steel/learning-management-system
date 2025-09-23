@@ -12,7 +12,7 @@ public class ActivityConfiguration : IEntityTypeConfiguration<Activity>
 
         builder.HasKey(a => a.Id);
 
-        builder.Property(m => m.Name)
+        builder.Property(a => a.Name)
             .IsRequired()
             .HasMaxLength(200);
 
