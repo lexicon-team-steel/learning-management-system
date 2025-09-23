@@ -1,7 +1,7 @@
 import { Box, styled, Typography } from '@mui/material';
 import { ReactElement } from 'react';
 import Heading from '../Heading';
-import Meta from './Meta';
+import Date from './Date';
 
 interface ICourseBoxProps {
   course: string;
@@ -35,7 +35,7 @@ const StyledTypography = styled(Typography)(() => ({
 const LearningBox = ({ course, info, dateStart, dateEnd }: ICourseBoxProps): ReactElement => {
   const renderDate = () => {
     if (!dateStart && !dateEnd) return null;
-    return <Meta start={dateStart} />;
+    return <Date start={dateStart} />;
   };
   return (
     <InnerBox>
