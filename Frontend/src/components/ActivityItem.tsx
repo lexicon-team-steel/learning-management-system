@@ -1,31 +1,24 @@
 import { ReactElement } from 'react';
 import { IActivity } from '../utilities/data/mockData';
-import { ListItem, ListItemText, styled, Typography } from '@mui/material';
+import { ListItem, ListItemText, Typography } from '@mui/material';
 
 interface IActivityItemProps {
   activity: IActivity;
 }
-
-const StyledActivity = styled(Typography)(() => ({
-  fontWeight: 500,
-}));
-const StyledDate = styled(Typography)(({ theme }) => ({
-  color: theme.palette.text.secondary,
-}));
 
 const ActivityItem = ({ activity }: IActivityItemProps): ReactElement => {
   return (
     <ListItem disableGutters disablePadding>
       <ListItemText
         primary={
-          <StyledActivity variant="body1">
+          <Typography variant="body1" sx={{ fontWeight: 500 }}>
             {activity.type}: {activity.name}
-          </StyledActivity>
+          </Typography>
         }
         secondary={
-          <StyledDate variant="body2">
+          <Typography variant="body2" color="text.secondary">
             {activity.date} {activity.timeEnd}
-          </StyledDate>
+          </Typography>
         }
       />
     </ListItem>
