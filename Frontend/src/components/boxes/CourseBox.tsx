@@ -4,9 +4,9 @@ import Heading from '../Heading';
 import Meta from './Meta';
 
 interface ICourseBoxProps {
-  course?: string;
-  info?: string;
-  dateStart?: string;
+  course: string;
+  info: string;
+  dateStart: string;
   dateEnd?: string;
 }
 
