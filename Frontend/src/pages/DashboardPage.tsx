@@ -4,6 +4,7 @@ import LearningBox from '../components/EntityCard';
 import Card from '../components/Card';
 import CollapsibleList from '../components/CollapsibleList';
 import ActivityItem from '../components/ActivityItem';
+import { useAuthContext } from '../utilities/hooks/useAuthContext';
 
 const DashboardGrid = styled(Box)(({ theme }) => ({
   display: 'grid',
@@ -26,12 +27,12 @@ const CardGrid = styled(Box)(({ theme }) => ({
 
 const DashboardPage = () => {
   const { course, info, dateStart } = mockCourse;
-  const { firstName, lastName } = mockUser;
+  const { user } = useAuthContext();
 
   return (
     <>
       <Typography variant="h1" sx={{ marginBottom: '1rem' }}>
-        Välkommen {firstName} {lastName}!
+        Välkommen {user.fullName}!
       </Typography>
       <DashboardGrid>
         <Card>
