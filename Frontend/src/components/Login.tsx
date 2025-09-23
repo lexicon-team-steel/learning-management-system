@@ -60,7 +60,13 @@ const Login = (): ReactElement => {
         fullWidth
         required
       />
-      <Button type="submit" variant="contained" startIcon={<LoginIcon />} fullWidth>
+      <Button
+        type="submit"
+        variant="contained"
+        startIcon={<LoginIcon />}
+        disabled={username === '' || password === ''}
+        fullWidth
+      >
         Logga in
       </Button>
     </StyledForm>
