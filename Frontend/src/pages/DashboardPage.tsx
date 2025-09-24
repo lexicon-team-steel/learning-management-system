@@ -1,6 +1,6 @@
 import { Box, styled, Typography } from '@mui/material';
 import { IActivity, mockCourse } from '../utilities/data/mockData';
-import LearningBox from '../components/EntityCard';
+import EntityCard from '../components/EntityCard';
 import Card from '../components/Card';
 import CollapsibleList from '../components/CollapsibleList';
 import ActivityItem from '../components/ActivityItem';
@@ -52,7 +52,7 @@ const DashboardPage = () => {
             <Suspense>
               <Await resolve={course}>
                 {(course: ICourse) => (
-                  <LearningBox
+                  <EntityCard
                     title={course.name}
                     text={course.description.substring(0, 50) + '...'} // TODO: do better
                     date={{ start: formatDate(course.startDate) }}
