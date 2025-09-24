@@ -1,18 +1,18 @@
 // FIXME: Update colors according to design in Figma
 const colors = {
-  gray: '#6c7180',
-  darkGray: '#374152',
-  lightgray: '#f7f9fa',
+  gray: '#6B7280',
+  darkGray: '#374151',
+  lightGray: '#F9FAFB',
   lightGray2: '#E5E7EB',
-  white: '#ffffff',
-  blue: '#2664eb',
-  darkBlue: '#1E40AF',
-  lightblue: '#DBEAFE',
-  red: '#d32f2f',
+  white: '#FFFFFF',
+  blue: '#2563EB',
+  darkBlue: '#1D4ED8',
+  lightBlue: '#EFF6FF',
+  red: '#DC2626',
 };
 
 export default {
-  primaryBg: colors.lightgray,
+  primaryBg: colors.lightGray,
   lightBg: colors.white,
   primaryBlue: colors.blue,
   secondaryBlue: colors.darkBlue,
@@ -20,6 +20,6 @@ export default {
   textColorDark: colors.darkGray,
   textColorLight: colors.gray,
   chipTextColor: colors.darkBlue,
-  chipBgColor: colors.lightblue,
+  chipBgColor: colors.lightBlue,
   border: colors.lightGray2,
 };

@@ -4,6 +4,7 @@ import { requireAuthLoader } from '../utilities/loaders/requireAuthLoader';
 import DashboardPage from '../pages/DashboardPage';
 import Sandbox from '../pages/Sandbox';
 import LoginPage from '../pages/LoginPage';
+import { participantsLoader } from '../utilities/loaders/participantsLoader';
 import { dashboardLoader } from '../utilities/loaders/dashboardLoader';
 import CoursePage from '../pages/CoursePage';
 import { courseLoader } from '../utilities/loaders/courseLoader';
@@ -15,13 +16,19 @@ export const router = createBrowserRouter([
     loader: requireAuthLoader,
     children: [
       {
-        index: true,
+        path: '/dashboard',
         element: <DashboardPage />,
         loader: dashboardLoader,
       },
       {
         path: 'sandbox',
         element: <Sandbox />,
+        loader: participantsLoader,
+      },
+      {
+        path: '*',
+        element: <Sandbox />,
+        loader: participantsLoader,
       },
       {
         path: 'courses',

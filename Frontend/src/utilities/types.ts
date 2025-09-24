@@ -24,6 +24,16 @@ export interface ITokens {
   refreshToken: string;
 }
 
+export interface IStudent {
+  id: string;
+  fullName: string;
+  email: string;
+}
+
+export interface IParticipantLoader {
+  participants: Promise<IStudent[]>;
+}
+
 export interface ICourse {
   name: string;
   description: string;
