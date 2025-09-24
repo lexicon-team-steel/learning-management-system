@@ -14,10 +14,17 @@ public class CourseRepository(ApplicationDbContext context)
     public Task<Course?> GetCourseWithModulesAsync(string studentId) =>
         GetCourseByUserId(studentId, includeModules: true);
 
-    private Task<Course?> GetCourseByUserId(string studentId, bool includeModules = false)
+    public async Task<IEnumerable<ApplicationUser>?> GetCourseClassmatesAsync(string studentId)
+    {
+        var course = await GetCourseByUserId(studentId, includeUsers: true);
+        return course?.Users.Where(u => u.Id != studentId);
+    }
+
+    private Task<Course?> GetCourseByUserId(string studentId, bool includeModules = false, bool includeUsers = false)
     {
         var courses = FindAll();
         if (includeModules) courses = courses.Include(c => c.Modules);
+        if (includeUsers) courses = courses.Include(c => c.Users);
 
         return courses
             .Where(s => s.Users.Any(u => u.Id == studentId))
