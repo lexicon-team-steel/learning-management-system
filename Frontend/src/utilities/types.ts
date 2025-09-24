@@ -32,6 +32,7 @@ export interface IStudent {
 
 export interface IParticipantLoader {
   participants: Promise<IStudent[]>;
+}
 
 export interface ICourse {
   name: string;
