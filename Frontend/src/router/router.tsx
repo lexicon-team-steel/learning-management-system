@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
     loader: requireAuthLoader,
     children: [
       {
-        index: true,
+        path: '/dashboard',
         element: <DashboardPage />,
         loader: dashboardLoader,
       },

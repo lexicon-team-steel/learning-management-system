@@ -35,7 +35,7 @@ export function AuthProvider({ children }: IAuthProviderProps): ReactElement {
 
   useEffect(() => {
     setUser(() => (isLoggedIn ? decodeToken(tokens.accessToken) : GuestUser));
-  }, [tokens]);
+  }, [isLoggedIn, tokens]);
 
   const values: IAuthContext = { user, isLoggedIn, login, logout };
 
