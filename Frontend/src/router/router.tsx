@@ -21,6 +21,10 @@ export const router = createBrowserRouter([
         path: 'sandbox',
         element: <Sandbox />,
       },
+      {
+        path: '*',
+        element: <Sandbox />,
+      },
     ],
   },
   {
