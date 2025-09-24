@@ -1,4 +1,5 @@
 import { jwtDecode } from 'jwt-decode';
+import { GuestUser, IUser, UserRole } from '../types';
 
 type JwtPayload = {
   profile: string;
@@ -8,16 +9,17 @@ type JwtPayload = {
   exp?: number;
 };
 
-const decodeToken = (token: string) => {
-  if (!token) return { name: '', id: '', role: '' };
+const validRoles: UserRole[] = ['Teacher', 'Student'];
+
+const decodeToken = (token: string): IUser => {
+  if (!token) return GuestUser;
 
   const claims = jwtDecode<JwtPayload>(token);
-
-  const name = claims.profile ?? 'unknown';
-  const id = claims.sub ?? 'unknown';
-  const role = claims.role ?? 'none';
-
-  return { name, id, role };
+  return {
+    fullName: claims.profile,
+    id: claims.sub,
+    role: validRoles.includes(claims.role as UserRole) ? (claims.role as UserRole) : 'Guest',
+  };
 };
 
 export default decodeToken;

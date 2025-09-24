@@ -37,6 +37,7 @@ const theme = createTheme({
     h3: { fontSize: '1rem', fontWeight: 600 },
     h4: { fontSize: '0.8rem', fontWeight: 600 },
     body1: { fontSize: '0.75rem' },
+    body2: { fontSize: '0.7rem' },
     caption: { color: colors.textColorLight },
   },
   spacing: 8, // if we use spacing in styling 1 will be 8px, 2 16px etc

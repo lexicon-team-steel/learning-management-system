@@ -1,10 +1,8 @@
 using System.Security.Claims;
-using Bogus;
 using LMS.Shared.DTOs.CourseDtos;
-using LMS.Shared.DTOs.ForFrontEndTemplate;
+using LMS.Shared.DTOs.StudentDtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Swashbuckle.AspNetCore.Annotations;
@@ -49,5 +47,22 @@ public class StudentsController(IServiceManager serviceManager) : ControllerBase
         if (userId == null) return Unauthorized();
 
         return Ok(await studentService.GetCourseWithModulesAsync(userId));
+    }
+
+    [HttpGet("me/course-classmates")]
+    [Authorize(Roles = "Student")]
+    [SwaggerOperation(
+        Summary = "Get student classmates",
+        Description = "Returns classmates for a student. Student is identified by JWT token.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "List of classmates", typeof(IEnumerable<StudentDto>))]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "Student not found by JWT token")]
+    [SwaggerResponse(StatusCodes.Status409Conflict, "Student doesn't have any course")]
+    public async Task<ActionResult<IEnumerable<StudentDto>>> GetStudentClassmates()
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userId == null) return Unauthorized();
+
+        return Ok(await studentService.GetClassmatesAsync(userId));
     }
 }
