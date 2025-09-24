@@ -12,10 +12,8 @@ import {
   styled,
 } from '@mui/material';
 import colors from '../styles/colors';
-import decodeToken from '../utilities/token/decodeToken';
-import { getTokens } from '../utilities/token';
-import { ITokens } from '../utilities/types';
 import { adminItems, mainItems, NavItem } from '../utilities/navigationConstants';
+import { useAuthContext } from '../utilities/hooks/useAuthContext';
 
 interface StyledListItemButtonProps {
   active?: boolean;
@@ -74,8 +72,7 @@ const StyledListItemButton = styled(ListItemButton, {
 const Sidebar = (): ReactElement => {
   const navigate = useNavigate();
   const location = useLocation();
-  const token = getTokens() as ITokens;
-  const { role } = decodeToken(token ? token.accessToken : '');
+  const { isTeacher } = useAuthContext();
 
   const renderNavItems = (items: NavItem[]) =>
     items.map(({ text, icon, path }) => (
@@ -93,7 +90,7 @@ const Sidebar = (): ReactElement => {
         <Title>LMS System</Title>
         <List>{renderNavItems(mainItems)}</List>
         <FlexGrowBox />
-        {role === 'Teacher' && (
+        {isTeacher && (
           <Box>
             <AdminTitle variant="caption">Administration</AdminTitle>
             <List>{renderNavItems(adminItems)}</List>

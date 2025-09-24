@@ -1,11 +1,11 @@
 import { createBrowserRouter } from 'react-router';
 import Layout from '../pages/Layout';
 import { requireAuthLoader } from '../utilities/loaders/requireAuthLoader';
-import { Companies, Company } from '../features/companies/components';
-import { companiesLoader, companyLoader } from '../features/companies/loaders';
+import DashboardPage from '../pages/DashboardPage';
 import Sandbox from '../pages/Sandbox';
 import LoginPage from '../pages/LoginPage';
 import { participantsLoader } from '../utilities/loaders/participantsLoader';
+import { dashboardLoader } from '../utilities/loaders/dashboardLoader';
 
 export const router = createBrowserRouter([
   {
@@ -15,16 +15,16 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Companies />,
-        loader: companiesLoader,
-      },
-      {
-        path: 'companies/:id',
-        element: <Company />,
-        loader: ({ params }) => companyLoader(params.id),
+        element: <DashboardPage />,
+        loader: dashboardLoader,
       },
       {
         path: 'sandbox',
+        element: <Sandbox />,
+        loader: participantsLoader,
+      },
+      {
+        path: '*',
         element: <Sandbox />,
         loader: participantsLoader,
       },
