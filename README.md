@@ -23,7 +23,7 @@ Add a `secrets.json` file in the `LMS.API` directory with the the following cont
 
 - If you don't have Entity Framework you need to install this globally using `dotnet tool install --global dotnet-ef`.
 - Go to the Backend directory `cd Backend`.
-- Connect LMS.API with LMS.Infractructure using `dotnet ef database update --project LMS.Infractructure --startup-project LMS.API`.
+- Connect LMS.API with LMS.Infrastructure using `dotnet ef database update --project LMS.Infrastructure --startup-project LMS.API`.
 - Go to the LMS.API directory `cd LMS.API`.
 - Start backend with `dotnet run`.
 
