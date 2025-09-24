@@ -42,7 +42,7 @@ const Login = (): ReactElement => {
       return;
     }
 
-    const redirectTo = searchParams.get('redirectTo') || '/';
+    const redirectTo = searchParams.get('redirectTo') || '/dashboard';
     navigate(redirectTo, { replace: true });
   };
 
