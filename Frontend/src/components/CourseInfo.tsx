@@ -1,20 +1,19 @@
 import { ReactElement, Suspense } from 'react';
 import { Await } from 'react-router';
-import { ICourse } from '../utilities/types';
+import { ICourse, IStudent } from '../utilities/types';
 import { Grid, Paper, Typography } from '@mui/material';
 import BasicCard from '../components/BasicCard';
 import CollapsibleList from '../components/CollapsibleList';
-import { participants } from '../utilities/data';
-import { Participant } from '../features/course-participants/types';
-import ParticipantItem from '../features/course-participants/components/ParticipantItem';
 import EntityCard from '../components/EntityCard';
 import { mockCourse } from '../utilities/data/mockData';
+import ParticipantItem from './ParticipantItem';
 
 interface CourseInfoProps {
   course: Promise<ICourse>;
+  participants: Promise<IStudent[]>;
 }
 
-const CourseInfo = ({ course }: CourseInfoProps): ReactElement => {
+const CourseInfo = ({ course, participants }: CourseInfoProps): ReactElement => {
   return (
     <Grid container spacing={3}>
       <Grid size={12}>
@@ -55,12 +54,14 @@ const CourseInfo = ({ course }: CourseInfoProps): ReactElement => {
       <Grid size={4}>
         <BasicCard title="Kursdeltagare">
           <Suspense>
-            <Await resolve="replace this with participants object/array like above which we probably get from loader in future">
-              <CollapsibleList
-                items={participants}
-                keyField="email"
-                renderItem={(item: Participant) => <ParticipantItem participant={item} />}
-              />
+            <Await resolve={participants}>
+              {(resolvedParticipants: IStudent[]) => (
+                <CollapsibleList
+                  items={resolvedParticipants}
+                  keyField="email"
+                  renderItem={(item: IStudent) => <ParticipantItem participant={item} />}
+                />
+              )}
             </Await>
           </Suspense>
         </BasicCard>

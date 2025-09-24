@@ -1,5 +1,8 @@
 import { fetchWithToken } from '../api/fetchWithToken';
 import { BASE_URL } from '../constants';
-import { IDashboardLoader } from '../types';
+import { ICourse, ICourseLoader, IStudent } from '../types';
 
-export const courseLoader = (): IDashboardLoader => ({ course: fetchWithToken(`${BASE_URL}/students/me/course`) });
+export const courseLoader = async (): Promise<ICourseLoader> => ({
+  participants: fetchWithToken<IStudent[]>(`${BASE_URL}/students/me/course-classmates`),
+  course: fetchWithToken<ICourse>(`${BASE_URL}/students/me/course`),
+});
