@@ -13,7 +13,6 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
     public async Task<IEnumerable<CourseDto>> GetUserCoursesAsync()
     {
         var userId = currentUser.UserId ?? throw new UnauthorizedAccessException();
-        // var user = await VerifyUserExistsAsync(userId);
 
         var courses = await uow.Courses.GetUserCoursesAsync(userId);
 
@@ -25,11 +24,13 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
 
     public async Task<CourseDto> GetCourseWithModulesAsync(Guid courseId)
     {
-        var userId = currentUser.UserId ?? throw new UnauthorizedAccessException();
-        var course = await uow.Courses.GetCourseWithModulesAsync(userId, courseId);
-
-        if (course is null)
+        var userId = currentUser.UserId
+            ?? throw new UnauthorizedAccessException();
+        if (!await uow.Courses.UserHasAccessToCourse(userId, courseId))
             throw new UnauthorizedAccessException();
+
+        var course = await uow.Courses.GetCourseByIdAsync(courseId, includeModules: true)
+            ?? throw new NotFoundException("Course not found");
 
         return mapper.Map<CourseDto>(course);
     }
@@ -37,13 +38,12 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
     public async Task<IEnumerable<StudentDto>> GetCourseParticipantsAsync(Guid courseId)
     {
         var userId = currentUser.UserId ?? throw new UnauthorizedAccessException();
-        var students = await uow.Courses.GetCourseParticipantsAsync(userId, courseId);
+        if (!await uow.Courses.UserHasAccessToCourse(userId, courseId))
+            throw new UnauthorizedAccessException();
 
-        return mapper.Map<IEnumerable<StudentDto>>(students);
+        var course = await uow.Courses.GetCourseByIdAsync(courseId, includeUsers: true)
+            ?? throw new NotFoundException("Course not found");
+
+        return mapper.Map<IEnumerable<StudentDto>>(course.Users);
     }
 }
-
-// private Task<ApplicationUser?> VerifyUserExistsAsync(string studentId) =>
-//     uow.Students.GetUserAsync(studentId) ??
-//         throw new NotFoundException("Student was not found");
-

@@ -10,22 +10,18 @@ public class CourseRepository(ApplicationDbContext context)
 {
 
     public Task<List<Course>> GetUserCoursesAsync(string userId) =>
-        FindAll()
-            .Where(c => c.Users.Any(u => u.Id == userId))
-            .ToListAsync();
+        FindAll().Where(c => c.Users.Any(u => u.Id == userId)).ToListAsync();
 
-    public Task<Course?> GetCourseWithModulesAsync(string userId, Guid courseId) =>
-        FindAll()
-            .Include(c => c.Modules)
-            .Where(c => c.Users.Any(u => u.Id == userId))
-            .FirstOrDefaultAsync(c => c.Id == courseId);
+    public Task<Course?> GetCourseByIdAsync(Guid id, bool includeModules = false, bool includeUsers = false)
+    {
+        var course = FindByCondition(c => c.Id == id);
+        if (includeModules) course = course.Include(c => c.Modules);
+        if (includeUsers) course = course.Include(c => c.Users);
 
-
-    public Task<List<ApplicationUser>> GetCourseParticipantsAsync(string userId, Guid courseId) =>
-        FindAll()
-            .Where(c => c.Users.Any(u => u.Id == userId) && c.Id == courseId)
-            .SelectMany(s => s.Users)
-            .ToListAsync();
+        return course.FirstOrDefaultAsync();
+    }
+    public Task<bool> UserHasAccessToCourse(string userId, Guid courseId) =>
+        FindByCondition(c => c.Users.Any(u => u.Id == userId) && c.Id == courseId).AnyAsync();
 
 
 
