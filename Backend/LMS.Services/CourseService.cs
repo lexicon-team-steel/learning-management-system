@@ -27,10 +27,10 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
         return mapper.Map<CourseDto>(course);
     }
 
-    public async Task<IEnumerable<UserDto>> GetCourseParticipantsAsync(Guid courseId)
+    public async Task<IEnumerable<UserDto>> GetCourseParticipantsAsync(Guid courseId, string? role)
     {
         var userId = GetUserId();
-        var participants = await uow.Courses.GetUserCourseParticipantsAsync(userId, courseId);
+        var participants = await uow.Courses.GetUserCourseParticipantsAsync(userId, courseId, role);
 
         return mapper.Map<IEnumerable<UserDto>>(participants);
     }

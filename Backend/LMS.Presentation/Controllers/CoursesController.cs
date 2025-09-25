@@ -44,8 +44,10 @@ public class CoursesController(IServiceManager serviceManager) : ControllerBase
         Description = "Returns course participants for authorized user.")]
     [SwaggerResponse(StatusCodes.Status200OK, "List of participants", typeof(IEnumerable<UserDto>))]
     [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
-    public async Task<ActionResult<IEnumerable<UserDto>>> GetCourseParticipants(Guid courseId)
+    public async Task<ActionResult<IEnumerable<UserDto>>> GetCourseParticipants(
+        Guid courseId,
+        [FromQuery] string? role)
     {
-        return Ok(await courseService.GetCourseParticipantsAsync(courseId));
+        return Ok(await courseService.GetCourseParticipantsAsync(courseId, role));
     }
 }
