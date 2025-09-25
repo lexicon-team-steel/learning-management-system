@@ -7,11 +7,15 @@ namespace LMS.API.Services.Seed;
 public class DataSeeder(
     UserSeeder userSeeder,
     CourseSeeder courseSeeder,
+    ActivityTypeSeeder activityTypeSeeder,
+    ActivitySeeder activitySeeder,
     ApplicationDbContext context,
     UserManager<ApplicationUser> userManager)
 {
     private readonly UserSeeder userSeeder = userSeeder;
     private readonly CourseSeeder courseSeeder = courseSeeder;
+    private readonly ActivityTypeSeeder activityTypeSeeder = activityTypeSeeder;
+    private readonly ActivitySeeder activitySeeder = activitySeeder;
     private readonly ApplicationDbContext context = context;
     private readonly UserManager<ApplicationUser> userManager = userManager;
 
@@ -19,6 +23,8 @@ public class DataSeeder(
     {
         await userSeeder.SeedAsync(cancellationToken);
         await courseSeeder.SeedAsync(cancellationToken);
+        await activityTypeSeeder.SeedAsync(cancellationToken);
+        await activitySeeder.SeedAsync(cancellationToken);
 
         await AssignStudentsToCourse();
     }
