@@ -8,6 +8,7 @@ import { participantsLoader } from '../utilities/loaders/participantsLoader';
 import { dashboardLoader } from '../utilities/loaders/dashboardLoader';
 import CoursePage from '../pages/CoursePage';
 import { courseLoader } from '../utilities/loaders/courseLoader';
+import CourseListBoard from '../components/CourseListBoard';
 
 export const router = createBrowserRouter([
   {
@@ -31,9 +32,13 @@ export const router = createBrowserRouter([
         loader: participantsLoader,
       },
       {
-        path: 'courses',
+        path: 'course', //TODO: Needs restriction?
         element: <CoursePage />,
-        loader: courseLoader
+        loader: courseLoader,
+      },
+      {
+        path: 'courses', //TODO: Some preparation for the teacher courses route. Needs restriction!
+        element: <CourseListBoard />, //This component is open for modification :)
       },
     ],
   },
