@@ -29,7 +29,6 @@ const CardGrid = styled(Box)(({ theme }) => ({
   },
 }));
 
-
 const DashboardPage = () => {
   const { user } = useAuthContext();
   const { course } = useLoaderData();

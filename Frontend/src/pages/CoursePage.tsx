@@ -10,7 +10,7 @@ import ParticipantItem from '../components/ParticipantItem';
 
 const CoursePage = (): ReactElement => {
   const { course, participants } = useLoaderData();
-  
+
   return (
     <Grid container spacing={3}>
       <Grid size={12}>
