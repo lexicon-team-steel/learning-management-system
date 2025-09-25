@@ -5,7 +5,7 @@ using LMS.Shared.DTOs.CourseDtos;
 using LMS.Shared.DTOs.CourseModuleDtos;
 using LMS.Shared.DTOs.StudentDtos;
 
-namespace LMS.Infractructure.Data;
+namespace LMS.Infrastructure.Data;
 
 public class MapperProfile : Profile
 {

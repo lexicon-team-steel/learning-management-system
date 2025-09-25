@@ -1,10 +1,10 @@
 using Domain.Models.Entities;
-using LMS.Infractructure.Data.Configurations;
+using LMS.Infrastructure.Data.Configurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace LMS.Infractructure.Data
+namespace LMS.Infrastructure.Data
 {
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : IdentityDbContext<ApplicationUser, IdentityRole, string>(options)
