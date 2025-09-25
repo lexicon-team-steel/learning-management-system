@@ -1,5 +1,5 @@
 using LMS.Shared.DTOs.CourseDtos;
-using LMS.Shared.DTOs.StudentDtos;
+using LMS.Shared.DTOs.UserDtos;
 
 namespace Service.Contracts;
 
@@ -7,5 +7,5 @@ public interface ICourseService
 {
     public Task<IEnumerable<CourseDto>> GetUserCoursesAsync();
     public Task<CourseDto> GetCourseWithModulesAsync(Guid courseId);
-    public Task<IEnumerable<StudentDto>> GetCourseParticipantsAsync(Guid courseId);
+    public Task<IEnumerable<UserDto>> GetCourseParticipantsAsync(Guid courseId);
 }

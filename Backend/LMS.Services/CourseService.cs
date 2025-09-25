@@ -3,7 +3,7 @@ using Domain.Contracts.Repositories;
 using Domain.Models.Entities;
 using Domain.Models.Exceptions;
 using LMS.Shared.DTOs.CourseDtos;
-using LMS.Shared.DTOs.StudentDtos;
+using LMS.Shared.DTOs.UserDtos;
 using Service.Contracts;
 
 namespace LMS.Services;
@@ -30,12 +30,12 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
         return mapper.Map<CourseDto>(course);
     }
 
-    public async Task<IEnumerable<StudentDto>> GetCourseParticipantsAsync(Guid courseId)
+    public async Task<IEnumerable<UserDto>> GetCourseParticipantsAsync(Guid courseId)
     {
         var userId = GetUserId();
         var participants = await uow.Courses.GetUserCourseParticipantsAsync(userId, courseId);
 
-        return mapper.Map<IEnumerable<StudentDto>>(participants);
+        return mapper.Map<IEnumerable<UserDto>>(participants);
     }
 
     private string GetUserId() =>

@@ -1,6 +1,6 @@
 using System.Security.Claims;
 using LMS.Shared.DTOs.CourseDtos;
-using LMS.Shared.DTOs.StudentDtos;
+using LMS.Shared.DTOs.UserDtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -43,10 +43,10 @@ public class CoursesController(IServiceManager serviceManager) : ControllerBase
     [SwaggerOperation(
         Summary = "Get course participants",
         Description = "Returns course students for authorized user.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "List of students", typeof(IEnumerable<StudentDto>))]
+    [SwaggerResponse(StatusCodes.Status200OK, "List of students", typeof(IEnumerable<UserDto>))]
     [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
     [SwaggerResponse(StatusCodes.Status404NotFound, "Course not found")]
-    public async Task<ActionResult<IEnumerable<StudentDto>>> GetStudentParticipants(Guid courseId)
+    public async Task<ActionResult<IEnumerable<UserDto>>> GetStudentParticipants(Guid courseId)
     {
         return Ok(await courseService.GetCourseParticipantsAsync(courseId));
     }
