@@ -15,9 +15,6 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
         var userId = GetUserId();
         var courses = await uow.Courses.GetUserCoursesAsync(userId);
 
-        if (currentUser.IsStudent && courses.Count == 0)
-            throw new ConflictException("Student doesn't belong to any course");
-
         return mapper.Map<IEnumerable<CourseDto>>(courses);
     }
 
@@ -25,7 +22,7 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
     {
         var userId = GetUserId();
         var course = await uow.Courses.GetUserCourseWithModulesAsync(userId, courseId);
-        if (course == null) throw new NotFoundException("Course not found or no access");
+        if (course == null) throw new NotFoundException("Course not found or you don’t have access");
 
         return mapper.Map<CourseDto>(course);
     }
@@ -40,5 +37,4 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
 
     private string GetUserId() =>
         currentUser.UserId ?? throw new UnauthorizedException();
-
 }
