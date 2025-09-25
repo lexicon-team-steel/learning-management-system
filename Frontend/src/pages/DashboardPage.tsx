@@ -8,6 +8,7 @@ import { useAuthContext } from '../utilities/hooks/useAuthContext';
 import { Await, useLoaderData } from 'react-router';
 import { Suspense } from 'react';
 import { ICourse } from '../utilities/types';
+import { formatDate } from '../utilities/dateTime';
 
 const DashboardGrid = styled(Box)(({ theme }) => ({
   display: 'grid',
@@ -27,12 +28,6 @@ const CardGrid = styled(Box)(({ theme }) => ({
     gridTemplateColumns: '1fr 1fr',
   },
 }));
-
-// TODO: move to utilities / use library
-const formatDate = (date: string) => {
-  const dateFromString = new Date(date);
-  return new Intl.DateTimeFormat('sv-SE').format(dateFromString);
-};
 
 const DashboardPage = () => {
   const { user } = useAuthContext();

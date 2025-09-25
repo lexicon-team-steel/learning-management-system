@@ -7,6 +7,7 @@ import { IParticipantLoader, IStudent } from '../utilities/types';
 import { Suspense } from 'react';
 import ParticipantItem from '../components/ParticipantItem';
 import Card from '../components/Card';
+import MuduleActivities from '../components/ModuleActivities';
 
 const Sandbox = () => {
   const { participants } = useLoaderData<IParticipantLoader>();
@@ -28,6 +29,7 @@ const Sandbox = () => {
           </Await>
         </Suspense>
       </Box>
+      <MuduleActivities /> {/*  // temp for testing */}
     </Main>
   );
 };

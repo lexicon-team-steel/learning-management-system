@@ -1,25 +1,71 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, styled } from '@mui/material';
 import { ReactElement, ElementType } from 'react';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 interface IDateAndTimeProps {
-  icon?: ElementType;
-  date?: { start?: string; end?: string };
-  time?: { start?: string; end?: string };
+  icons?: {
+    calendar?: ElementType;
+    time?: ElementType;
+  };
+  date?: { start: string; end?: string };
+  time?: { start: string; end: string };
 }
 
-const DateAndTime = ({ icon: Icon, date, time }: IDateAndTimeProps): ReactElement => {
+const StyledStack = styled(Stack)(() => ({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  maxWidth: '600px',
+  width: '100%',
+}));
+
+const DateAndTime = ({ icons, date, time }: IDateAndTimeProps): ReactElement => {
+  const DateIcon = icons?.calendar ?? CalendarMonthIcon;
+  const TimeIcon = icons?.time ?? AccessTimeIcon;
+
   const { start: dateStart, end: dateEnd } = date || {};
   const { start: startTime, end: endTime } = time || {};
 
-  // Show date range if available, otherwise fall back to time range
   const range = (start?: string, end?: string) => (start && end ? `${start} – ${end}` : (start ?? end ?? ''));
   const hasAnyDate = !!(dateStart || dateEnd);
-  const displayDateOrTime = hasAnyDate ? range(dateStart, dateEnd) : range(startTime, endTime);
+  const hasAnyTime = !!(startTime || endTime);
+  const showDate = hasAnyDate && range(dateStart, dateEnd);
+  const showTime = hasAnyTime && range(startTime, endTime);
+
+  const renderDate = () => {
+    return (
+      showDate && (
+        <Stack direction="row" spacing={1} alignItems="center">
+          <DateIcon fontSize="small" />
+          <Typography variant="body2" color="text.secondary">
+            {showDate}
+          </Typography>
+        </Stack>
+      )
+    );
+  };
+
+  const rederTime = () => {
+    return (
+      showTime && (
+        <Stack direction="row" spacing={1} alignItems="center">
+          <TimeIcon fontSize="small" />
+          <Typography variant="body2" color="text.secondary">
+            {showTime}
+          </Typography>
+        </Stack>
+      )
+    );
+  };
 
   return (
     <Stack direction="row" spacing={1}>
-      {Icon && <Icon fontSize="small" />}
-      <Typography>{displayDateOrTime}</Typography>
+      <StyledStack>
+        {renderDate()}
+        {rederTime()}
+      </StyledStack>
     </Stack>
   );
 };
