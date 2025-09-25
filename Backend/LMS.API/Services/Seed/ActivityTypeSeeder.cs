@@ -13,10 +13,10 @@ public class ActivityTypeSeeder(ApplicationDbContext context)
 
         var types = new[]
         {
-            new ActivityType { Name = "Lecture" },
+            new ActivityType { Name = "Lektion" },
             new ActivityType { Name = "Workshop" },
-            new ActivityType { Name = "Assignment" },
-            new ActivityType { Name = "Exam" }
+            new ActivityType { Name = "Uppgift" },
+            new ActivityType { Name = "Examination" }
         };
 
         await context.ActivityTypes.AddRangeAsync(types, cancellationToken);
