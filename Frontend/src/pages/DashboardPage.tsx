@@ -44,10 +44,7 @@ const DashboardPage = () => {
         Välkommen {user.fullName}!
       </Typography>
       <DashboardGrid>
-        <Card>
-          <Typography variant="h2" sx={{ marginBottom: '1rem' }}>
-            Min kurs
-          </Typography>
+        <Card title="Min kurs">
           <CardGrid>
             <Suspense>
               <Await resolve={course}>
@@ -63,8 +60,7 @@ const DashboardPage = () => {
             </Suspense>
           </CardGrid>
         </Card>
-        <Card>
-          <Typography variant="h2">Kommande aktiviteter</Typography>
+        <Card title="Kommande aktiviteter">
           <CollapsibleList
             items={mockCourse.activities}
             keyField="id"
