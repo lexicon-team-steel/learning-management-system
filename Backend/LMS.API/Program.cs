@@ -2,6 +2,7 @@ using LMS.API.Extensions;
 using LMS.API.Services;
 using LMS.API.Services.Seed;
 using LMS.Infrastructure.Data;
+using LMS.Services;
 
 namespace LMS.API;
 
@@ -24,6 +25,9 @@ public class Program
         builder.Services.AddScoped<CourseSeeder>();
         builder.Services.AddScoped<DataSeeder>();
         builder.Services.AddHostedService<DataSeedHostingService>();
+
+        builder.Services.AddHttpContextAccessor();
+        builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
         builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MapperProfile>());
         builder.Services.ConfigureCors();
