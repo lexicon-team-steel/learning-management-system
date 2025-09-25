@@ -3,8 +3,6 @@ import { useAuthContext } from '../utilities/hooks/useAuthContext';
 import { useNavigate } from 'react-router';
 import { AppBar, Box, Button, Chip, Container, Toolbar, Typography, styled } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
-import decodeToken from '../utilities/token/decodeToken';
-import { getTokens } from '../utilities/token';
 import colors from '../styles/colors';
 
 const HeaderBox = styled(Box)(() => ({
@@ -27,10 +25,7 @@ const StyledButton = styled(Button)(() => ({
 }));
 
 const Header = (): ReactElement => {
-  const { isLoggedIn, logout } = useAuthContext();
-  const token = getTokens();
-  const { name, role } = decodeToken(token ? token.accessToken : '');
-
+  const { logout, user } = useAuthContext();
   const navigate = useNavigate();
 
   const handleOnLogout = () => {
@@ -43,15 +38,11 @@ const Header = (): ReactElement => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <HeaderBox>
-            {isLoggedIn && (
-              <>
-                <StyledTypography>{name}</StyledTypography>
-                <StyledChip label={role} />
-                <StyledButton onClick={handleOnLogout} startIcon={<LogoutIcon />}>
-                  Logga ut
-                </StyledButton>
-              </>
-            )}
+            <StyledTypography>{user.fullName}</StyledTypography>
+            <StyledChip label={user.role} />
+            <StyledButton onClick={handleOnLogout} startIcon={<LogoutIcon />}>
+              Logga ut
+            </StyledButton>
           </HeaderBox>
         </Toolbar>
       </Container>

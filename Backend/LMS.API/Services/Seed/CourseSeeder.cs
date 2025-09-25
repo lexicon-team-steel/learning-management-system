@@ -1,5 +1,5 @@
 using Bogus;
-using LMS.Infractructure.Data;
+using LMS.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace LMS.API.Services.Seed;

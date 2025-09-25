@@ -13,7 +13,7 @@ export interface NavItem {
 
 // FIXME: change routes to correct route
 export const mainItems: NavItem[] = [
-  { text: 'Dashboard', icon: <HomeOutlinedIcon />, path: '/' },
+  { text: 'Dashboard', icon: <HomeOutlinedIcon />, path: '/dashboard' },
   { text: 'Kurser', icon: <ImportContactsOutlinedIcon />, path: '/courses' },
 ];
 

@@ -1,7 +1,7 @@
 using LMS.API.Extensions;
 using LMS.API.Services;
 using LMS.API.Services.Seed;
-using LMS.Infractructure.Data;
+using LMS.Infrastructure.Data;
 
 namespace LMS.API;
 
