@@ -10,4 +10,5 @@ public class CourseModule
     public Guid CourseId { get; set; }
 
     public Course Course { get; set; } = null!;
+    public ICollection<Activity> Activities { get; set; } = [];
 }
