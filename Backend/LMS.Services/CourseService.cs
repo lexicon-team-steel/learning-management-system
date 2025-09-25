@@ -23,6 +23,17 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
         return mapper.Map<IEnumerable<CourseDto>>(courses);
     }
 
+    public async Task<CourseDto> GetCourseWithModulesAsync(Guid courseId)
+    {
+        var userId = currentUser.UserId ?? throw new UnauthorizedAccessException();
+        var course = await uow.Courses.GetCourseWithModulesAsync(userId, courseId);
+
+        if (course is null)
+            throw new UnauthorizedAccessException();
+
+        return mapper.Map<CourseDto>(course);
+    }
+
     // private Task<ApplicationUser?> VerifyUserExistsAsync(string studentId) =>
     //     uow.Students.GetUserAsync(studentId) ??
     //         throw new NotFoundException("Student was not found");

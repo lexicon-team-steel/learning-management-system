@@ -10,7 +10,17 @@ public class CourseRepository(ApplicationDbContext context)
 {
 
     public Task<List<Course>> GetUserCoursesAsync(string userId) =>
-        GetCoursesByUserId(userId, includeModules: false);
+        FindAll()
+            .Where(s => s.Users.Any(u => u.Id == userId))
+            .ToListAsync();
+
+    public Task<Course?> GetCourseWithModulesAsync(string userId, Guid courseId) =>
+        FindAll()
+            .Include(c => c.Modules)
+            .Where(s => s.Users.Any(u => u.Id == userId))
+            .FirstOrDefaultAsync(c => c.Id == courseId);
+
+
 
 
 

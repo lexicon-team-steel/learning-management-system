@@ -9,4 +9,5 @@ public interface ICourseRepository : IRepositoryBase<Course>
     public Task<IEnumerable<ApplicationUser>?> GetCourseClassmatesAsync(string userId);
 
     public Task<List<Course>> GetUserCoursesAsync(string userId);
+    public Task<Course?> GetCourseWithModulesAsync(string userId, Guid courseId);
 }
