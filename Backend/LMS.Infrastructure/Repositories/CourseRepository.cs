@@ -11,16 +11,21 @@ public class CourseRepository(ApplicationDbContext context)
 
     public Task<List<Course>> GetUserCoursesAsync(string userId) =>
         FindAll()
-            .Where(s => s.Users.Any(u => u.Id == userId))
+            .Where(c => c.Users.Any(u => u.Id == userId))
             .ToListAsync();
 
     public Task<Course?> GetCourseWithModulesAsync(string userId, Guid courseId) =>
         FindAll()
             .Include(c => c.Modules)
-            .Where(s => s.Users.Any(u => u.Id == userId))
+            .Where(c => c.Users.Any(u => u.Id == userId))
             .FirstOrDefaultAsync(c => c.Id == courseId);
 
 
+    public Task<List<ApplicationUser>> GetCourseParticipantsAsync(string userId, Guid courseId) =>
+        FindAll()
+            .Where(c => c.Users.Any(u => u.Id == userId) && c.Id == courseId)
+            .SelectMany(s => s.Users)
+            .ToListAsync();
 
 
 
@@ -45,15 +50,6 @@ public class CourseRepository(ApplicationDbContext context)
         return courses
             .Where(s => s.Users.Any(u => u.Id == studentId))
             .FirstOrDefaultAsync();
-    }
-
-    private async Task<List<Course>> GetCoursesByUserId(string userId, bool includeModules = false, bool includeUsers = false)
-    {
-        var courses = FindAll();
-        if (includeModules) courses = courses.Include(c => c.Modules);
-        if (includeUsers) courses = courses.Include(c => c.Users);
-
-        return await courses.Where(s => s.Users.Any(u => u.Id == userId)).ToListAsync();
     }
 
 }

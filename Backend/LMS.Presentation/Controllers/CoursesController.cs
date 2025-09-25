@@ -36,8 +36,21 @@ public class CoursesController(IServiceManager serviceManager) : ControllerBase
     [SwaggerResponse(StatusCodes.Status200OK, "Course with modules", typeof(CourseDto))]
     [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
     // [SwaggerResponse(StatusCodes.Status404NotFound, "Student not found by JWT token")]
-    [SwaggerResponse(StatusCodes.Status409Conflict, "Student doesn't have any course")]
+    // [SwaggerResponse(StatusCodes.Status409Conflict, "Student doesn't have any course")]
     public async Task<ActionResult<CourseDto>> GetStudentCourseWithModules(Guid courseId) =>
         Ok(await courseService.GetCourseWithModulesAsync(courseId));
 
+    [HttpGet("{courseId}/participants")]
+    [Authorize]
+    [SwaggerOperation(
+        Summary = "Get course participants",
+        Description = "Returns course students for authorized user.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "List of students", typeof(IEnumerable<StudentDto>))]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+    // [SwaggerResponse(StatusCodes.Status404NotFound, "Student not found by JWT token")]
+    // [SwaggerResponse(StatusCodes.Status409Conflict, "Student doesn't have any course")]
+    public async Task<ActionResult<IEnumerable<StudentDto>>> GetStudentClassmates(Guid courseId)
+    {
+        return Ok(await courseService.GetCourseParticipantsAsync(courseId));
+    }
 }
