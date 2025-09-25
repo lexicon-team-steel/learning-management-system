@@ -7,12 +7,12 @@ namespace LMS.API.Services.Seed;
 
 public class UserSeeder(
     UserManager<ApplicationUser> userManager,
-    RoleManager<IdentityRole> roleManager,
+    RoleManager<ApplicationRole> roleManager,
     IConfiguration configuration,
     ApplicationDbContext context)
 {
     private readonly UserManager<ApplicationUser> userManager = userManager;
-    private readonly RoleManager<IdentityRole> roleManager = roleManager;
+    private readonly RoleManager<ApplicationRole> roleManager = roleManager;
     private readonly IConfiguration configuration = configuration;
     private readonly ApplicationDbContext context = context;
 
@@ -34,7 +34,7 @@ public class UserSeeder(
         {
             if (await roleManager.RoleExistsAsync(rolename)) continue;
 
-            var role = new IdentityRole { Name = rolename };
+            var role = new ApplicationRole { Name = rolename };
             var res = await roleManager.CreateAsync(role);
 
             if (!res.Succeeded) throw new Exception(string.Join("\n", res.Errors));
