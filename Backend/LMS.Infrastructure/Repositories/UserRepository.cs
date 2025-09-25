@@ -1,9 +1,9 @@
 using Domain.Contracts.Repositories;
 using Domain.Models.Entities;
-using LMS.Infractructure.Data;
+using LMS.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace LMS.Infractructure.Repositories;
+namespace LMS.Infrastructure.Repositories;
 
 public class UserRepository(ApplicationDbContext context) : RepositoryBase<ApplicationUser>(context), IUserRepository
 {

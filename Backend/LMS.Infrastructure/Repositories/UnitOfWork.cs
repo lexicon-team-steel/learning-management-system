@@ -1,7 +1,7 @@
 using Domain.Contracts.Repositories;
-using LMS.Infractructure.Data;
+using LMS.Infrastructure.Data;
 
-namespace LMS.Infractructure.Repositories;
+namespace LMS.Infrastructure.Repositories;
 
 public class UnitOfWork(ApplicationDbContext context, Lazy<IUserRepository> UserRepository,
 Lazy<ICourseRepository> CourseRepository) : IUnitOfWork
