@@ -22,6 +22,8 @@ public class Program
 
         builder.Services.AddScoped<UserSeeder>();
         builder.Services.AddScoped<CourseSeeder>();
+        builder.Services.AddScoped<ActivityTypeSeeder>();
+        builder.Services.AddScoped<ActivitySeeder>();
         builder.Services.AddScoped<DataSeeder>();
         builder.Services.AddHostedService<DataSeedHostingService>();
 
