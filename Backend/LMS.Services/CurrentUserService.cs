@@ -17,7 +17,7 @@ public class CurrentUserService : ICurrentUserService
         _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
     public string? Role =>
-        _httpContextAccessor.HttpContext?.User.FindFirstValue("role");
+        _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Role);
 
     public bool IsTeacher => Role == "Teacher";
 
