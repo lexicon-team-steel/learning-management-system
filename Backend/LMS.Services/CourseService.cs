@@ -12,8 +12,7 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
 {
     public async Task<IEnumerable<CourseDto>> GetUserCoursesAsync()
     {
-        var userId = currentUser.UserId ?? throw new UnauthorizedException();
-
+        var userId = GetUserId();
         var courses = await uow.Courses.GetUserCoursesAsync(userId);
 
         if (currentUser.IsStudent && courses.Count == 0)
@@ -24,26 +23,22 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
 
     public async Task<CourseDto> GetCourseWithModulesAsync(Guid courseId)
     {
-        var userId = currentUser.UserId
-            ?? throw new UnauthorizedException();
-        if (!await uow.Courses.UserHasAccessToCourse(userId, courseId))
-            throw new UnauthorizedException();
-
-        var course = await uow.Courses.GetCourseByIdAsync(courseId, includeModules: true)
-            ?? throw new NotFoundException("Course not found");
+        var userId = GetUserId();
+        var course = await uow.Courses.GetUserCourseWithModulesAsync(userId, courseId);
+        if (course == null) throw new NotFoundException("Course not found or no access");
 
         return mapper.Map<CourseDto>(course);
     }
 
     public async Task<IEnumerable<StudentDto>> GetCourseParticipantsAsync(Guid courseId)
     {
-        var userId = currentUser.UserId ?? throw new UnauthorizedException();
-        if (!await uow.Courses.UserHasAccessToCourse(userId, courseId))
-            throw new UnauthorizedException();
+        var userId = GetUserId();
+        var participants = await uow.Courses.GetUserCourseParticipantsAsync(userId, courseId);
 
-        var course = await uow.Courses.GetCourseByIdAsync(courseId, includeUsers: true)
-            ?? throw new NotFoundException("Course not found");
-
-        return mapper.Map<IEnumerable<StudentDto>>(course.Users);
+        return mapper.Map<IEnumerable<StudentDto>>(participants);
     }
+
+    private string GetUserId() =>
+        currentUser.UserId ?? throw new UnauthorizedException();
+
 }
