@@ -12,7 +12,7 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
 {
     public async Task<IEnumerable<CourseDto>> GetUserCoursesAsync()
     {
-        var userId = currentUser.UserId ?? throw new UnauthorizedAccessException();
+        var userId = currentUser.UserId ?? throw new UnauthorizedException();
 
         var courses = await uow.Courses.GetUserCoursesAsync(userId);
 
@@ -25,9 +25,9 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
     public async Task<CourseDto> GetCourseWithModulesAsync(Guid courseId)
     {
         var userId = currentUser.UserId
-            ?? throw new UnauthorizedAccessException();
+            ?? throw new UnauthorizedException();
         if (!await uow.Courses.UserHasAccessToCourse(userId, courseId))
-            throw new UnauthorizedAccessException();
+            throw new UnauthorizedException();
 
         var course = await uow.Courses.GetCourseByIdAsync(courseId, includeModules: true)
             ?? throw new NotFoundException("Course not found");
@@ -37,9 +37,9 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
 
     public async Task<IEnumerable<StudentDto>> GetCourseParticipantsAsync(Guid courseId)
     {
-        var userId = currentUser.UserId ?? throw new UnauthorizedAccessException();
+        var userId = currentUser.UserId ?? throw new UnauthorizedException();
         if (!await uow.Courses.UserHasAccessToCourse(userId, courseId))
-            throw new UnauthorizedAccessException();
+            throw new UnauthorizedException();
 
         var course = await uow.Courses.GetCourseByIdAsync(courseId, includeUsers: true)
             ?? throw new NotFoundException("Course not found");
