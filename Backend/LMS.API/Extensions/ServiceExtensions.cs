@@ -105,7 +105,6 @@ public static class ServiceExtensions
         services.AddScoped<IServiceManager, ServiceManager>();
 
         services.AddLazyService<IAuthService, AuthService>();
-        services.AddLazyService<IStudentService, StudentService>();
         services.AddLazyService<ICourseService, CourseService>();
     }
 
