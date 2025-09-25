@@ -93,6 +93,7 @@ public static class ServiceExtensions
 
         services.AddLazyService<IAuthService, AuthService>();
         services.AddLazyService<IStudentService, StudentService>();
+        services.AddLazyService<ICourseService, CourseService>();
     }
 
     private static void AddLazyService<TInterface, TImplementation>(this IServiceCollection services)
