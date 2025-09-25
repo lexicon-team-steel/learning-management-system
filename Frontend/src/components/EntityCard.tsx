@@ -1,12 +1,14 @@
 import { Card, Link, styled, Typography } from '@mui/material';
 import { ReactElement } from 'react';
-import Date from './Date';
+import DateAndTime from './DateAndTime';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 interface IEntityCardProps {
   title: string;
   text: string;
   link: string;
-  date: { start: string; end?: string };
+  date?: { start: string; end?: string };
+  time?: { start?: string; end?: string };
 }
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -31,7 +33,7 @@ const EntityCard = ({ title, text, link, date }: IEntityCardProps): ReactElement
       <StyledCard variant="outlined">
         <Typography variant="h3">{title}</Typography>
         <StyledTypography variant="body1">{text}</StyledTypography>
-        <Date start={date.start} end={date.end && date.end} />
+        <DateAndTime icon={CalendarMonthIcon} date={date} />
       </StyledCard>
     </Link>
   );
