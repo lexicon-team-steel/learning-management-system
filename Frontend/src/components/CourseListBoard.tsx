@@ -11,9 +11,8 @@ const CourseListBoard = (): ReactElement => {
     <CustomCard title="Alla kurser">
       <Grid container spacing={2} columns={3}>
         {mockCourses.map((mc) => (
-          <Grid size={1}>
+          <Grid key={mc.id} size={1}>
             <EntityCard
-              key={mc.id}
               title={mc.course}
               text={mc.info}
               date={{ start: mc.dateStart, end: mc.dateEnd }}
