@@ -35,12 +35,26 @@ export interface IParticipantLoader {
 }
 
 export interface ICourse {
+  id: string;
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  modules?: IModule[];
+}
+
+export interface IDashboardLoader {
+  course: Promise<ICourse>;
+}
+
+export interface IModule {
+  id: string;
   name: string;
   description: string;
   startDate: string;
   endDate: string;
 }
 
-export interface IDashboardLoader {
+export interface ICourseModulesLoader {
   course: Promise<ICourse>;
 }
