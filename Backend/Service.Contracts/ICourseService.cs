@@ -5,5 +5,5 @@ namespace Service.Contracts;
 
 public interface ICourseService
 {
-
+    public Task<IEnumerable<CourseDto>> GetUserCoursesAsync();
 }

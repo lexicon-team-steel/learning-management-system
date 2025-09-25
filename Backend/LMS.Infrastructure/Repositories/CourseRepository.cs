@@ -8,6 +8,12 @@ namespace LMS.Infrastructure.Repositories;
 public class CourseRepository(ApplicationDbContext context)
     : RepositoryBase<Course>(context), ICourseRepository
 {
+
+    public Task<List<Course>> GetUserCoursesAsync(string userId) =>
+        GetCoursesByUserId(userId, includeModules: false);
+
+
+
     public Task<Course?> GetCourseAsync(string studentId) =>
         GetCourseByUserId(studentId, includeModules: false);
 
@@ -30,4 +36,14 @@ public class CourseRepository(ApplicationDbContext context)
             .Where(s => s.Users.Any(u => u.Id == studentId))
             .FirstOrDefaultAsync();
     }
+
+    private async Task<List<Course>> GetCoursesByUserId(string userId, bool includeModules = false, bool includeUsers = false)
+    {
+        var courses = FindAll();
+        if (includeModules) courses = courses.Include(c => c.Modules);
+        if (includeUsers) courses = courses.Include(c => c.Users);
+
+        return await courses.Where(s => s.Users.Any(u => u.Id == userId)).ToListAsync();
+    }
+
 }
