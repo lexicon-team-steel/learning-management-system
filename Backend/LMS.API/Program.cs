@@ -21,13 +21,7 @@ public class Program
         builder.Services.ConfigureAuthentication(builder.Configuration);
         builder.Services.ConfigureIdentity();
 
-        builder.Services.AddScoped<UserSeeder>();
-        builder.Services.AddScoped<CourseSeeder>();
-        builder.Services.AddScoped<ActivityTypeSeeder>();
-        builder.Services.AddScoped<ActivitySeeder>();
-        builder.Services.AddScoped<DataSeeder>();
-        builder.Services.AddHostedService<DataSeedHostingService>();
-
+        builder.Services.AddSeeders();
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 

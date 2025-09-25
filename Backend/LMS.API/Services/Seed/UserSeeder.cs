@@ -19,13 +19,13 @@ public class UserSeeder(
     public const string TeacherRole = "Teacher";
     public const string StudentRole = "Student";
 
-    public async Task SeedAsync(CancellationToken cancellationToken)
+    public async Task SeedAsync(CancellationToken cancellationToken, int count = 20)
     {
         if (await context.Users.AnyAsync(cancellationToken)) return;
 
         await AddRolesAsync([TeacherRole, StudentRole]);
         await AddDemoUsersAsync();
-        await AddUsersAsync(20);
+        await AddUsersAsync(count);
     }
 
     private async Task AddRolesAsync(string[] rolenames)
@@ -57,7 +57,7 @@ public class UserSeeder(
 
         for (int i = 0; i < nrOfUsers; i++)
         {
-            await AddUserToDb(students[i].FirstName, students[i].LastName, students[i].Email!, StudentRole);
+            await AddUserToDb(students[i].FirstName, students[i].LastName, students[i].Email!, i % 5 == 0 ? TeacherRole : StudentRole);
         }
     }
 
