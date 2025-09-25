@@ -21,5 +21,7 @@ public class CourseRepository(ApplicationDbContext context)
         FindAll()
             .Where(c => c.Users.Any(u => u.Id == userId) && c.Id == courseId)
             .SelectMany(s => s.Users)
+            .Include(u => u.UserRoles)
+                .ThenInclude(ur => ur.Role)
             .ToListAsync();
 }

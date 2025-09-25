@@ -15,7 +15,8 @@ public class MapperProfile : Profile
         CreateMap<UserRegistrationDto, ApplicationUser>();
         CreateMap<Course, CourseDto>();
         CreateMap<CourseModule, CourseModuleDto>();
-        CreateMap<ApplicationUser, UserDto>();
+        CreateMap<ApplicationUser, UserDto>()
+            .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.UserRoles.Select(ur => ur.Role.Name))); ;
         CreateMap<Activity, ActivityDto>();
         CreateMap<ActivityType, ActivityTypeDto>();
     }
