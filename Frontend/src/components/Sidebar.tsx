@@ -12,7 +12,13 @@ import {
   styled,
 } from '@mui/material';
 import colors from '../styles/colors';
-import { adminItems, baseMainItems, NavItem, studentCourseItem, teacherCourseItem } from '../utilities/navigationConstants';
+import {
+  adminItems,
+  baseMainItems,
+  NavItem,
+  studentCourseItem,
+  teacherCourseItem,
+} from '../utilities/navigationConstants';
 import { useAuthContext } from '../utilities/hooks/useAuthContext';
 
 interface StyledListItemButtonProps {
@@ -74,18 +80,12 @@ const Sidebar = (): ReactElement => {
   const location = useLocation();
   const { isTeacher } = useAuthContext();
 
-  const mainItems = [
-    ...baseMainItems,
-    isTeacher ? teacherCourseItem : studentCourseItem,
-  ];
+  const mainItems = [...baseMainItems, isTeacher ? teacherCourseItem : studentCourseItem];
 
   const renderNavItems = (items: NavItem[]) =>
     items.map(({ text, icon, path }) => (
       <ListItem key={text} disablePadding>
-        <StyledListItemButton
-          active={location.pathname.startsWith(path)}
-          onClick={() => navigate(path)}
-        >
+        <StyledListItemButton active={location.pathname.startsWith(path)} onClick={() => navigate(path)}>
           <ListItemIcon>{icon}</ListItemIcon>
           <ListItemText primary={text} />
         </StyledListItemButton>
