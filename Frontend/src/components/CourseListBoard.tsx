@@ -1,12 +1,14 @@
 import { ReactElement } from 'react';
 import { Grid } from '@mui/material';
-import BasicCard from './BasicCard';
 import EntityCard from './EntityCard';
 import { mockCourses } from '../utilities/data/mockData';
+import CustomCard from './Card';
 
-const CoursesBoard = (): ReactElement => {
+//This component is open for modification :)
+
+const CourseListBoard = (): ReactElement => {
   return (
-    <BasicCard title="Alla kurser">
+    <CustomCard title="Alla kurser">
       <Grid container spacing={2} columns={3}>
         {mockCourses.map((mc) => (
           <Grid size={1}>
@@ -19,8 +21,8 @@ const CoursesBoard = (): ReactElement => {
           </Grid>
         ))}
       </Grid>
-    </BasicCard>
+    </CustomCard>
   );
 };
 
-export default CoursesBoard;
+export default CourseListBoard;
