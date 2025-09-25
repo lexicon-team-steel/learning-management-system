@@ -13,6 +13,7 @@ const CourseListBoard = (): ReactElement => {
         {mockCourses.map((mc) => (
           <Grid size={1}>
             <EntityCard
+              key={mc.id}
               title={mc.course}
               text={mc.info}
               date={{ start: mc.dateStart, end: mc.dateEnd }}
