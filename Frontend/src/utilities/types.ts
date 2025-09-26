@@ -58,3 +58,8 @@ export interface IModule {
 export interface ICourseModulesLoader {
   course: Promise<ICourse>;
 }
+
+export interface ICourseLoader {
+  course: Promise<ICourse>;
+  participants: Promise<IStudent[]>;
+}
