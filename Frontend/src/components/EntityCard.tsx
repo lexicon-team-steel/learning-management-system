@@ -8,7 +8,7 @@ interface IEntityCardProps {
   text: string;
   link?: string;
   date?: { start: string; end?: string };
-  time?: { start: string; end: string };
+  time?: { start: string; end?: string };
 }
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -45,7 +45,7 @@ const EntityCard = ({ title, text, link, date, time }: IEntityCardProps): ReactE
       <StyledTypography variant="body1">{text}</StyledTypography>
       <StyledStack maxWidth="sm">
         {date && <Date start={date.start} end={date.end && date.end} />}
-        {time && <Time start={time.start} end={time.end && time.end} />}{' '}
+        {time && <Time start={time.start} end={time.end && time.end} />}
       </StyledStack>
     </StyledCard>
   );

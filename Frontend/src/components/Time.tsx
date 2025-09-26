@@ -4,13 +4,14 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 interface ITimeProps {
   start: string;
-  end: string;
+  end?: string;
+  showIcon?: boolean;
 }
 
-const Time = ({ start, end }: ITimeProps): ReactElement => {
+const Time = ({ start, end, showIcon = true }: ITimeProps): ReactElement => {
   return (
     <Stack direction="row" spacing={1}>
-      <AccessTimeIcon fontSize="small" />
+      {showIcon && <AccessTimeIcon fontSize="small" />}
       <Typography>
         {start}
         {end && ` – ${end}`}
