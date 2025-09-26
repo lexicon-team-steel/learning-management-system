@@ -1,12 +1,12 @@
 import { ReactElement, Suspense } from 'react';
 import { Await, useLoaderData } from 'react-router';
-import { ICourse, IStudent } from '../utilities/types';
+import { ICourse, IModule, IStudent } from '../utilities/types';
 import { Box, Card, Grid, Typography } from '@mui/material';
 import CustomCard from '../components/Card';
 import CollapsibleList from '../components/CollapsibleList';
 import EntityCard from '../components/EntityCard';
-import { mockCourse } from '../utilities/data/mockData';
 import ParticipantItem from '../components/ParticipantItem';
+import { formatDate } from '../utilities/helpers';
 
 const CoursePage = (): ReactElement => {
   const { course, participants } = useLoaderData();
@@ -33,19 +33,25 @@ const CoursePage = (): ReactElement => {
         <CustomCard title="Moduler">
           <Box display={'flex'} flexDirection={'column'} gap={2}>
             <Suspense>
-              <Await resolve="replace this with participants object/array like above which we probably get from loader in future">
-                {mockCourse.modules.map((module) => (
-                  <EntityCard
-                    key={module.id}
-                    title={module.name}
-                    text={module.description}
-                    date={{
-                      start: new Intl.DateTimeFormat('sv-SE').format(module.dateStart),
-                      end: new Intl.DateTimeFormat('sv-SE').format(module.dateEnd),
-                    }}
-                    link="/module"
-                  />
-                ))}
+              <Await resolve={course}>
+                {(resolvedCourse: ICourse) => {
+                  if (!resolvedCourse.modules) {
+                    return <Typography>Denna kurs har ännu inga moduler.</Typography>;
+                  }
+
+                  return resolvedCourse.modules.map((module: IModule) => (
+                    <EntityCard
+                      key={module.id}
+                      title={module.name}
+                      text={module.description}
+                      date={{
+                        start: formatDate(module.startDate),
+                        end: formatDate(module.endDate),
+                      }}
+                      link="/module"
+                    />
+                  ));
+                }}
               </Await>
             </Suspense>
           </Box>
