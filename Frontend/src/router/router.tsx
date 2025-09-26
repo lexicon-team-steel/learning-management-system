@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, Navigate } from 'react-router';
 import Layout from '../pages/Layout';
 import { requireAuthLoader } from '../utilities/loaders/requireAuthLoader';
 import DashboardPage from '../pages/DashboardPage';
@@ -16,6 +16,10 @@ export const router = createBrowserRouter([
     element: <Layout />,
     loader: requireAuthLoader,
     children: [
+      {
+        index: true,
+        element: <Navigate to="/dashboard" replace />,
+      },
       {
         path: '/dashboard',
         element: <DashboardPage />,
