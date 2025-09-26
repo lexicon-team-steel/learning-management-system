@@ -55,10 +55,6 @@ export interface IModule {
   endDate: string;
 }
 
-export interface ICourseModulesLoader {
-  course: Promise<ICourse>;
-}
-
 export interface ICourseLoader {
   course: Promise<ICourse>;
   participants: Promise<IStudent[]>;
