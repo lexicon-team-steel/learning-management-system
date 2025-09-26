@@ -9,6 +9,23 @@ declare module '@mui/material/Typography' {
   }
 }
 
+declare module '@mui/material/styles' {
+  interface Theme {
+    layout: {
+      pageMargin: string;
+      gap: string;
+      gapLarge: string;
+    };
+  }
+  interface ThemeOptions {
+    layout: {
+      pageMargin: string;
+      gap: string;
+      gapLarge: string;
+    };
+  }
+}
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -43,6 +60,11 @@ const theme = createTheme({
   spacing: 8, // if we use spacing in styling 1 will be 8px, 2 16px etc
   shape: {
     borderRadius: 8,
+  },
+  layout: {
+    pageMargin: '1.5rem',
+    gap: '1rem',
+    gapLarge: '1.5rem',
   },
   components: {
     // example: standard for buttons, can be changed
