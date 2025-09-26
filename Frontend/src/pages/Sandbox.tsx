@@ -7,29 +7,12 @@ import { IParticipantLoader, IStudent } from '../utilities/types';
 import { Suspense } from 'react';
 import ParticipantItem from '../components/ParticipantItem';
 import Card from '../components/Card';
+import CourseListBoard from '../components/CourseListBoard';
 
 const Sandbox = () => {
   const { participants } = useLoaderData<IParticipantLoader>();
 
-  return (
-    <Main>
-      <Box sx={{ maxWidth: '360px' }}>
-        <Suspense fallback="Waiting for data...">
-          <Await resolve={participants}>
-            {(students: IStudent[]) => (
-              <Card title="Kursdeltagare">
-                <CollapsibleList
-                  items={students}
-                  keyField="email"
-                  renderItem={(item: IStudent) => <ParticipantItem participant={item} />}
-                />
-              </Card>
-            )}
-          </Await>
-        </Suspense>
-      </Box>
-    </Main>
-  );
+  return <CourseListBoard />;
 };
 
 export default Sandbox;
