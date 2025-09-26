@@ -35,6 +35,7 @@ export interface IParticipantLoader {
 }
 
 export interface ICourse {
+  id: string;
   name: string;
   description: string;
   startDate: string;
@@ -42,7 +43,7 @@ export interface ICourse {
 }
 
 export interface IDashboardLoader {
-  course: Promise<ICourse>;
+  courses: Promise<ICourse>;
 }
 
 export interface ICourseLoader {
