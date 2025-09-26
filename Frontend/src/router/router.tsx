@@ -33,12 +33,13 @@ export const router = createBrowserRouter([
         element: <CourseListBoard />, //This component is open for modification :)
       },
       {
-        path: '/courses/:id',
+        path: 'courses/:id',
         element: <CoursePage />,
         loader: courseLoader,
       },
       {
         path: 'course',
+        element: <div />,
         loader: defaultCourseLoader,
       },
     ],
