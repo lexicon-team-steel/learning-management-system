@@ -49,7 +49,7 @@ const DashboardPage = () => {
                       title={course.name}
                       text={course.description.substring(0, 50) + '...'} // TODO: do better
                       date={{ start: formatDate(course.startDate) }}
-                      link={`/course/${course.id}`}
+                      link={`/courses/${course.id}`}
                     />
                   ))
                 }
