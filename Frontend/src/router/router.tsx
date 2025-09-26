@@ -6,7 +6,7 @@ import Sandbox from '../pages/Sandbox';
 import LoginPage from '../pages/LoginPage';
 import { dashboardLoader } from '../utilities/loaders/dashboardLoader';
 import CoursePage from '../pages/CoursePage';
-import { courseLoader } from '../utilities/loaders/courseLoader';
+import { courseLoader, defaultCourseLoader } from '../utilities/loaders/courseLoader';
 import CourseListBoard from '../components/CourseListBoard';
 
 export const router = createBrowserRouter([
@@ -34,8 +34,8 @@ export const router = createBrowserRouter([
         loader: courseLoader,
       },
       {
-        path: 'course', //TODO: Needs restriction?
-        element: <CoursePage />,
+        path: 'course',
+        loader: defaultCourseLoader,
       },
     ],
   },
