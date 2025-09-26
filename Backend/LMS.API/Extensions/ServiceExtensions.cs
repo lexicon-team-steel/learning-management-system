@@ -85,6 +85,7 @@ public static class ServiceExtensions
 
         services.AddLazyService<IUserRepository, UserRepository>();
         services.AddLazyService<ICourseRepository, CourseRepository>();
+        services.AddLazyService<IActivityRepository, ActivityRepository>();
     }
 
     public static void AddServiceLayer(this IServiceCollection services)
