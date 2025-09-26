@@ -14,6 +14,7 @@ export const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     loader: requireAuthLoader,
+    hydrateFallbackElement: <Sandbox />,
     children: [
       {
         index: true,
