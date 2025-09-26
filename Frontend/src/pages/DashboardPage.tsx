@@ -8,7 +8,7 @@ import { useAuthContext } from '../utilities/hooks/useAuthContext';
 import { Await, useLoaderData } from 'react-router';
 import { Suspense } from 'react';
 import { ICourse } from '../utilities/types';
-import { formatDate } from '../utilities/dateTime';
+import { formatDate } from '../utilities/helpers';
 
 const DashboardGrid = styled(Box)(({ theme }) => ({
   display: 'grid',
