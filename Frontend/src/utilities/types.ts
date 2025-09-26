@@ -44,3 +44,8 @@ export interface ICourse {
 export interface IDashboardLoader {
   course: Promise<ICourse>;
 }
+
+export interface ICourseLoader {
+  course: Promise<ICourse>;
+  participants: Promise<IStudent[]>;
+}

@@ -12,7 +12,13 @@ import {
   styled,
 } from '@mui/material';
 import colors from '../styles/colors';
-import { adminItems, mainItems, NavItem } from '../utilities/navigationConstants';
+import {
+  adminItems,
+  baseMainItems,
+  NavItem,
+  studentCourseItem,
+  teacherCourseItem,
+} from '../utilities/navigationConstants';
 import { useAuthContext } from '../utilities/hooks/useAuthContext';
 
 interface StyledListItemButtonProps {
@@ -73,6 +79,8 @@ const Sidebar = (): ReactElement => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isTeacher } = useAuthContext();
+
+  const mainItems = [...baseMainItems, isTeacher ? teacherCourseItem : studentCourseItem];
 
   const renderNavItems = (items: NavItem[]) =>
     items.map(({ text, icon, path }) => (
