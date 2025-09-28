@@ -1,21 +1,16 @@
 import Card from './Card';
 import { mockCourse } from '../utilities/data/mockData';
 import EntityCard from './EntityCard';
-import { formatDate, formatTime } from '../utilities/helpers';
-import { Stack, styled } from '@mui/material';
-
-const StyledStack = styled(Stack)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-}));
+import { formatDate } from '../utilities/helpers';
+import { Stack } from '@mui/material';
+import theme from '../styles/theme';
 
 const ModuleActivities = () => {
   const items = mockCourse.activities;
 
   return (
     <Card title="Aktivititer " titleVariant="h2">
-      <StyledStack>
+      <Stack spacing={theme.spacing(2)}>
         {items.map((item) => (
           <EntityCard
             key={item.name}
@@ -23,12 +18,12 @@ const ModuleActivities = () => {
             text={item.description}
             date={{ start: formatDate(item.date) }}
             time={{
-              start: formatTime(item.timeStart),
-              end: formatTime(item.timeEnd),
+              start: item.timeStart,
+              end: item.timeEnd,
             }}
           />
         ))}
-      </StyledStack>
+      </Stack>
     </Card>
   );
 };

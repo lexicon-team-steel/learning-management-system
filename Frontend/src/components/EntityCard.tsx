@@ -7,7 +7,7 @@ interface IEntityCardProps {
   title: string;
   text: string;
   link?: string;
-  date?: { start: string; end?: string };
+  date: { start: string; end?: string };
   time?: { start: string; end?: string };
 }
 
@@ -16,14 +16,6 @@ const StyledCard = styled(Card)(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(1.25),
   padding: theme.spacing(2.5),
-}));
-
-const StyledStack = styled(Stack)(() => ({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  width: '100%',
 }));
 
 const StyledLink = styled(Link)(({ theme }) => ({
@@ -43,21 +35,19 @@ const EntityCard = ({ title, text, link, date, time }: IEntityCardProps): ReactE
     <StyledCard variant="outlined">
       <Typography variant="h3">{title}</Typography>
       <StyledTypography variant="body1">{text}</StyledTypography>
-      <StyledStack maxWidth="sm">
-        {date && <Date start={date.start} end={date.end && date.end} />}
+      <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" maxWidth="sm">
+        <Date start={date.start} end={date.end && date.end} />
         {time && <Time start={time.start} end={time.end && time.end} />}
-      </StyledStack>
+      </Stack>
     </StyledCard>
   );
 
-  if (!link) {
-    return Card;
-  }
-
-  return (
+  return link ? (
     <StyledLink href={link} underline="none">
       {Card}
     </StyledLink>
+  ) : (
+    Card
   );
 };
 
