@@ -9,7 +9,7 @@ interface IDateProps {
 
 const Date = ({ start, end }: IDateProps): ReactElement => {
   return (
-    <Stack direction="row" spacing={1}>
+    <Stack direction="row" spacing={1} alignItems="center">
       <CalendarMonthIcon fontSize="small" />
       <Typography>
         {start}

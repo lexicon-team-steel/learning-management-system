@@ -10,7 +10,7 @@ interface ITimeProps {
 
 const Time = ({ start, end, showIcon = true }: ITimeProps): ReactElement => {
   return (
-    <Stack direction="row" spacing={1}>
+    <Stack direction="row" spacing={1} alignItems="center">
       {showIcon && <AccessTimeIcon fontSize="small" />}
       <Typography>
         {start}
