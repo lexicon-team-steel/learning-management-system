@@ -1,8 +1,8 @@
 namespace Domain.Models.Exceptions;
 
-public abstract class ApiException(string message, string title)
+public abstract class ApiException(string message, int statusCode)
     : Exception(message)
 {
-    public string Title { get; } = title;
+    public int StatusCode { get; } = statusCode;
 }
 

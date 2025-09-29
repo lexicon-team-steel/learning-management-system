@@ -1,3 +1,5 @@
+using LMS.API.Services;
+using LMS.API.Services.Seed;
 using LMS.Infrastructure.Data;
 using LMS.Infrastructure.Repositories;
 using LMS.Presentation;
@@ -79,6 +81,17 @@ public static class ServiceExtensions
                 options.UseSqlite(configuration.GetConnectionString("ApplicationDbContext") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContext' not found.")));
     }
 
+    public static void AddSeeders(this IServiceCollection services)
+    {
+        services.AddScoped<UserSeeder>();
+        services.AddScoped<CourseSeeder>();
+        services.AddScoped<ActivityTypeSeeder>();
+        services.AddScoped<ActivitySeeder>();
+        services.AddScoped<DataSeeder>();
+
+        services.AddHostedService<DataSeedHostingService>();
+    }
+
     public static void AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -92,7 +105,7 @@ public static class ServiceExtensions
         services.AddScoped<IServiceManager, ServiceManager>();
 
         services.AddLazyService<IAuthService, AuthService>();
-        services.AddLazyService<IStudentService, StudentService>();
+        services.AddLazyService<ICourseService, CourseService>();
     }
 
     private static void AddLazyService<TInterface, TImplementation>(this IServiceCollection services)
