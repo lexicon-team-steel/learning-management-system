@@ -22,7 +22,7 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
     {
         var userId = GetUserId();
         var course = await uow.Courses.GetUserCourseWithModulesAsync(userId, courseId);
-        if (course == null) throw new NotFoundException("Course not found or you don’t have access");
+        if (course == null) throw new NotFoundException("Course not found or you don't have access");
 
         return mapper.Map<CourseDto>(course);
     }
