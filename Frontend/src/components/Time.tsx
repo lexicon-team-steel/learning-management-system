@@ -1,16 +1,17 @@
 import { Stack, Typography } from '@mui/material';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { ReactElement } from 'react';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
-interface IDateProps {
+interface ITimeProps {
   start: string;
   end?: string;
+  showIcon?: boolean;
 }
 
-const Date = ({ start, end }: IDateProps): ReactElement => {
+const Time = ({ start, end, showIcon = true }: ITimeProps): ReactElement => {
   return (
     <Stack direction="row" spacing={1} alignItems="center">
-      <CalendarMonthIcon fontSize="small" />
+      {showIcon && <AccessTimeIcon fontSize="small" />}
       <Typography>
         {start}
         {end && ` – ${end}`}
@@ -19,4 +20,4 @@ const Date = ({ start, end }: IDateProps): ReactElement => {
   );
 };
 
-export default Date;
+export default Time;
