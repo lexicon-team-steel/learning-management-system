@@ -1,25 +1,34 @@
-import { ReactElement } from 'react';
+import { ReactElement, Suspense } from 'react';
 import { Grid } from '@mui/material';
 import EntityCard from './EntityCard';
-import { mockCourses } from '../utilities/data/mockData';
+import { ICourse } from '../utilities/data/mockData';
 import CustomCard from './Card';
+import { Await, useLoaderData } from 'react-router';
 
-//This component is open for modification :)
+interface CourseListBoardProps {
+  courses: Promise<ICourse[]>;
+}
 
-const CourseListBoard = (): ReactElement => {
+const CourseListBoard = ({ courses }: CourseListBoardProps): ReactElement => {
   return (
     <CustomCard title="Alla kurser">
       <Grid container spacing={2} columns={3}>
-        {mockCourses.map((mc) => (
-          <Grid key={mc.id} size={1}>
-            <EntityCard
-              title={mc.course}
-              text={mc.info}
-              date={{ start: mc.dateStart, end: mc.dateEnd }}
-              link="/course"
-            />
-          </Grid>
-        ))}
+        <Suspense>
+          <Await resolve={courses}>
+            {(courses: ICourse[]) =>
+              courses.map((course) => (
+                <Grid key={course.id} size={1}>
+                  <EntityCard
+                    title={course.name}
+                    text={course.description.substring(0, 50) + '...'} // TODO: do better
+                    date={{ start: course.dateStart }}
+                    link={`/courses/${course.id}`}
+                  />
+                </Grid>
+              ))
+            }
+          </Await>
+        </Suspense>
       </Grid>
     </CustomCard>
   );
