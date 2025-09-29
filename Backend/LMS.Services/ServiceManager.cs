@@ -4,8 +4,10 @@ namespace LMS.Services;
 
 public class ServiceManager(
     Lazy<IAuthService> authService,
-    Lazy<ICourseService> courseService) : IServiceManager
+    Lazy<ICourseService> courseService,
+    Lazy<IModuleService> moduleService) : IServiceManager
 {
     public IAuthService AuthService => authService.Value;
     public ICourseService CourseService => courseService.Value;
+    public IModuleService ModuleService => moduleService.Value;
 }
