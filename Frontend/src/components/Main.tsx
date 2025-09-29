@@ -6,7 +6,7 @@ interface IMainProps {
 }
 
 const StyledContainer = styled(Container)<ContainerProps>(({ theme }) => ({
-  padding: theme.spacing(3),
+  padding: theme.layout.pageMargin,
 }));
 
 const Main = ({ children }: IMainProps): ReactElement => {

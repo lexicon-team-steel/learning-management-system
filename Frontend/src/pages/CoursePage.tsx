@@ -7,12 +7,13 @@ import EntityCard from '../components/EntityCard';
 import ParticipantItem from '../components/ParticipantItem';
 import { formatDate } from '../utilities/helpers';
 import Card from '../components/Card';
+import theme from '../styles/theme';
 
 const CoursePage = (): ReactElement => {
   const { course, participants } = useLoaderData();
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={theme.layout.gapLarge}>
       <Grid size={12}>
         <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
           <Await resolve={course}>
@@ -26,7 +27,7 @@ const CoursePage = (): ReactElement => {
       </Grid>
       <Grid size={8}>
         <Card title="Moduler">
-          <Box display={'flex'} flexDirection={'column'} gap={2}>
+          <Box display={'flex'} flexDirection={'column'} gap={theme.layout.gap}>
             <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
               <Await resolve={course}>
                 {(resolvedCourse: ICourse) => {

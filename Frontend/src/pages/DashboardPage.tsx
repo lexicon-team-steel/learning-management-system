@@ -9,6 +9,7 @@ import { Await, useLoaderData } from 'react-router';
 import { Suspense } from 'react';
 import { ICourse } from '../utilities/types';
 import { formatDate } from '../utilities/helpers';
+import theme from '../styles/theme';
 
 const DashboardGrid = styled(Box)(({ theme }) => ({
   display: 'grid',
@@ -37,7 +38,7 @@ const DashboardPage = () => {
 
   return (
     <>
-      <Typography variant="h1" sx={{ marginBottom: '1rem' }}>
+      <Typography variant="h1" sx={{ marginBottom: theme.layout.gap }}>
         Välkommen {user.fullName}!
       </Typography>
       <DashboardGrid>

@@ -8,7 +8,7 @@ interface ICard {
 }
 
 const StyledCard = styled(MUICard)(({ theme }) => ({
-  padding: theme.spacing(4),
+  padding: theme.layout.pageMargin,
 }));
 
 const Card = ({ title, titleVariant = 'h2', children }: ICard): ReactElement => {
