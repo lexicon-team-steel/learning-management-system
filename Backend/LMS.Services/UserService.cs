@@ -1,16 +1,16 @@
 using AutoMapper;
 using Domain.Contracts.Repositories;
-using Domain.Models.Exceptions;
-using LMS.Shared.DTOs.CourseModuleDtos;
 using LMS.Shared.DTOs.UserDtos;
 using Service.Contracts;
 
 namespace LMS.Services;
 
-public class UserService(IMapper mapper, IUnitOfWork uow, ICurrentUserService currentUser) : IUserService
+public class UserService(IMapper mapper, IUnitOfWork uow) : IUserService
 {
-    public Task<IEnumerable<UserDto>> GetAllUsers(UserQueryParameters userParams)
+    public async Task<IEnumerable<UserDto>> GetAllUsersAsync(UserQueryParameters userParams)
     {
-        throw new NotImplementedException();
+        var users = await uow.Users.GetAllUsersAsync(userParams);
+
+        return mapper.Map<IEnumerable<UserDto>>(users);
     }
 }

@@ -4,5 +4,5 @@ namespace Service.Contracts;
 
 public interface IUserService
 {
-    Task<IEnumerable<UserDto>> GetAllUsers(UserQueryParameters userParams);
+    Task<IEnumerable<UserDto>> GetAllUsersAsync(UserQueryParameters userParams);
 }
