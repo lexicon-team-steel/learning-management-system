@@ -2,10 +2,12 @@ import { ReactElement, Suspense } from 'react';
 import { Await } from 'react-router';
 import { Stack, Typography } from '@mui/material';
 import Card from '../components/Card';
+import ModuleActivities from '../components/ModuleActivities';
+import theme from '../styles/theme';
 
 const ModulePage = (): ReactElement => {
   return (
-    <Stack>
+    <Stack spacing={theme.layout.gapLarge}>
       <Suspense>
         {/* <Await> */}
 
@@ -19,6 +21,7 @@ const ModulePage = (): ReactElement => {
 
         {/* </Await> */}
       </Suspense>
+      <ModuleActivities />
     </Stack>
   );
 };
