@@ -8,7 +8,7 @@ interface IButtonProps {
   onClick: () => void;
 }
 
-const Button = ({ text, icon = true, onClick }: IButtonProps): ReactElement => {
+const Button = ({ text, icon = false, onClick }: IButtonProps): ReactElement => {
   return (
     <MuiButton variant="contained" onClick={onClick} startIcon={icon && <AddIcon />}>
       {text}
