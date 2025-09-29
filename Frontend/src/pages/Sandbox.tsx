@@ -1,7 +1,12 @@
 import Main from '../components/Main';
+import MuduleActivities from '../components/ModuleActivities';
 
 const Sandbox = () => {
-  return <Main>Nothing to look at</Main>;
+  return (
+    <Main>
+      <MuduleActivities /> {/*  // temp for testing */}
+    </Main>
+  );
 };
 
 export default Sandbox;

@@ -8,7 +8,7 @@ export const courseLoader = async ({ params }: LoaderFunctionArgs): Promise<ICou
   course: fetchWithToken<ICourse>(`${BASE_URL}/courses/${params.id}`),
 });
 
-export const defaultCourseLoader = async () => {
+export const myCourseLoader = async () => {
   const courses = await fetchWithToken<ICourse[]>(`${BASE_URL}/courses`);
   // if (!courses.length) {
   //   TODO: redirect to error page
