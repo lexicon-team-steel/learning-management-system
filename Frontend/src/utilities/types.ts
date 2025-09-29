@@ -1,16 +1,9 @@
-export type UserRole = 'Teacher' | 'Student' | 'Guest';
-
 export interface IUser {
   fullName: string;
   id: string;
   role: UserRole;
 }
-
-export const GuestUser: IUser = {
-  fullName: '',
-  id: '',
-  role: 'Guest',
-};
+export type UserRole = 'Teacher' | 'Student' | 'Guest';
 
 export interface IAuthContext {
   user: IUser;
@@ -24,6 +17,35 @@ export interface ITokens {
   refreshToken: string;
 }
 
+export interface ICourse {
+  id: number;
+  name: string;
+  description: string;
+  startDate: string;
+  endDate?: string;
+  activities: IActivity[];
+  modules: IModule[];
+}
+export interface IActivity {
+  id: number;
+  type: ActivityType;
+  name: string;
+  description: string;
+  date: string;
+  startTime: string;
+  endTime?: string;
+}
+
+export type ActivityType = 'Lecture' | 'Workshop' | 'Assignment' | 'Exam' | 'Other';
+
+export interface IModule {
+  id: string;
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+}
+
 export interface IParticipant {
   id: string;
   firstName: string;
@@ -32,25 +54,8 @@ export interface IParticipant {
   email: string;
 }
 
-export interface ICourse {
-  id: string;
-  name: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  modules?: IModule[];
-}
-
 export interface ICoursesLoader {
   courses: Promise<ICourse>;
-}
-
-export interface IModule {
-  id: string;
-  name: string;
-  description: string;
-  startDate: string;
-  endDate: string;
 }
 
 export interface ICourseLoader {
