@@ -10,6 +10,13 @@ namespace LMS.Services;
 
 public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService currentUser) : ICourseService
 {
+    public async Task<IEnumerable<CourseDto>> GetAllCoursesAsync()
+    {
+        var courses = await uow.Courses.GetCoursesAsync();
+
+        return mapper.Map<IEnumerable<CourseDto>>(courses);
+    }
+
     public async Task<IEnumerable<CourseDto>> GetUserCoursesAsync()
     {
         var userId = GetUserId();
