@@ -38,10 +38,19 @@ export interface ICourse {
   description: string;
   startDate: string;
   endDate: string;
+  modules?: IModule[];
 }
 
 export interface IDashboardLoader {
   courses: Promise<ICourse>;
+}
+
+export interface IModule {
+  id: string;
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
 }
 
 export interface ICourseLoader {
