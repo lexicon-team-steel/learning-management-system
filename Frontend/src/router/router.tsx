@@ -8,6 +8,7 @@ import { dashboardLoader } from '../utilities/loaders/dashboardLoader';
 import CoursePage from '../pages/CoursePage';
 import { courseLoader, defaultCourseLoader } from '../utilities/loaders/courseLoader';
 import CourseListBoard from '../components/CourseListBoard';
+import ModulePage from '../pages/ModulePage';
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
         path: 'course',
         element: <div />,
         loader: defaultCourseLoader,
+      },
+      {
+        path: 'courses/modules/:id',
+        element: <ModulePage />,
       },
     ],
   },
