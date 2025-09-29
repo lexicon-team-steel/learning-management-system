@@ -41,7 +41,7 @@ export interface ICourse {
   modules?: IModule[];
 }
 
-export interface IDashboardLoader {
+export interface ICoursesLoader {
   courses: Promise<ICourse>;
 }
 

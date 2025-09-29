@@ -1,5 +1,5 @@
 import { fetchWithToken } from '../api/fetchWithToken';
 import { BASE_URL } from '../constants';
-import { IDashboardLoader } from '../types';
+import { ICoursesLoader } from '../types';
 
-export const dashboardLoader = (): IDashboardLoader => ({ courses: fetchWithToken(`${BASE_URL}/courses`) });
+export const dashboardLoader = (): ICoursesLoader => ({ courses: fetchWithToken(`${BASE_URL}/courses`) });
