@@ -12,8 +12,8 @@ export interface ICourse {
   id: number;
   name: string;
   description: string;
-  startDate: string; 
-  endDate?: string; 
+  startDate: string;
+  endDate?: string;
   activities: IActivity[];
   modules: IModule[];
 }
