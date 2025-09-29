@@ -30,8 +30,10 @@ const CardGrid = styled(Box)(({ theme }) => ({
 }));
 
 const DashboardPage = () => {
-  const { user } = useAuthContext();
-  const { course } = useLoaderData();
+  const { user, isTeacher } = useAuthContext();
+  const { courses } = useLoaderData();
+
+  const title = isTeacher ? 'Mina kurser' : 'Min kurs';
 
   return (
     <>
@@ -39,18 +41,21 @@ const DashboardPage = () => {
         Välkommen {user.fullName}!
       </Typography>
       <DashboardGrid>
-        <Card title="Min kurs">
+        <Card title={title}>
           <CardGrid>
             <Suspense>
-              <Await resolve={course}>
-                {(course: ICourse) => (
-                  <EntityCard
-                    title={course.name}
-                    text={course.description.substring(0, 50) + '...'} // TODO: do better
-                    date={{ start: formatDate(course.startDate) }}
-                    link="/course"
-                  />
-                )}
+              <Await resolve={courses}>
+                {(courses: ICourse[]) =>
+                  courses.map((course) => (
+                    <EntityCard
+                      key={course.id}
+                      title={course.name}
+                      text={course.description.substring(0, 50) + '...'} // TODO: do better
+                      date={{ start: formatDate(course.startDate) }}
+                      link={`/courses/${course.id}`}
+                    />
+                  ))
+                }
               </Await>
             </Suspense>
           </CardGrid>

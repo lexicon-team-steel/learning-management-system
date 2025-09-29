@@ -1,5 +1,5 @@
 import { FormEventHandler, ReactElement, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useAuthContext } from '../utilities/hooks/useAuthContext';
 import { Alert, Button, Card, styled, TextField, Typography } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Logout';
@@ -27,7 +27,6 @@ const Login = (): ReactElement => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
-  const [searchParams] = useSearchParams();
   const { login } = useAuthContext();
   const navigate = useNavigate();
 
@@ -42,8 +41,7 @@ const Login = (): ReactElement => {
       return;
     }
 
-    const redirectTo = searchParams.get('redirectTo') || '/dashboard';
-    navigate(redirectTo, { replace: true });
+    navigate('/dashboard', { replace: true });
   };
 
   return (

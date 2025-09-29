@@ -62,7 +62,7 @@ public static class AuthServiceExtension
 
             opt.User.RequireUniqueEmail = true;
         })
-               .AddRoles<IdentityRole>()
+               .AddRoles<ApplicationRole>()
                .AddEntityFrameworkStores<ApplicationDbContext>()
                .AddDefaultTokenProviders();
     }

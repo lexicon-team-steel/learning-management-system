@@ -24,17 +24,16 @@ export interface ITokens {
   refreshToken: string;
 }
 
-export interface IStudent {
+export interface IParticipant {
   id: string;
-  fullName: string;
+  firstName: string;
+  lastName: string;
+  role: UserRole[];
   email: string;
 }
 
-export interface IParticipantLoader {
-  participants: Promise<IStudent[]>;
-}
-
 export interface ICourse {
+  id: string;
   name: string;
   description: string;
   startDate: string;
@@ -42,10 +41,10 @@ export interface ICourse {
 }
 
 export interface IDashboardLoader {
-  course: Promise<ICourse>;
+  courses: Promise<ICourse>;
 }
 
 export interface ICourseLoader {
   course: Promise<ICourse>;
-  participants: Promise<IStudent[]>;
+  participants: Promise<IParticipant[]>;
 }

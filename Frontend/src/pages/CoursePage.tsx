@@ -1,6 +1,6 @@
 import { ReactElement, Suspense } from 'react';
 import { Await, useLoaderData } from 'react-router';
-import { ICourse, IStudent } from '../utilities/types';
+import { ICourse, IParticipant } from '../utilities/types';
 import { Box, Card, Grid, Typography } from '@mui/material';
 import CustomCard from '../components/Card';
 import CollapsibleList from '../components/CollapsibleList';
@@ -55,11 +55,11 @@ const CoursePage = (): ReactElement => {
         <CustomCard title="Kursdeltagare">
           <Suspense>
             <Await resolve={participants}>
-              {(resolvedParticipants: IStudent[]) => (
+              {(resolvedParticipants: IParticipant[]) => (
                 <CollapsibleList
                   items={resolvedParticipants}
                   keyField="email"
-                  renderItem={(item: IStudent) => <ParticipantItem participant={item} />}
+                  renderItem={(item: IParticipant) => <ParticipantItem participant={item} />}
                 />
               )}
             </Await>
