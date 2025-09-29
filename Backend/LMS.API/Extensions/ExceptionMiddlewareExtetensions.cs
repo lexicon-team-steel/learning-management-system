@@ -23,12 +23,12 @@ public static class ExceptionMiddlewareExtetensions
 
                     switch (contextFeature.Error)
                     {
-                        case TokenValidationException tokenValidationException:
-                            statusCode = tokenValidationException.StatusCode;
+                        case ApiException apiException:
+                            statusCode = apiException.StatusCode;
                             problemDetails = problemDetailsFactory.CreateProblemDetails(
                                     context,
                                     statusCode,
-                                    detail: tokenValidationException.Message,
+                                    detail: apiException.Message,
                                     instance: context.Request.Path);
                             break;
                         default:

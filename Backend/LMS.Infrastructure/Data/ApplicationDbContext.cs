@@ -7,7 +7,8 @@ using Microsoft.EntityFrameworkCore;
 namespace LMS.Infrastructure.Data
 {
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : IdentityDbContext<ApplicationUser, IdentityRole, string>(options)
+        : IdentityDbContext<ApplicationUser, ApplicationRole, string, IdentityUserClaim<string>, ApplicationUserRole, IdentityUserLogin<string>,
+        IdentityRoleClaim<string>, IdentityUserToken<string>>(options)
     {
         public DbSet<Course> Courses { get; set; } = default!;
         public DbSet<CourseModule> CourseModules { get; set; } = default!;
@@ -19,6 +20,8 @@ namespace LMS.Infrastructure.Data
         {
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new ApplicationUserConfigurations());
+            builder.ApplyConfiguration(new ApplicationRoleConfigurations());
+            builder.ApplyConfiguration(new ApplicationUserRoleConfigurations());
             builder.ApplyConfiguration(new CourseConfiguration());
             builder.ApplyConfiguration(new CourseModuleConfiguration());
             builder.ApplyConfiguration(new ActivityConfiguration());
