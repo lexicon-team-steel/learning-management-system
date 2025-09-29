@@ -49,7 +49,7 @@ export const router = createBrowserRouter([
       },
       { path: 'notauthorized', element: <NotAuthorized /> },
       {
-        path: 'courses/modules/:id',
+        path: '/module/:id',
         element: <ModulePage />,
       },
     ],
