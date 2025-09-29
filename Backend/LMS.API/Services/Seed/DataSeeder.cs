@@ -19,27 +19,41 @@ public class DataSeeder(
     private readonly ApplicationDbContext context = context;
     private readonly UserManager<ApplicationUser> userManager = userManager;
 
+    private const int UserCount = 30;
+    private const int CourseCount = 10;
+
     public async Task SeedAsync(CancellationToken cancellationToken)
     {
-        await userSeeder.SeedAsync(cancellationToken);
-        await courseSeeder.SeedAsync(cancellationToken);
+        await userSeeder.SeedAsync(cancellationToken, UserCount);
+        await courseSeeder.SeedAsync(cancellationToken, CourseCount);
         await activityTypeSeeder.SeedAsync(cancellationToken);
         await activitySeeder.SeedAsync(cancellationToken);
 
-        await AssignStudentsToCourse();
+        await AssignUsersToCourses();
     }
 
-    private async Task AssignStudentsToCourse()
+    private async Task AssignUsersToCourses()
     {
-        var course = await context.Courses.Include(c => c.Users).FirstAsync();
+        var courses = await context.Courses.Include(c => c.Users).ToListAsync();
+        var firstCourse = courses.First();
+        var lastCourse = courses.Last();
 
-        if (course.Users.Count != 0) return;
+        if (firstCourse.Users.Count != 0) return;
 
         var students = await userManager.GetUsersInRoleAsync(UserSeeder.StudentRole);
+        var half = students.Count / 2;
 
-        foreach (var student in students)
+        foreach (var student in students.Take(half))
+            firstCourse.Users.Add(student);
+
+        foreach (var student in students.Skip(half))
+            lastCourse.Users.Add(student);
+
+        var teachers = await userManager.GetUsersInRoleAsync(UserSeeder.TeacherRole);
+        foreach (var teacher in teachers)
         {
-            course.Users.Add(student);
+            teacher.Courses.Add(firstCourse);
+            teacher.Courses.Add(lastCourse);
         }
 
         await context.SaveChangesAsync();

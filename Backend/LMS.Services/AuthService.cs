@@ -19,14 +19,14 @@ public class AuthService : IAuthService
 {
     private readonly IMapper mapper;
     private readonly UserManager<ApplicationUser> userManager;
-    private readonly RoleManager<IdentityRole> roleManager;
+    private readonly RoleManager<ApplicationRole> roleManager;
     private readonly JwtSettings jwtSettings;
     private ApplicationUser? user;
 
     public AuthService(
         IMapper mapper,
         UserManager<ApplicationUser> userManager,
-        RoleManager<IdentityRole> roleManager,
+        RoleManager<ApplicationRole> roleManager,
         IOptions<JwtSettings> jwtSettings
         )
     {
