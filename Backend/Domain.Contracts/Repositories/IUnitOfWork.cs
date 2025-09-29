@@ -4,5 +4,6 @@ public interface IUnitOfWork
 {
     public IUserRepository Students { get; }
     public ICourseRepository Courses { get; }
+    public IModuleRepository Modules { get; }
     Task CompleteAsync();
 }
