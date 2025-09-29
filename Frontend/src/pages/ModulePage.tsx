@@ -4,7 +4,7 @@ import { Stack, Typography } from '@mui/material';
 import Card from '../components/Card';
 import ModuleActivities from '../components/ModuleActivities';
 import theme from '../styles/theme';
-import { IModule } from '../utilities/types';
+import { IActivity, IModule } from '../utilities/types';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { formatDate } from '../utilities/helpers';
 
@@ -29,7 +29,9 @@ const ModulePage = (): ReactElement => {
           )}
         </Await>
       </Suspense>
-      <ModuleActivities />
+      <Suspense>
+        <Await resolve={activities}>{(activities: IActivity[]) => <ModuleActivities items={activities} />}</Await>
+      </Suspense>
     </Stack>
   );
 };
