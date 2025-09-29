@@ -7,6 +7,14 @@ export const formatDate = (date: string) => {
   return new Intl.DateTimeFormat('sv-SE').format(dateFromString);
 };
 
+export function formatTime(date: string): string {
+  const dateFromString = new Date(date);
+  return new Intl.DateTimeFormat('sv-SE', {
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(dateFromString);
+}
+
 export const requireTeacherRole = () => {
   const tokens = getTokens();
   if (!tokens?.accessToken) {
