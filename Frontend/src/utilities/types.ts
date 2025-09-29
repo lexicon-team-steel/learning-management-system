@@ -40,7 +40,7 @@ export interface ICourse {
   endDate: string;
 }
 
-export interface IDashboardLoader {
+export interface ICoursesLoader {
   courses: Promise<ICourse>;
 }
 
