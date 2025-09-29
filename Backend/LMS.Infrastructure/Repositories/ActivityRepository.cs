@@ -15,4 +15,16 @@ public class ActivityRepository(ApplicationDbContext context)
             .OrderBy(a => a.StartDate)
             .ToListAsync(cancellationToken);
     }
+
+    public async Task<IEnumerable<Activity>> GetUserActivitiesAsync(string userId, CancellationToken cancellationToken)
+    {
+        return await FindAll()
+            .Include(a => a.ActivityType)
+            .Include(a => a.CourseModule)
+                .ThenInclude(m => m.Course)
+            .Where(a => a.CourseModule.Course.Users.Any(u => u.Id == userId))
+            .Where(a => a.StartDate >= DateTime.UtcNow)
+            .OrderBy(a => a.StartDate)
+            .ToListAsync(cancellationToken);
+    }
 }
