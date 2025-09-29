@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router';
 import ButtonCard from '../components/ButtonCard';
 import Main from '../components/Main';
+import MuduleActivities from '../components/ModuleActivities';
 
 const Sandbox = () => {
   // Demo for <ButtonCard />
@@ -16,6 +17,7 @@ const Sandbox = () => {
   };
   return (
     <Main>
+      <MuduleActivities /> {/*  // temp for testing */}
       <ButtonCard
         buttons={[
           { text: 'Hantera användare', onClick: handlerOnClickUser },

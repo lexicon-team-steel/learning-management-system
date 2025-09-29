@@ -1,6 +1,8 @@
+export type ActivityType = 'Lecture' | 'Workshop' | 'Assignment' | 'Exam' | 'Other';
+
 export interface IActivity {
   id: number;
-  type: 'Lecture' | 'Workshop' | 'Assignment' | 'Exam' | 'Other';
+  type: ActivityType;
   name: string;
   description: string;
   date: string;

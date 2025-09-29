@@ -1,12 +1,14 @@
-import { Card, Link, styled, Typography } from '@mui/material';
+import { Card, Link, Stack, styled, Typography } from '@mui/material';
 import { ReactElement } from 'react';
 import Date from './Date';
+import Time from './Time';
 
 interface IEntityCardProps {
   title: string;
   text: string;
-  link: string;
+  link?: string;
   date: { start: string; end?: string };
+  time?: { start: string; end?: string };
 }
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -14,6 +16,9 @@ const StyledCard = styled(Card)(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(1.25),
   padding: theme.spacing(2.5),
+}));
+
+const StyledLink = styled(Link)(({ theme }) => ({
   transition: 'box-shadow .2s ease, transform .2s ease',
   '&:hover': {
     boxShadow: theme.shadows[2],
@@ -25,15 +30,24 @@ const StyledTypography = styled(Typography)(() => ({
   overflowWrap: 'anywhere',
 }));
 
-const EntityCard = ({ title, text, link, date }: IEntityCardProps): ReactElement => {
-  return (
-    <Link href={link} underline="none">
-      <StyledCard variant="outlined">
-        <Typography variant="h3">{title}</Typography>
-        <StyledTypography variant="body1">{text}</StyledTypography>
+const EntityCard = ({ title, text, link, date, time }: IEntityCardProps): ReactElement => {
+  const Card = (
+    <StyledCard variant="outlined">
+      <Typography variant="h3">{title}</Typography>
+      <StyledTypography variant="body1">{text}</StyledTypography>
+      <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" maxWidth="sm">
         <Date start={date.start} end={date.end && date.end} />
-      </StyledCard>
-    </Link>
+        {time && <Time start={time.start} end={time.end && time.end} />}
+      </Stack>
+    </StyledCard>
+  );
+
+  return link ? (
+    <StyledLink href={link} underline="none">
+      {Card}
+    </StyledLink>
+  ) : (
+    Card
   );
 };
 

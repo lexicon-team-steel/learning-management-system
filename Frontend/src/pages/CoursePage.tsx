@@ -1,59 +1,61 @@
 import { ReactElement, Suspense } from 'react';
 import { Await, useLoaderData } from 'react-router';
-import { ICourse, IParticipant } from '../utilities/types';
-import { Box, Card, Grid, Typography } from '@mui/material';
-import CustomCard from '../components/Card';
+import { ICourse, IModule, IParticipant } from '../utilities/types';
+import { Box, Grid, Skeleton, Typography } from '@mui/material';
 import CollapsibleList from '../components/CollapsibleList';
 import EntityCard from '../components/EntityCard';
-import { mockCourse } from '../utilities/data/mockData';
 import ParticipantItem from '../components/ParticipantItem';
+import { formatDate } from '../utilities/helpers';
+import Card from '../components/Card';
+import theme from '../styles/theme';
 
 const CoursePage = (): ReactElement => {
   const { course, participants } = useLoaderData();
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={theme.layout.gapLarge}>
       <Grid size={12}>
-        <Card sx={{ p: 4 }}>
-          <Suspense>
-            <Await resolve={course}>
-              {(course: ICourse) => (
-                <>
-                  <Typography variant="h1" sx={{ marginBottom: '1rem' }}>
-                    {course.name}!
-                  </Typography>
-                  <Typography>{course.description}</Typography>
-                </>
-              )}
-            </Await>
-          </Suspense>
-        </Card>
+        <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
+          <Await resolve={course}>
+            {(course: ICourse) => (
+              <Card title={course.name} titleVariant="h1">
+                <Typography>{course.description}</Typography>
+              </Card>
+            )}
+          </Await>
+        </Suspense>
       </Grid>
       <Grid size={8}>
-        <CustomCard title="Moduler">
-          <Box display={'flex'} flexDirection={'column'} gap={2}>
-            <Suspense>
-              <Await resolve="replace this with participants object/array like above which we probably get from loader in future">
-                {mockCourse.modules.map((module) => (
-                  <EntityCard
-                    key={module.id}
-                    title={module.name}
-                    text={module.description}
-                    date={{
-                      start: new Intl.DateTimeFormat('sv-SE').format(module.dateStart),
-                      end: new Intl.DateTimeFormat('sv-SE').format(module.dateEnd),
-                    }}
-                    link="/module"
-                  />
-                ))}
+        <Card title="Moduler">
+          <Box display="flex" flexDirection="column" gap={theme.layout.gap}>
+            <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
+              <Await resolve={course}>
+                {(resolvedCourse: ICourse) => {
+                  if (!resolvedCourse.modules) {
+                    return <Typography>Denna kurs har ännu inga moduler.</Typography>;
+                  }
+
+                  return resolvedCourse.modules.map((module: IModule) => (
+                    <EntityCard
+                      key={module.id}
+                      title={module.name}
+                      text={module.description}
+                      date={{
+                        start: formatDate(module.startDate),
+                        end: formatDate(module.endDate),
+                      }}
+                      link={`modules/${module.id}`}
+                    />
+                  ));
+                }}
               </Await>
             </Suspense>
           </Box>
-        </CustomCard>
+        </Card>
       </Grid>
       <Grid size={4}>
-        <CustomCard title="Kursdeltagare">
-          <Suspense>
+        <Card title="Kursdeltagare">
+          <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
             <Await resolve={participants}>
               {(resolvedParticipants: IParticipant[]) => (
                 <CollapsibleList
@@ -64,7 +66,7 @@ const CoursePage = (): ReactElement => {
               )}
             </Await>
           </Suspense>
-        </CustomCard>
+        </Card>
       </Grid>
     </Grid>
   );

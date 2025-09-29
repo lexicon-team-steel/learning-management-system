@@ -10,6 +10,13 @@ namespace LMS.Services;
 
 public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService currentUser) : ICourseService
 {
+    public async Task<IEnumerable<CourseDto>> GetAllCoursesAsync()
+    {
+        var courses = await uow.Courses.GetCoursesAsync();
+
+        return mapper.Map<IEnumerable<CourseDto>>(courses);
+    }
+
     public async Task<IEnumerable<CourseDto>> GetUserCoursesAsync()
     {
         var userId = GetUserId();
@@ -22,7 +29,7 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
     {
         var userId = GetUserId();
         var course = await uow.Courses.GetUserCourseWithModulesAsync(userId, courseId);
-        if (course == null) throw new NotFoundException("Course not found or you don’t have access");
+        if (course == null) throw new NotFoundException("Course not found or you don't have access");
 
         return mapper.Map<CourseDto>(course);
     }
