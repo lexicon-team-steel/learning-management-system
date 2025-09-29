@@ -38,18 +38,17 @@ export const router = createBrowserRouter([
         path: 'courses/:id',
         element: <CoursePage />,
         loader: courseLoader,
-        children: [
-          {
-            path: 'modules/:moduleId',
-            // element: <ModulePage />, // TODO: to be implemented later
-            loader: moduleLoader,
-          },
-        ],
+        children: [],
       },
       {
         path: 'course',
         element: <div />,
         loader: defaultCourseLoader,
+      },
+      {
+        path: 'courses/:courseId/modules/:moduleId',
+        // element: < ModulePage />, // TODO: to be implemented later
+        loader: moduleLoader,
       },
     ],
   },
