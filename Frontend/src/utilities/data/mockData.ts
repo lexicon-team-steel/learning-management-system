@@ -12,8 +12,8 @@ export interface ICourse {
   id: number;
   name: string;
   description: string;
-  dateStart: string; // YYYY-MM-DD
-  dateEnd?: string; // optional
+  startDate: string; 
+  endDate?: string; 
   activities: IActivity[];
   modules: IModule[];
 }
@@ -41,8 +41,8 @@ export const mockCourse: ICourse = {
   id: 1,
   name: 'Webbutvecklare .NET',
   description: 'Fullstack-utbildning med fokus på C#, .NET och React.',
-  dateStart: '2025-01-15',
-  dateEnd: '2025-06-15',
+  startDate: '2025-01-15',
+  endDate: '2025-06-15',
   activities: [
     {
       id: 101,
@@ -116,8 +116,8 @@ export const mockCourses: ICourse[] = [
     id: 1,
     name: 'Course 1',
     description: 'Den här kursen kommer lära dig allt som går att lära',
-    dateStart: '2025-11-16',
-    dateEnd: '2026-01-15',
+    startDate: '2025-11-16',
+    endDate: '2026-01-15',
     activities: [],
     modules: [],
   },
@@ -125,8 +125,8 @@ export const mockCourses: ICourse[] = [
     id: 2,
     name: 'Course 1',
     description: 'Den här kursen kommer lära dig allt som går att lära',
-    dateStart: '2025-11-16',
-    dateEnd: '2026-01-15',
+    startDate: '2025-11-16',
+    endDate: '2026-01-15',
     activities: [],
     modules: [],
   },
@@ -134,8 +134,8 @@ export const mockCourses: ICourse[] = [
     id: 3,
     name: 'Course 1',
     description: 'Den här kursen kommer lära dig allt som går att lära',
-    dateStart: '2025-11-16',
-    dateEnd: '2026-01-15',
+    startDate: '2025-11-16',
+    endDate: '2026-01-15',
     activities: [],
     modules: [],
   },
@@ -143,8 +143,8 @@ export const mockCourses: ICourse[] = [
     id: 4,
     name: 'Course 1',
     description: 'Den här kursen kommer lära dig allt som går att lära',
-    dateStart: '2025-11-16',
-    dateEnd: '2026-01-15',
+    startDate: '2025-11-16',
+    endDate: '2026-01-15',
     activities: [],
     modules: [],
   },
@@ -152,8 +152,8 @@ export const mockCourses: ICourse[] = [
     id: 5,
     name: 'Course 1',
     description: 'Den här kursen kommer lära dig allt som går att lära',
-    dateStart: '2025-11-16',
-    dateEnd: '2026-01-15',
+    startDate: '2025-11-16',
+    endDate: '2026-01-15',
     activities: [],
     modules: [],
   },
@@ -161,8 +161,8 @@ export const mockCourses: ICourse[] = [
     id: 6,
     name: 'Course 1',
     description: 'Den här kursen kommer lära dig allt som går att lära',
-    dateStart: '2025-11-16',
-    dateEnd: '2026-01-15',
+    startDate: '2025-11-16',
+    endDate: '2026-01-15',
     activities: [],
     modules: [],
   },
@@ -170,8 +170,8 @@ export const mockCourses: ICourse[] = [
     id: 7,
     name: 'Course 1',
     description: 'Den här kursen kommer lära dig allt som går att lära',
-    dateStart: '2025-11-16',
-    dateEnd: '2026-01-15',
+    startDate: '2025-11-16',
+    endDate: '2026-01-15',
     activities: [],
     modules: [],
   },
