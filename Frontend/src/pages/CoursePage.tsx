@@ -27,7 +27,7 @@ const CoursePage = (): ReactElement => {
       </Grid>
       <Grid size={8}>
         <Card title="Moduler">
-          <Box display={'flex'} flexDirection={'column'} gap={theme.layout.gap}>
+          <Box display="flex" flexDirection="column" gap={theme.layout.gap}>
             <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
               <Await resolve={course}>
                 {(resolvedCourse: ICourse) => {
