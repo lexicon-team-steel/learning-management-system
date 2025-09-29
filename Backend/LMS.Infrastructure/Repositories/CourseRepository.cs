@@ -8,6 +8,9 @@ namespace LMS.Infrastructure.Repositories;
 public class CourseRepository(ApplicationDbContext context)
     : RepositoryBase<Course>(context), ICourseRepository
 {
+    public Task<List<Course>> GetCoursesAsync() =>
+        FindAll().ToListAsync();
+
     public Task<List<Course>> GetUserCoursesAsync(string userId) =>
         FindAll().Where(c => c.Users.Any(u => u.Id == userId)).ToListAsync();
 
