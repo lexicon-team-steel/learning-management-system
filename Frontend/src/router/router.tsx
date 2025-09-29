@@ -7,7 +7,6 @@ import LoginPage from '../pages/LoginPage';
 import { dashboardLoader } from '../utilities/loaders/dashboardLoader';
 import CoursePage from '../pages/CoursePage';
 import { courseLoader, myCourseLoader } from '../utilities/loaders/courseLoader';
-import CourseListBoard from '../components/CourseListBoard';
 import { allCoursesLoader } from '../utilities/loaders/allCoursesLoader';
 import NotAuthorized from '../pages/NotAuthorized';
 import CoursesPage from '../pages/CoursesPage';

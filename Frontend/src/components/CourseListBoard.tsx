@@ -3,7 +3,7 @@ import { Grid } from '@mui/material';
 import EntityCard from './EntityCard';
 import { ICourse } from '../utilities/data/mockData';
 import CustomCard from './Card';
-import { Await, useLoaderData } from 'react-router';
+import { Await } from 'react-router';
 
 interface CourseListBoardProps {
   courses: Promise<ICourse[]>;
