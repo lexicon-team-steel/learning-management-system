@@ -4,6 +4,7 @@ import EntityCard from './EntityCard';
 import { ICourse } from '../utilities/data/mockData';
 import CustomCard from './Card';
 import { Await } from 'react-router';
+import { formatDate } from '../utilities/helpers';
 
 interface CourseListBoardProps {
   courses: Promise<ICourse[]>;
@@ -15,13 +16,13 @@ const CourseListBoard = ({ courses }: CourseListBoardProps): ReactElement => {
       <Grid container spacing={2} columns={3}>
         <Suspense>
           <Await resolve={courses}>
-            {(courses: ICourse[]) =>
-              courses.map((course) => (
+            {(resolvedCourses: ICourse[]) =>
+              resolvedCourses.map((course) => (
                 <Grid key={course.id} size={1}>
                   <EntityCard
                     title={course.name}
                     text={course.description.substring(0, 50) + '...'} // TODO: do better
-                    date={{ start: course.dateStart }}
+                    date={{ start: formatDate(course.startDate) }}
                     link={`/courses/${course.id}`}
                   />
                 </Grid>
