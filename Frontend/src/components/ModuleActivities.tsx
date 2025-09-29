@@ -18,8 +18,8 @@ const ModuleActivities = () => {
             text={item.description}
             date={{ start: formatDate(item.date) }}
             time={{
-              start: item.timeStart,
-              end: item.timeEnd,
+              start: item.startTime,
+              end: item.endTime,
             }}
           />
         ))}

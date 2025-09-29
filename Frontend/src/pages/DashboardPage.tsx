@@ -1,5 +1,5 @@
 import { Box, styled, Typography } from '@mui/material';
-import { IActivity, mockCourse } from '../utilities/data/mockData';
+import { mockCourse } from '../utilities/data/mockData';
 import EntityCard from '../components/EntityCard';
 import Card from '../components/Card';
 import CollapsibleList from '../components/CollapsibleList';
@@ -7,7 +7,7 @@ import ActivityItem from '../components/ActivityItem';
 import { useAuthContext } from '../utilities/hooks/useAuthContext';
 import { Await, useLoaderData } from 'react-router';
 import { Suspense } from 'react';
-import { ICourse } from '../utilities/types';
+import { IActivity, ICourse } from '../utilities/types';
 import { formatDate } from '../utilities/helpers';
 import theme from '../styles/theme';
 
