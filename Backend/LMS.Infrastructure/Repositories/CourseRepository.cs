@@ -8,26 +8,27 @@ namespace LMS.Infrastructure.Repositories;
 public class CourseRepository(ApplicationDbContext context)
     : RepositoryBase<Course>(context), ICourseRepository
 {
-    public Task<Course?> GetCourseAsync(string studentId) =>
-        GetCourseByUserId(studentId, includeModules: false);
+    public Task<List<Course>> GetUserCoursesAsync(string userId) =>
+        FindAll().Where(c => c.Users.Any(u => u.Id == userId)).ToListAsync();
 
-    public Task<Course?> GetCourseWithModulesAsync(string studentId) =>
-        GetCourseByUserId(studentId, includeModules: true);
+    public Task<Course?> GetUserCourseWithModulesAsync(string userId, Guid courseId) =>
+        FindAll()
+            .Include(c => c.Modules)
+            .Where(c => c.Users.Any(u => u.Id == userId))
+            .FirstOrDefaultAsync(c => c.Id == courseId);
 
-    public async Task<IEnumerable<ApplicationUser>?> GetCourseClassmatesAsync(string studentId)
+    public Task<List<ApplicationUser>> GetUserCourseParticipantsAsync(string userId, Guid courseId, string? role)
     {
-        var course = await GetCourseByUserId(studentId, includeUsers: true);
-        return course?.Users.Where(u => u.Id != studentId);
-    }
+        var users = FindAll()
+            .Where(c => c.Users.Any(u => u.Id == userId) && c.Id == courseId)
+            .SelectMany(s => s.Users);
 
-    private Task<Course?> GetCourseByUserId(string studentId, bool includeModules = false, bool includeUsers = false)
-    {
-        var courses = FindAll();
-        if (includeModules) courses = courses.Include(c => c.Modules);
-        if (includeUsers) courses = courses.Include(c => c.Users);
+        if (!string.IsNullOrEmpty(role))
+            users = users.Where(u => u.UserRoles.Any(u => EF.Functions.Like(u.Role.Name, role)));
 
-        return courses
-            .Where(s => s.Users.Any(u => u.Id == studentId))
-            .FirstOrDefaultAsync();
+        return users
+            .Include(u => u.UserRoles)
+            .ThenInclude(ur => ur.Role)
+            .ToListAsync();
     }
 }
