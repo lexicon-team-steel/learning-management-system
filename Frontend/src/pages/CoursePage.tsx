@@ -1,12 +1,12 @@
 import { ReactElement, Suspense } from 'react';
 import { Await, useLoaderData } from 'react-router';
 import { ICourse, IModule, IParticipant } from '../utilities/types';
-import { Box, Card, Grid, Typography } from '@mui/material';
-import CustomCard from '../components/Card';
+import { Box, Grid, Skeleton, Typography } from '@mui/material';
 import CollapsibleList from '../components/CollapsibleList';
 import EntityCard from '../components/EntityCard';
 import ParticipantItem from '../components/ParticipantItem';
 import { formatDate } from '../utilities/helpers';
+import Card from '../components/Card';
 
 const CoursePage = (): ReactElement => {
   const { course, participants } = useLoaderData();
@@ -14,25 +14,20 @@ const CoursePage = (): ReactElement => {
   return (
     <Grid container spacing={3}>
       <Grid size={12}>
-        <Card sx={{ p: 4 }}>
-          <Suspense>
-            <Await resolve={course}>
-              {(course: ICourse) => (
-                <>
-                  <Typography variant="h1" sx={{ marginBottom: '1rem' }}>
-                    {course.name}!
-                  </Typography>
-                  <Typography>{course.description}</Typography>
-                </>
-              )}
-            </Await>
-          </Suspense>
-        </Card>
+        <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
+          <Await resolve={course}>
+            {(course: ICourse) => (
+              <Card title={course.name} titleVariant="h1">
+                <Typography>{course.description}</Typography>
+              </Card>
+            )}
+          </Await>
+        </Suspense>
       </Grid>
       <Grid size={8}>
-        <CustomCard title="Moduler">
+        <Card title="Moduler">
           <Box display={'flex'} flexDirection={'column'} gap={2}>
-            <Suspense>
+            <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
               <Await resolve={course}>
                 {(resolvedCourse: ICourse) => {
                   if (!resolvedCourse.modules) {
@@ -55,11 +50,11 @@ const CoursePage = (): ReactElement => {
               </Await>
             </Suspense>
           </Box>
-        </CustomCard>
+        </Card>
       </Grid>
       <Grid size={4}>
-        <CustomCard title="Kursdeltagare">
-          <Suspense>
+        <Card title="Kursdeltagare">
+          <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
             <Await resolve={participants}>
               {(resolvedParticipants: IParticipant[]) => (
                 <CollapsibleList
@@ -70,7 +65,7 @@ const CoursePage = (): ReactElement => {
               )}
             </Await>
           </Suspense>
-        </CustomCard>
+        </Card>
       </Grid>
     </Grid>
   );
