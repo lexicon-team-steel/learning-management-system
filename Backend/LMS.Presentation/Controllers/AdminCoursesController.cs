@@ -17,9 +17,9 @@ public class AdminCoursesController(IServiceManager serviceManager) : Controller
     [HttpGet]
     [SwaggerOperation(
             Summary = "Get all courses",
-            Description = "Returns courses for authorized user.")]
+            Description = "Returns courses for admin.")]
     [SwaggerResponse(StatusCodes.Status200OK, "List of courses", typeof(IEnumerable<CourseDto>))]
-    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+    [SwaggerResponse(StatusCodes.Status403Forbidden, "Unauthorized - JWT token missing or invalid")]
     public async Task<ActionResult<IEnumerable<CourseDto>>> GetAllCourses() =>
         Ok(await courseService.GetAllCoursesAsync());
 
