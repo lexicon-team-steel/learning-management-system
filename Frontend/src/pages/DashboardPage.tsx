@@ -1,5 +1,4 @@
 import { Box, styled, Typography } from '@mui/material';
-import { IActivity, mockCourse } from '../utilities/data/mockData';
 import EntityCard from '../components/EntityCard';
 import Card from '../components/Card';
 import CollapsibleList from '../components/CollapsibleList';
@@ -7,8 +6,8 @@ import ActivityItem from '../components/ActivityItem';
 import { useAuthContext } from '../utilities/hooks/useAuthContext';
 import { Await, useLoaderData } from 'react-router';
 import { Suspense } from 'react';
-import { ICourse } from '../utilities/types';
-import { formatDate } from '../utilities/helpers';
+import { IActivity, ICourse } from '../utilities/types';
+import { formatDate, sortByDate } from '../utilities/helpers';
 import theme from '../styles/theme';
 
 const DashboardGrid = styled(Box)(({ theme }) => ({
@@ -32,7 +31,7 @@ const CardGrid = styled(Box)(({ theme }) => ({
 
 const DashboardPage = () => {
   const { user, isTeacher } = useAuthContext();
-  const { courses } = useLoaderData();
+  const { courses, activities } = useLoaderData();
 
   const title = isTeacher ? 'Mina kurser' : 'Min kurs';
 
@@ -61,13 +60,22 @@ const DashboardPage = () => {
             </Suspense>
           </CardGrid>
         </Card>
-        <Card title="Kommande aktiviteter">
-          <CollapsibleList
-            items={mockCourse.activities}
-            keyField="id"
-            renderItem={(item: IActivity) => <ActivityItem activity={item} />}
-          />
-        </Card>
+        <Suspense>
+          <Await resolve={activities}>
+            {(activities: IActivity[]) => {
+              const sortedActivites = sortByDate(activities, 'endDate');
+              return (
+                <Card title="Kommande aktiviteter">
+                  <CollapsibleList
+                    items={sortedActivites}
+                    keyField="id"
+                    renderItem={(activity: IActivity) => <ActivityItem activity={activity} />}
+                  />
+                </Card>
+              );
+            }}
+          </Await>
+        </Suspense>
       </DashboardGrid>
     </>
   );
