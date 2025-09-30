@@ -3,6 +3,7 @@ export interface IUser {
   id: string;
   role: UserRole;
 }
+
 export type UserRole = 'Teacher' | 'Student' | 'Guest';
 
 export interface IAuthContext {
@@ -30,16 +31,6 @@ export interface IButtonConfig {
   link: string;
 }
 
-export interface ICourse {
-  id: number;
-  name: string;
-  description: string;
-  startDate: string;
-  endDate?: string;
-  activities: IActivity[];
-  modules: IModule[];
-}
-
 export interface IModule {
   id: string;
   name: string;
@@ -55,11 +46,6 @@ export interface ICourseLoader {
   participants: Promise<IParticipant[]>;
 }
 
-export interface IActivityType {
-  id: string;
-  name: string;
-}
-
 export interface IActivity {
   id: string;
   name: string;
@@ -67,6 +53,11 @@ export interface IActivity {
   startDate: string;
   endDate: string;
   activityType: IActivityType;
+}
+
+export interface IActivityType {
+  id: string;
+  name: string;
 }
 
 export interface IModule {
