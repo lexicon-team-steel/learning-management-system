@@ -17,6 +17,19 @@ export interface ITokens {
   refreshToken: string;
 }
 
+export interface IParticipant {
+  id: string;
+  firstName: string;
+  lastName: string;
+  role: UserRole[];
+  email: string;
+}
+
+export interface IButtonConfig {
+  text: string;
+  link: string;
+}
+
 export interface ICourse {
   id: number;
   name: string;
@@ -26,17 +39,6 @@ export interface ICourse {
   activities: IActivity[];
   modules: IModule[];
 }
-export interface IActivity {
-  id: number;
-  type: ActivityType;
-  name: string;
-  description: string;
-  date: string;
-  startTime: string;
-  endTime?: string;
-}
-
-export type ActivityType = 'Lecture' | 'Workshop' | 'Assignment' | 'Exam' | 'Other';
 
 export interface IModule {
   id: string;
@@ -45,18 +47,7 @@ export interface IModule {
   startDate: string;
   endDate: string;
   activities: IActivity[];
-}
-
-export interface IParticipant {
-  id: string;
-  firstName: string;
-  lastName: string;
-  role: UserRole[];
-  email: string;
-}
-
-export interface ICoursesLoader {
-  courses: Promise<ICourse>;
+  courseName: string;
 }
 
 export interface ICourseLoader {
@@ -76,6 +67,38 @@ export interface IActivity {
   startDate: string;
   endDate: string;
   activityType: IActivityType;
+}
+
+export interface IModule {
+  id: string;
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  activities: IActivity[];
+}
+
+export interface ICourse {
+  id: string;
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  modules?: IModule[];
+}
+
+export interface ICourseLoader {
+  course: Promise<ICourse>;
+  participants: Promise<IParticipant[]>;
+}
+
+export interface ICoursesLoader {
+  courses: Promise<ICourse[]>;
+}
+
+export interface IDashboardLoader {
+  courses: Promise<ICourse[]>;
+  activities: Promise<IActivity[]>;
 }
 
 export interface IModuleLoader {

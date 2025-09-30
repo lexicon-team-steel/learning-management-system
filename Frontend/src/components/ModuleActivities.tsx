@@ -1,25 +1,27 @@
 import Card from './Card';
-import { mockCourse } from '../utilities/data/mockData';
 import EntityCard from './EntityCard';
-import { formatDate } from '../utilities/helpers';
+import { formatDate, formatTime } from '../utilities/helpers';
 import { Stack } from '@mui/material';
 import theme from '../styles/theme';
+import { IActivity } from '../utilities/types';
 
-const ModuleActivities = () => {
-  const items = mockCourse.activities;
+interface ModuleActivitiesProps {
+  items: IActivity[];
+}
 
+const ModuleActivities = ({ items }: ModuleActivitiesProps) => {
   return (
-    <Card title="Aktivititer " titleVariant="h2">
+    <Card title="Aktiviteter " titleVariant="h2">
       <Stack spacing={theme.spacing(2)}>
         {items.map((item) => (
           <EntityCard
             key={item.name}
-            title={`${item.type}: ${item.name}`}
+            title={`${item.activityType.name}: ${item.name}`}
             text={item.description}
-            date={{ start: formatDate(item.date) }}
+            date={{ start: formatDate(item.startDate) }}
             time={{
-              start: item.startTime,
-              end: item.endTime,
+              start: formatTime(item.startDate),
+              end: formatTime(item.endDate),
             }}
           />
         ))}

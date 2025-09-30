@@ -83,6 +83,22 @@ const theme = createTheme({
           color: colors.chipTextColor,
         },
       },
+      variants: [
+        {
+          props: { color: 'primary' },
+          style: {
+            backgroundColor: colors.primaryBg,
+            color: colors.primaryBlue,
+          },
+        },
+        {
+          props: { color: 'secondary' },
+          style: {
+            backgroundColor: colors.primaryBg,
+            color: colors.error,
+          },
+        },
+      ],
     },
     MuiAppBar: {
       styleOverrides: {
