@@ -19,7 +19,7 @@ const ModulePage = (): ReactElement => {
             <Card title={module.name} titleVariant="h1">
               <Typography mb={theme.layout.gap}>{module.description}</Typography>
               <Stack direction="row" spacing={theme.spacing(6)}>
-                <Typography variant="body2">Del av kurs:</Typography>
+                <Typography variant="body2">Del av kurs: {module.courseName}</Typography>
                 <Date start={formatDate(module.startDate)} end={formatDate(module.endDate)} />
               </Stack>
             </Card>
