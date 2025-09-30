@@ -24,7 +24,7 @@ const UserTableItem = ({ user, onEdit, onDelete }: IUserItem): ReactElement => {
       <TableCell>
         <Chip label={userRole} color={chipColor} />
       </TableCell>
-      <TableCell>
+      <TableCell align="right" sx={{ padding: 0 }}>
         <IconButton onClick={onEdit} aria-label="edit">
           <EditIcon fontSize="small" color="primary" />
         </IconButton>
