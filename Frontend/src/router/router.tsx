@@ -51,14 +51,10 @@ export const router = createBrowserRouter([
       },
       {
         path: 'courses/:courseId/modules/:moduleId',
-        // element: < ModulePage />, // TODO: to be implemented later
+        element: <ModulePage />,
         loader: moduleLoader,
       },
       { path: 'notauthorized', element: <NotAuthorized /> },
-      {
-        path: '/module/:id',
-        element: <ModulePage />,
-      },
     ],
   },
   {

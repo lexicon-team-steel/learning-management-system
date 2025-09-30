@@ -44,7 +44,7 @@ const CoursePage = (): ReactElement => {
                         start: formatDate(module.startDate),
                         end: formatDate(module.endDate),
                       }}
-                      link={`/module/${module.id}`}
+                      link={`/courses/${resolvedCourse.id}/modules/${module.id}`}
                     />
                   ));
                 }}
