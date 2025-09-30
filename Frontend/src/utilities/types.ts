@@ -42,7 +42,7 @@ export interface ICourse {
 }
 
 export interface ICoursesLoader {
-  courses: Promise<ICourse>;
+  courses: Promise<ICourse[]>;
 }
 
 export interface IModule {
@@ -56,4 +56,8 @@ export interface IModule {
 export interface ICourseLoader {
   course: Promise<ICourse>;
   participants: Promise<IParticipant[]>;
+}
+export interface IDashboardLoader {
+  courses: Promise<ICourse[]>;
+  activities: Promise<IActivity[]>;
 }
