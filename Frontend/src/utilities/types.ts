@@ -32,6 +32,11 @@ export interface IParticipant {
   email: string;
 }
 
+export interface IButtonConfig {
+  text: string;
+  link: string;
+}
+
 export interface IActivityType {
   id: string;
   name: string;
