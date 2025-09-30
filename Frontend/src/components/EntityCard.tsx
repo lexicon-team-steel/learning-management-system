@@ -20,6 +20,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
 }));
 
 const StyledLink = styled(Link)(({ theme }) => ({
+  borderRadius: theme.shape.borderRadius,
   transition: 'box-shadow .2s ease, transform .2s ease',
   '&:hover': {
     boxShadow: theme.shadows[2],
