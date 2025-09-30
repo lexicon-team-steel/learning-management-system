@@ -15,7 +15,8 @@ public class UserRepository(ApplicationDbContext context) : RepositoryBase<Appli
         {
             var name = $"%{userParams.Name}%";
             users = users.Where(u => EF.Functions.Like(u.LastName, name)
-                || EF.Functions.Like(u.FirstName, name));
+                || EF.Functions.Like(u.FirstName, name)
+                || EF.Functions.Like(u.FirstName + " " + u.LastName, name));
         }
         if (!string.IsNullOrWhiteSpace(userParams.Role))
             users = users.Where(u => u.UserRoles.Any(u => EF.Functions.Like(u.Role.Name, userParams.Role)));
