@@ -6,6 +6,7 @@ import UserTableRow from '../components/UserTableRow';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import theme from '../styles/theme';
 import PlusIcon from '@mui/icons-material/Add';
+import UserTable from '../components/UserTable';
 
 const newUser: IParticipant = { id: '', firstName: '', lastName: '', roles: [], email: '' };
 
@@ -44,16 +45,7 @@ const AdminUsersPage = (): ReactElement => {
       )}
       <Suspense>
         <Await resolve={users}>
-          {(users: IParticipant[]) => (
-            <Table
-              headers={['Namn', 'E-post', 'Roll', 'Åtgärder']}
-              keyField="id"
-              rows={users}
-              renderItem={(user: IParticipant) => (
-                <UserTableRow user={user} onEdit={() => handleEdit(user)} onDelete={() => handleDelete(user)} />
-              )}
-            ></Table>
-          )}
+          {(users: IParticipant[]) => <UserTable users={users} onEdit={handleEdit} onDelete={handleDelete} />}
         </Await>
       </Suspense>
     </Stack>
