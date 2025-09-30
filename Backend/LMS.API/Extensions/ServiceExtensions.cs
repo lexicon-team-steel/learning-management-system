@@ -110,6 +110,7 @@ public static class ServiceExtensions
         services.AddLazyService<ICourseService, CourseService>();
         services.AddLazyService<IModuleService, ModuleService>();
         services.AddLazyService<IActivityService, ActivityService>();
+        services.AddLazyService<IUserService, UserService>();
     }
 
     private static void AddLazyService<TInterface, TImplementation>(this IServiceCollection services)
