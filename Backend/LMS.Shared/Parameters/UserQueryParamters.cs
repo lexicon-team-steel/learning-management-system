@@ -1,4 +1,4 @@
-namespace LMS.Shared.DTOs.UserDtos;
+namespace LMS.Shared.Parameters;
 
 public class UserQueryParameters
 {

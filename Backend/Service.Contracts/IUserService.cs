@@ -1,4 +1,5 @@
 using LMS.Shared.DTOs.UserDtos;
+using LMS.Shared.Parameters;
 
 namespace Service.Contracts;
 

@@ -1,6 +1,7 @@
 using AutoMapper;
 using Domain.Contracts.Repositories;
 using LMS.Shared.DTOs.UserDtos;
+using LMS.Shared.Parameters;
 using Service.Contracts;
 
 namespace LMS.Services;

@@ -1,7 +1,7 @@
 using Domain.Contracts.Repositories;
 using Domain.Models.Entities;
 using LMS.Infrastructure.Data;
-using LMS.Shared.DTOs.UserDtos;
+using LMS.Shared.Parameters;
 using Microsoft.EntityFrameworkCore;
 
 namespace LMS.Infrastructure.Repositories;
