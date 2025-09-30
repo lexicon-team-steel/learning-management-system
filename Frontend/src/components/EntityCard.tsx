@@ -16,6 +16,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(1.25),
   padding: theme.spacing(2.5),
+  height: '100%',
 }));
 
 const StyledLink = styled(Link)(({ theme }) => ({
