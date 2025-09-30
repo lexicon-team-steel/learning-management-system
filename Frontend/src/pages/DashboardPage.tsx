@@ -7,7 +7,7 @@ import { useAuthContext } from '../utilities/hooks/useAuthContext';
 import { Await, useLoaderData } from 'react-router';
 import { Suspense } from 'react';
 import { IActivity, ICourse } from '../utilities/types';
-import { formatDate } from '../utilities/helpers';
+import { formatDate, sortByDate } from '../utilities/helpers';
 import theme from '../styles/theme';
 
 const DashboardGrid = styled(Box)(({ theme }) => ({
@@ -62,15 +62,18 @@ const DashboardPage = () => {
         </Card>
         <Suspense>
           <Await resolve={activities}>
-            {(activities: IActivity[]) => (
-              <Card title="Kommande aktiviteter">
-                <CollapsibleList
-                  items={activities}
-                  keyField="id"
-                  renderItem={(activity: IActivity) => <ActivityItem activity={activity} />}
-                />
-              </Card>
-            )}
+            {(activities: IActivity[]) => {
+              const sortedActivites = sortByDate(activities, 'endDate');
+              return (
+                <Card title="Kommande aktiviteter">
+                  <CollapsibleList
+                    items={sortedActivites}
+                    keyField="id"
+                    renderItem={(activity: IActivity) => <ActivityItem activity={activity} />}
+                  />
+                </Card>
+              );
+            }}
           </Await>
         </Suspense>
       </DashboardGrid>
