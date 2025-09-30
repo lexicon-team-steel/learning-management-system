@@ -1,7 +1,5 @@
 import { ICourse } from '../types';
 
-export type ActivityType = 'Lecture' | 'Workshop' | 'Assignment' | 'Exam' | 'Other';
-
 export const mockCourse: ICourse = {
   id: 1,
   name: 'Webbutvecklare .NET',
