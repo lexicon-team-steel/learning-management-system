@@ -7,13 +7,14 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import theme from '../styles/theme';
 import PlusIcon from '@mui/icons-material/Add';
 import UserTable from '../components/UserTable';
+import UserForm from '../components/UserForm';
 
 const newUser: IParticipant = { id: '', firstName: '', lastName: '', roles: [], email: '' };
 
 const AdminUsersPage = (): ReactElement => {
   const { users } = useLoaderData();
   const [isEdited, setIsEdited] = useState<boolean>(false);
-  const [currentUser, setCurrentUser] = useState<IParticipant>();
+  const [currentUser, setCurrentUser] = useState<IParticipant>(newUser);
 
   const handleCreate = () => {
     setIsEdited(true);
@@ -26,6 +27,8 @@ const AdminUsersPage = (): ReactElement => {
   };
 
   const handleDelete = (user: IParticipant) => {};
+  const handleSubmit = (user: IParticipant) => {};
+  const handleCancel = () => setIsEdited(false);
 
   return (
     <Stack spacing={theme.layout.gapLarge}>
@@ -35,14 +38,7 @@ const AdminUsersPage = (): ReactElement => {
           Skapa ny användare
         </Button>
       </Box>
-      {isEdited && (
-        <div>
-          <p>There will be a form for: ${JSON.stringify(currentUser)}</p>
-          <Button variant="contained" onClick={() => setIsEdited(false)}>
-            ok
-          </Button>
-        </div>
-      )}
+      {isEdited && <UserForm user={currentUser} onSubmit={handleSubmit} onCancel={handleCancel} />}
       <Suspense>
         <Await resolve={users}>
           {(users: IParticipant[]) => <UserTable users={users} onEdit={handleEdit} onDelete={handleDelete} />}
