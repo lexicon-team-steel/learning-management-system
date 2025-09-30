@@ -13,7 +13,7 @@ const ModuleActivities = ({ items }: ModuleActivitiesProps) => {
   const sortedItems = sortByDate(items, 'startDate');
 
   return (
-    <Card title="Aktivititer " titleVariant="h2">
+    <Card title="Aktiviteter " titleVariant="h2">
       <Stack spacing={theme.spacing(2)}>
         {sortedItems.map((item) => (
           <EntityCard
