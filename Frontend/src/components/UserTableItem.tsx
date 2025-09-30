@@ -1,4 +1,4 @@
-import { TableCell, TableRow } from '@mui/material';
+import { Chip, TableCell, TableRow } from '@mui/material';
 import { ReactElement } from 'react';
 import { IParticipant } from '../utilities/types';
 import EmailLink from './EmailLink';
@@ -11,8 +11,12 @@ const UserTableItem = ({ user }: IUserItem): ReactElement => {
   return (
     <TableRow sx={{ '&:last-child td': { border: 0 } }}>
       <TableCell>{fullName}</TableCell>
-      <TableCell>{user.email}</TableCell>
-      <TableCell>{user.role}</TableCell>
+      <TableCell>
+        <EmailLink email={user.email} />
+      </TableCell>
+      <TableCell>
+        <Chip label={user.role} color="secondary" />
+      </TableCell>
       <TableCell></TableCell>
     </TableRow>
   );
