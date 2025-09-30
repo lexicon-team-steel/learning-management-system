@@ -11,7 +11,7 @@ interface IUserFormProps {
 
 const UserForm = ({ user, onSubmit, onCancel }: IUserFormProps): ReactElement => {
   return (
-    <form>
+    <form onSubmit={(e) => e.preventDefault()}>
       <p>Future form for ${JSON.stringify(user)}</p>
       <Stack direction="row" spacing={theme.layout.gap}>
         <Button variant="contained" type="submit">
