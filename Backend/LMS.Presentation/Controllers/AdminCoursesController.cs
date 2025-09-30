@@ -12,15 +12,16 @@ namespace LMS.Presentation.Controllers;
 [Authorize(Roles = "Teacher")]
 public class AdminCoursesController(IServiceManager serviceManager) : ControllerBase
 {
-    private readonly ICourseService courseService = serviceManager.CourseService;
+        private readonly ICourseService courseService = serviceManager.CourseService;
 
-    [HttpGet]
-    [SwaggerOperation(
-            Summary = "Get all courses",
-            Description = "Returns courses for admin.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "List of courses", typeof(IEnumerable<CourseDto>))]
-    [SwaggerResponse(StatusCodes.Status403Forbidden, "Unauthorized - JWT token missing or invalid")]
-    public async Task<ActionResult<IEnumerable<CourseDto>>> GetAllCourses() =>
-        Ok(await courseService.GetAllCoursesAsync());
+        [HttpGet]
+        [SwaggerOperation(
+                Summary = "Get all courses",
+                Description = "Returns courses for admin.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "List of courses", typeof(IEnumerable<CourseDto>))]
+        [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+        [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - You do not have permission to access this resource.")]
+        public async Task<ActionResult<IEnumerable<CourseDto>>> GetAllCourses() =>
+            Ok(await courseService.GetAllCoursesAsync());
 
 }

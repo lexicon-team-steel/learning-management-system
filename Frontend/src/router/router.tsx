@@ -6,6 +6,7 @@ import Sandbox from '../pages/Sandbox';
 import LoginPage from '../pages/LoginPage';
 import { dashboardLoader } from '../utilities/loaders/dashboardLoader';
 import CoursePage from '../pages/CoursePage';
+import { moduleLoader } from '../utilities/loaders/moduleLoader';
 import { courseLoader, myCourseLoader } from '../utilities/loaders/courseLoader';
 import { allCoursesLoader } from '../utilities/loaders/allCoursesLoader';
 import NotAuthorized from '../pages/NotAuthorized';
@@ -40,11 +41,17 @@ export const router = createBrowserRouter([
         path: 'courses/:id',
         element: <CoursePage />,
         loader: courseLoader,
+        children: [],
       },
       {
         path: 'course',
         element: <div />,
         loader: myCourseLoader,
+      },
+      {
+        path: 'courses/:courseId/modules/:moduleId',
+        // element: < ModulePage />, // TODO: to be implemented later
+        loader: moduleLoader,
       },
       { path: 'notauthorized', element: <NotAuthorized /> },
     ],
