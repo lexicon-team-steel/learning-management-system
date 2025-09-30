@@ -1,27 +1,18 @@
-import { useNavigate } from 'react-router';
-import ButtonCard from '../components/ButtonCard';
 import Main from '../components/Main';
 import MuduleActivities from '../components/ModuleActivities';
+import LinkCard from '../components/LinkCard';
 
 const Sandbox = () => {
-  // Demo for <ButtonCard />
-  // Doc: The <ButtonCard /> is a reusable card component that renders a list of buttons
-  // with their own labels and click handlers. Useful for creating quick actions / shortcuts panels
-  // like “Snabblänkar” "Kursadministration".
-  const navigate = useNavigate();
-  const handlerOnClickUser = () => {
-    navigate('/admin/users');
-  };
-  const handlerOnClickCourse = () => {
-    navigate('/admin/courses');
-  };
+  // Temp Demo for <LinkCard />
+
   return (
     <Main>
       <MuduleActivities /> {/*  // temp for testing */}
-      <ButtonCard
+      <LinkCard
+        title="Snabblänk"
         buttons={[
-          { text: 'Hantera användare', onClick: handlerOnClickUser },
-          { text: 'Hantera kurser', onClick: handlerOnClickCourse },
+          { text: 'Hantera användare', link: '/admin/users' },
+          { text: 'Hantera kurser', link: '/admin/courses' },
         ]}
       />
     </Main>

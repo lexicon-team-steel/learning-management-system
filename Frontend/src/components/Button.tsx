@@ -1,16 +1,17 @@
 import { ReactElement } from 'react';
-
-import { Button as MuiButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { NavLink } from 'react-router';
+import { Button as MuiButton } from '@mui/material';
+
 interface IButtonProps {
   icon?: boolean;
   text: string;
-  onClick: () => void;
+  link: string;
 }
 
-const Button = ({ text, icon = false, onClick }: IButtonProps): ReactElement => {
+const Button = ({ text, icon = false, link }: IButtonProps): ReactElement => {
   return (
-    <MuiButton variant="contained" onClick={onClick} startIcon={icon && <AddIcon />}>
+    <MuiButton component={NavLink} to={link} variant="contained" startIcon={icon && <AddIcon />}>
       {text}
     </MuiButton>
   );

@@ -57,3 +57,9 @@ export interface ICourseLoader {
   course: Promise<ICourse>;
   participants: Promise<IParticipant[]>;
 }
+
+export interface IButtonConfig {
+  text: string;
+  link: string;
+  icon?: boolean;
+}
