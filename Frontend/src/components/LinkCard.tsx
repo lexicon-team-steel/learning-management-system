@@ -1,7 +1,8 @@
 import Card from './Card';
-import Button from './Button';
-import { Stack } from '@mui/material';
+
+import { Stack, Button } from '@mui/material';
 import { IButtonConfig } from '../utilities/types';
+import { NavLink } from 'react-router';
 
 interface ILinkCardProps {
   title: string;
@@ -13,7 +14,9 @@ const LinkCard = ({ title, buttons }: ILinkCardProps) => {
     <Card title={title}>
       <Stack spacing={1}>
         {buttons.map((btn) => (
-          <Button key={btn.text} text={btn.text} link={btn.link} />
+          <Button key={btn.text} component={NavLink} to={btn.link} variant="contained">
+            {btn.text}
+          </Button>
         ))}
       </Stack>
     </Card>

@@ -61,5 +61,4 @@ export interface ICourseLoader {
 export interface IButtonConfig {
   text: string;
   link: string;
-  icon?: boolean;
 }
