@@ -10,7 +10,7 @@ interface IUserItem {
   onEdit: () => void;
   onDelete: () => void;
 }
-const UserTableItem = ({ user, onEdit, onDelete }: IUserItem): ReactElement => {
+const UserTableRow = ({ user, onEdit, onDelete }: IUserItem): ReactElement => {
   const userName = user.lastName + '' + user.firstName;
   const userRole = user.role[0];
   const chipColor = userRole === 'Student' ? 'primary' : 'secondary';
@@ -36,4 +36,4 @@ const UserTableItem = ({ user, onEdit, onDelete }: IUserItem): ReactElement => {
   );
 };
 
-export default UserTableItem;
+export default UserTableRow;
