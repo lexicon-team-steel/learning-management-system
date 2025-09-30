@@ -20,7 +20,8 @@ public class AdminUsersController(IServiceManager serviceManager) : ControllerBa
                 Summary = "Get all users",
                 Description = "Returns users for admin. Can be filtered by name or role")]
         [SwaggerResponse(StatusCodes.Status200OK, "List of user", typeof(IEnumerable<UserDto>))]
-        [SwaggerResponse(StatusCodes.Status403Forbidden, "Unauthorized - JWT token missing or invalid")]
+        [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+        [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - You do not have permission to access this resource.")]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers([FromQuery] UserQueryParameters userParams) =>
             Ok(await userService.GetAllUsersAsync(userParams));
 }
