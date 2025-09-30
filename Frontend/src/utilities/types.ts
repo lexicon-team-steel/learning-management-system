@@ -52,6 +52,7 @@ export interface IModule {
   startDate: string;
   endDate: string;
   activities: IActivity[];
+  courseName: string;
 }
 export interface ICourseLoader {
   course: Promise<ICourse>;
