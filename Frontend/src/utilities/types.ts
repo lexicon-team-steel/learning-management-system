@@ -28,7 +28,7 @@ export interface IParticipant {
   id: string;
   firstName: string;
   lastName: string;
-  role: UserRole[];
+  roles: UserRole[];
   email: string;
 }
 

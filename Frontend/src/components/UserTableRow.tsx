@@ -13,7 +13,7 @@ interface IUserItem {
 }
 const UserTableRow = ({ user, onEdit, onDelete }: IUserItem): ReactElement => {
   const userName = `${user.firstName} ${user.lastName}`;
-  const userRole = user.role[0];
+  const userRole = user.roles[0];
   const chipColor = userRole === 'Student' ? 'primary' : 'secondary';
 
   return (
