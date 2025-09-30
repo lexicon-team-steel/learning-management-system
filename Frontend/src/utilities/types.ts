@@ -111,3 +111,7 @@ export interface IModuleLoader {
   module: Promise<IModule>;
   activities: Promise<IActivity[]>;
 }
+
+export interface IAdminUsersLoader {
+  users: Promise<IParticipant>;
+}
