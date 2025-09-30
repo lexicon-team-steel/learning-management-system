@@ -10,10 +10,14 @@ interface ModuleActivitiesProps {
 }
 
 const ModuleActivities = ({ items }: ModuleActivitiesProps) => {
+  const sortedItems = items.sort((a, b) => {
+    return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+  });
+
   return (
     <Card title="Aktivititer " titleVariant="h2">
       <Stack spacing={theme.spacing(2)}>
-        {items.map((item) => (
+        {sortedItems.map((item) => (
           <EntityCard
             key={item.name}
             title={`${item.activityType.name}: ${item.name}`}
