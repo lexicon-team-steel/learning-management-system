@@ -13,14 +13,14 @@ const Sandbox = () => {
   return (
     <Main>
       <Grid container spacing={2} columns={2}>
-        <MuduleActivities /> {/*  // temp for testing */}
+        {/* <MuduleActivities />
         <LinkCard
           title="Snabblänk"
           buttons={[
             { text: 'Hantera användare', link: '/admin/users' },
             { text: 'Hantera kurser', link: '/admin/courses' },
           ]}
-        />
+        /> */}
         <Table
           headers={['Namn', 'E-post', 'Roll', 'Åtgärder']}
           keyField="id"
