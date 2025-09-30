@@ -6,8 +6,11 @@ import Sandbox from '../pages/Sandbox';
 import LoginPage from '../pages/LoginPage';
 import { dashboardLoader } from '../utilities/loaders/dashboardLoader';
 import CoursePage from '../pages/CoursePage';
-import { courseLoader, defaultCourseLoader } from '../utilities/loaders/courseLoader';
-import CourseListBoard from '../components/CourseListBoard';
+import { moduleLoader } from '../utilities/loaders/moduleLoader';
+import { courseLoader, myCourseLoader } from '../utilities/loaders/courseLoader';
+import { allCoursesLoader } from '../utilities/loaders/allCoursesLoader';
+import NotAuthorized from '../pages/NotAuthorized';
+import CoursesPage from '../pages/CoursesPage';
 
 export const router = createBrowserRouter([
   {
@@ -30,19 +33,27 @@ export const router = createBrowserRouter([
         element: <Sandbox />,
       },
       {
-        path: 'courses', //TODO: Some preparation for the teacher courses route. Needs restriction!
-        element: <CourseListBoard />, //This component is open for modification :)
+        path: 'courses',
+        element: <CoursesPage />,
+        loader: allCoursesLoader,
       },
       {
         path: 'courses/:id',
         element: <CoursePage />,
         loader: courseLoader,
+        children: [],
       },
       {
         path: 'course',
         element: <div />,
-        loader: defaultCourseLoader,
+        loader: myCourseLoader,
       },
+      {
+        path: 'courses/:courseId/modules/:moduleId',
+        // element: < ModulePage />, // TODO: to be implemented later
+        loader: moduleLoader,
+      },
+      { path: 'notauthorized', element: <NotAuthorized /> },
     ],
   },
   {

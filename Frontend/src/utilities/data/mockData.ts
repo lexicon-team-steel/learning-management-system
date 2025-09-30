@@ -12,10 +12,10 @@ export interface IActivity {
 
 export interface ICourse {
   id: number;
-  course: string;
-  info: string;
-  dateStart: string; // YYYY-MM-DD
-  dateEnd?: string; // optional
+  name: string;
+  description: string;
+  startDate: string;
+  endDate?: string;
   activities: IActivity[];
   modules: IModule[];
 }
@@ -41,10 +41,10 @@ export const mockUser: IUser = {
 
 export const mockCourse: ICourse = {
   id: 1,
-  course: 'Webbutvecklare .NET',
-  info: 'Fullstack-utbildning med fokus på C#, .NET och React.',
-  dateStart: '2025-01-15',
-  dateEnd: '2025-06-15',
+  name: 'Webbutvecklare .NET',
+  description: 'Fullstack-utbildning med fokus på C#, .NET och React.',
+  startDate: '2025-01-15',
+  endDate: '2025-06-15',
   activities: [
     {
       id: 101,
@@ -116,64 +116,64 @@ export const mockCourse: ICourse = {
 export const mockCourses: ICourse[] = [
   {
     id: 1,
-    course: 'Course 1',
-    info: 'Den här kursen kommer lära dig allt som går att lära',
-    dateStart: '2025-11-16',
-    dateEnd: '2026-01-15',
+    name: 'Course 1',
+    description: 'Den här kursen kommer lära dig allt som går att lära',
+    startDate: '2025-11-16',
+    endDate: '2026-01-15',
     activities: [],
     modules: [],
   },
   {
     id: 2,
-    course: 'Course 1',
-    info: 'Den här kursen kommer lära dig allt som går att lära',
-    dateStart: '2025-11-16',
-    dateEnd: '2026-01-15',
+    name: 'Course 1',
+    description: 'Den här kursen kommer lära dig allt som går att lära',
+    startDate: '2025-11-16',
+    endDate: '2026-01-15',
     activities: [],
     modules: [],
   },
   {
     id: 3,
-    course: 'Course 1',
-    info: 'Den här kursen kommer lära dig allt som går att lära',
-    dateStart: '2025-11-16',
-    dateEnd: '2026-01-15',
+    name: 'Course 1',
+    description: 'Den här kursen kommer lära dig allt som går att lära',
+    startDate: '2025-11-16',
+    endDate: '2026-01-15',
     activities: [],
     modules: [],
   },
   {
     id: 4,
-    course: 'Course 1',
-    info: 'Den här kursen kommer lära dig allt som går att lära',
-    dateStart: '2025-11-16',
-    dateEnd: '2026-01-15',
+    name: 'Course 1',
+    description: 'Den här kursen kommer lära dig allt som går att lära',
+    startDate: '2025-11-16',
+    endDate: '2026-01-15',
     activities: [],
     modules: [],
   },
   {
     id: 5,
-    course: 'Course 1',
-    info: 'Den här kursen kommer lära dig allt som går att lära',
-    dateStart: '2025-11-16',
-    dateEnd: '2026-01-15',
+    name: 'Course 1',
+    description: 'Den här kursen kommer lära dig allt som går att lära',
+    startDate: '2025-11-16',
+    endDate: '2026-01-15',
     activities: [],
     modules: [],
   },
   {
     id: 6,
-    course: 'Course 1',
-    info: 'Den här kursen kommer lära dig allt som går att lära',
-    dateStart: '2025-11-16',
-    dateEnd: '2026-01-15',
+    name: 'Course 1',
+    description: 'Den här kursen kommer lära dig allt som går att lära',
+    startDate: '2025-11-16',
+    endDate: '2026-01-15',
     activities: [],
     modules: [],
   },
   {
     id: 7,
-    course: 'Course 1',
-    info: 'Den här kursen kommer lära dig allt som går att lära',
-    dateStart: '2025-11-16',
-    dateEnd: '2026-01-15',
+    name: 'Course 1',
+    description: 'Den här kursen kommer lära dig allt som går att lära',
+    startDate: '2025-11-16',
+    endDate: '2026-01-15',
     activities: [],
     modules: [],
   },
