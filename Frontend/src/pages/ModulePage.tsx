@@ -5,7 +5,7 @@ import Card from '../components/Card';
 import ModuleActivities from '../components/ModuleActivities';
 import theme from '../styles/theme';
 import { IActivity, IModule } from '../utilities/types';
-import { formatDate } from '../utilities/helpers';
+import { formatDate, sortByDate } from '../utilities/helpers';
 import Date from '../components/Date';
 
 const ModulePage = (): ReactElement => {
@@ -32,7 +32,12 @@ const ModulePage = (): ReactElement => {
         </Await>
       </Suspense>
       <Suspense>
-        <Await resolve={activities}>{(activities: IActivity[]) => <ModuleActivities items={activities} />}</Await>
+        <Await resolve={activities}>
+          {(activities: IActivity[]) => {
+            const sortedActivites = sortByDate(activities, 'startDate');
+            return <ModuleActivities items={sortedActivites} />;
+          }}
+        </Await>
       </Suspense>
     </Stack>
   );
