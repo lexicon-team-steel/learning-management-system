@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { Avatar, ListItem, ListItemAvatar, ListItemText, styled, Typography } from '@mui/material';
-import EmailLink from './Links/EmailLink';
+import EmailLink from './EmailLink';
 import { IParticipant } from '../utilities/types';
 
 interface IParticipantItemProps {
