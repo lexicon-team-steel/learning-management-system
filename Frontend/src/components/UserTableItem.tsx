@@ -7,15 +7,18 @@ interface IUserItem {
   user: IParticipant;
 }
 const UserTableItem = ({ user }: IUserItem): ReactElement => {
-  const fullName = user.lastName + '' + user.firstName;
+  const userName = user.lastName + '' + user.firstName;
+  const userRole = user.role[0];
+  const chipColor = userRole === 'Student' ? 'primary' : 'secondary';
+
   return (
     <TableRow sx={{ '&:last-child td': { border: 0 } }}>
-      <TableCell>{fullName}</TableCell>
+      <TableCell>{userName}</TableCell>
       <TableCell>
         <EmailLink email={user.email} />
       </TableCell>
       <TableCell>
-        <Chip label={user.role} color="secondary" />
+        <Chip label={userRole} color={chipColor} />
       </TableCell>
       <TableCell></TableCell>
     </TableRow>
