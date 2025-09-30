@@ -3,13 +3,22 @@ import { Await, useLoaderData } from 'react-router';
 import { IParticipant } from '../utilities/types';
 import Table from '../components/Table';
 import UserTableRow from '../components/UserTableRow';
+import { Box, Button, Stack, Typography } from '@mui/material';
+import theme from '../styles/theme';
+import PlusIcon from '@mui/icons-material/Add';
 
 const AdminUsersPage = (): ReactElement => {
   const { users } = useLoaderData();
   const handleAction = (user: IParticipant) => console.log(user);
 
   return (
-    <>
+    <Stack spacing={theme.layout.gapLarge}>
+      <Box display="flex" justifyContent="space-between" alignItems="center" gap={theme.layout.gap}>
+        <Typography variant="h1">Hantera användare</Typography>
+        <Button startIcon={<PlusIcon />} variant="contained">
+          Skapa ny användare
+        </Button>
+      </Box>
       <Suspense>
         <Await resolve={users}>
           {(users: IParticipant[]) => (
@@ -24,7 +33,7 @@ const AdminUsersPage = (): ReactElement => {
           )}
         </Await>
       </Suspense>
-    </>
+    </Stack>
   );
 };
 
