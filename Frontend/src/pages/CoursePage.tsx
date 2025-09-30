@@ -1,4 +1,4 @@
-import { ReactElement, Suspense, } from 'react';
+import { ReactElement, Suspense } from 'react';
 import { Await, useLoaderData } from 'react-router';
 import { ICourse, IModule, IParticipant } from '../utilities/types';
 import { Box, Grid, Skeleton, Typography } from '@mui/material';
