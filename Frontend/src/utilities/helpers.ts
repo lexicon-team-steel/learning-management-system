@@ -7,13 +7,13 @@ export const formatDate = (date: string) => {
   return new Intl.DateTimeFormat('sv-SE').format(dateFromString);
 };
 
-export function formatTime(date: string): string {
+export const formatTime = (date: string): string => {
   const dateFromString = new Date(date);
   return new Intl.DateTimeFormat('sv-SE', {
     hour: '2-digit',
     minute: '2-digit',
   }).format(dateFromString);
-}
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function sortByDate<T extends Record<string, any>>(
