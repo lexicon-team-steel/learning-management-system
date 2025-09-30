@@ -32,32 +32,6 @@ export interface IParticipant {
   email: string;
 }
 
-export interface ICourse {
-  id: string;
-  name: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  modules?: IModule[];
-}
-
-export interface ICoursesLoader {
-  courses: Promise<ICourse>;
-}
-
-export interface IModule {
-  id: string;
-  name: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  activities: IActivity[];
-}
-export interface ICourseLoader {
-  course: Promise<ICourse>;
-  participants: Promise<IParticipant[]>;
-}
-
 export interface IButtonConfig {
   text: string;
   link: string;
@@ -75,6 +49,38 @@ export interface IActivity {
   startDate: string;
   endDate: string;
   activityType: IActivityType;
+}
+
+export interface IModule {
+  id: string;
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  activities: IActivity[];
+}
+
+export interface ICourse {
+  id: string;
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  modules?: IModule[];
+}
+
+export interface ICourseLoader {
+  course: Promise<ICourse>;
+  participants: Promise<IParticipant[]>;
+}
+
+export interface ICoursesLoader {
+  courses: Promise<ICourse[]>;
+}
+
+export interface IDashboardLoader {
+  courses: Promise<ICourse[]>;
+  activities: Promise<IActivity[]>;
 }
 
 export interface IModuleLoader {
