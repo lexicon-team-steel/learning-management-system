@@ -12,7 +12,7 @@ const UserTableItem = ({ user }: IUserItem): ReactElement => {
   const chipColor = userRole === 'Student' ? 'primary' : 'secondary';
 
   return (
-    <TableRow sx={{ '&:last-child td': { border: 0 } }}>
+    <TableRow>
       <TableCell>{userName}</TableCell>
       <TableCell>
         <EmailLink email={user.email} />

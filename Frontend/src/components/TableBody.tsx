@@ -21,7 +21,7 @@ const TableBody = <T,>({ colspan, rows, renderItem, keyField }: ITableBodyProps<
       </MUITableBody>
     );
   return (
-    <MUITableBody sx={{ bgcolor: theme.palette.background.paper }}>
+    <MUITableBody sx={{ bgcolor: theme.palette.background.paper, 'tr:last-child td': { border: 0 } }}>
       {rows.map((item) => (
         <Fragment key={item[keyField] as string}>{renderItem(item)}</Fragment>
       ))}
