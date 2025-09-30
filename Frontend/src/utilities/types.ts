@@ -32,6 +32,29 @@ export interface IParticipant {
   email: string;
 }
 
+export interface IActivityType {
+  id: string;
+  name: string;
+}
+
+export interface IActivity {
+  id: string;
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  activityType: IActivityType;
+}
+
+export interface IModule {
+  id: string;
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  activities: IActivity[];
+}
+
 export interface ICourse {
   id: string;
   name: string;
@@ -41,23 +64,21 @@ export interface ICourse {
   modules?: IModule[];
 }
 
-export interface ICoursesLoader {
-  courses: Promise<ICourse[]>;
-}
-
-export interface IModule {
-  id: string;
-  name: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-}
-
 export interface ICourseLoader {
   course: Promise<ICourse>;
   participants: Promise<IParticipant[]>;
 }
+
+export interface ICoursesLoader {
+  courses: Promise<ICourse[]>;
+}
+
 export interface IDashboardLoader {
   courses: Promise<ICourse[]>;
+  activities: Promise<IActivity[]>;
+}
+
+export interface IModuleLoader {
+  module: Promise<IModule>;
   activities: Promise<IActivity[]>;
 }
