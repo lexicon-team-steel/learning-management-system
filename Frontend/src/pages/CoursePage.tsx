@@ -8,9 +8,13 @@ import ParticipantItem from '../components/ParticipantItem';
 import { formatDate } from '../utilities/helpers';
 import Card from '../components/Card';
 import theme from '../styles/theme';
+import LinkCard from '../components/LinkCard';
+import { useAuthContext } from '../utilities/hooks/useAuthContext';
 
 const CoursePage = (): ReactElement => {
   const { course, participants } = useLoaderData();
+  const { isTeacher } = useAuthContext();
+  const teacherDefaultParticipants = 2;
 
   return (
     <Grid container spacing={theme.layout.gapLarge}>
@@ -34,7 +38,6 @@ const CoursePage = (): ReactElement => {
                   if (!resolvedCourse.modules) {
                     return <Typography>Denna kurs har ännu inga moduler.</Typography>;
                   }
-
                   return resolvedCourse.modules.map((module: IModule) => (
                     <EntityCard
                       key={module.id}
@@ -53,20 +56,32 @@ const CoursePage = (): ReactElement => {
           </Box>
         </Card>
       </Grid>
-      <Grid size={4}>
-        <Card title="Kursdeltagare">
-          <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
-            <Await resolve={participants}>
-              {(resolvedParticipants: IParticipant[]) => (
-                <CollapsibleList
-                  items={resolvedParticipants}
-                  keyField="email"
-                  renderItem={(item: IParticipant) => <ParticipantItem participant={item} />}
-                />
-              )}
-            </Await>
-          </Suspense>
-        </Card>
+      <Grid size={4} spacing={theme.layout.gapLarge}>
+        <Box display={'flex'} flexDirection={'column'} gap={theme.layout.gapLarge}>
+          <Card title="Kursdeltagare">
+            <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
+              <Await resolve={participants}>
+                {(resolvedParticipants: IParticipant[]) => (
+                  <CollapsibleList
+                    itemsDefault={isTeacher ? teacherDefaultParticipants : undefined}
+                    items={resolvedParticipants}
+                    keyField="email"
+                    renderItem={(item: IParticipant) => <ParticipantItem participant={item} />}
+                  />
+                )}
+              </Await>
+            </Suspense>
+          </Card>
+          {isTeacher && (
+            <LinkCard
+              title="Kursadministration"
+              buttons={[
+                { text: 'Redigera kurs', link: '/admin/course/:id' },
+                { text: 'Lägg till modul', link: '/admin/modules/add' },
+              ]}
+            />
+          )}
+        </Box>
       </Grid>
     </Grid>
   );

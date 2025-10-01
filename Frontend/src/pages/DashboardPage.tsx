@@ -1,4 +1,4 @@
-import { Box, styled, Typography } from '@mui/material';
+import { Box, Grid, Stack, styled, Typography } from '@mui/material';
 import EntityCard from '../components/EntityCard';
 import Card from '../components/Card';
 import CollapsibleList from '../components/CollapsibleList';
@@ -9,6 +9,7 @@ import { Suspense } from 'react';
 import { IActivity, ICourse } from '../utilities/types';
 import { formatDate, sortByDate } from '../utilities/helpers';
 import theme from '../styles/theme';
+import LinkCard from '../components/LinkCard';
 
 const DashboardGrid = styled(Box)(({ theme }) => ({
   display: 'grid',
@@ -60,22 +61,36 @@ const DashboardPage = () => {
             </Suspense>
           </CardGrid>
         </Card>
-        <Suspense>
-          <Await resolve={activities}>
-            {(activities: IActivity[]) => {
-              const sortedActivites = sortByDate(activities, 'endDate');
-              return (
-                <Card title="Kommande aktiviteter">
-                  <CollapsibleList
-                    items={sortedActivites}
-                    keyField="id"
-                    renderItem={(activity: IActivity) => <ActivityItem activity={activity} />}
-                  />
-                </Card>
-              );
-            }}
-          </Await>
-        </Suspense>
+
+        <Grid>
+          <Stack gap={2}>
+            <Suspense>
+              <Await resolve={activities}>
+                {(activities: IActivity[]) => {
+                  const sortedActivites = sortByDate(activities, 'endDate');
+                  return (
+                    <Card title="Kommande aktiviteter">
+                      <CollapsibleList
+                        items={sortedActivites}
+                        keyField="id"
+                        renderItem={(activity: IActivity) => <ActivityItem activity={activity} />}
+                      />
+                    </Card>
+                  );
+                }}
+              </Await>
+            </Suspense>
+            {isTeacher && (
+              <LinkCard
+                title="Snabblänkar"
+                buttons={[
+                  { text: 'Hantera användare', link: '/admin/users' },
+                  { text: 'Hantera kurser', link: '/admin/courses' },
+                ]}
+              />
+            )}
+          </Stack>
+        </Grid>
       </DashboardGrid>
     </>
   );
