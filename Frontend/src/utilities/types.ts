@@ -22,7 +22,7 @@ export interface IParticipant {
   id: string;
   firstName: string;
   lastName: string;
-  role: UserRole[];
+  roles: UserRole[];
   email: string;
 }
 
@@ -95,4 +95,8 @@ export interface IDashboardLoader {
 export interface IModuleLoader {
   module: Promise<IModule>;
   activities: Promise<IActivity[]>;
+}
+
+export interface IAdminUsersLoader {
+  users: IParticipant[];
 }
