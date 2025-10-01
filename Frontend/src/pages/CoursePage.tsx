@@ -76,8 +76,8 @@ const CoursePage = (): ReactElement => {
             <LinkCard
               title="Kursadministration"
               buttons={[
-                { text: 'Redigera kurs', link: '/admin/course/:id' },
-                { text: 'Lägg till modul', link: '/admin/modules/add' },
+                { text: 'Hantera kurser', link: '/admin/courses' },
+                { text: 'Hantera moduler', link: '/admin/modules' },
               ]}
             />
           )}
