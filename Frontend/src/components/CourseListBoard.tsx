@@ -7,12 +7,13 @@ import { formatDate } from '../utilities/helpers';
 import { ICourse } from '../utilities/types';
 
 interface CourseListBoardProps {
+  title?: string;
   courses: Promise<ICourse[]>;
 }
 
-const CourseListBoard = ({ courses }: CourseListBoardProps): ReactElement => {
+const CourseListBoard = ({ title, courses }: CourseListBoardProps): ReactElement => {
   return (
-    <CustomCard title="Alla kurser">
+    <CustomCard title={title ? title : undefined}>
       <Grid container spacing={2} columns={3}>
         <Suspense>
           <Await resolve={courses}>
@@ -23,7 +24,6 @@ const CourseListBoard = ({ courses }: CourseListBoardProps): ReactElement => {
                     title={course.name}
                     text={course.description.substring(0, 50) + '...'} // TODO: do better
                     date={{ start: formatDate(course.startDate) }}
-                    link={`/courses/${course.id}`}
                   />
                 </Grid>
               ))

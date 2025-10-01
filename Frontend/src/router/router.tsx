@@ -10,6 +10,8 @@ import { moduleLoader } from '../utilities/loaders/moduleLoader';
 import { courseLoader } from '../utilities/loaders/courseLoader';
 import NotAuthorized from '../pages/NotAuthorized';
 import ModulePage from '../pages/ModulePage';
+import AdminCoursesPage from '../pages/AdminCoursesPage';
+import { adminCoursesLoader } from '../utilities/loaders/adminCoursesLoader';
 import { adminUsersLoader } from '../utilities/loaders/adminUsersLoader';
 import AdminUsersPage from '../pages/AdminUsersPage';
 
@@ -48,6 +50,11 @@ export const router = createBrowserRouter([
         path: 'admin/users',
         element: <AdminUsersPage />,
         loader: adminUsersLoader,
+      },
+      {
+        path: 'admin/courses',
+        element: <AdminCoursesPage />,
+        loader: adminCoursesLoader,
       },
       { path: 'notauthorized', element: <NotAuthorized /> },
     ],

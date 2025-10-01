@@ -61,36 +61,27 @@ const DashboardPage = () => {
             </Suspense>
           </CardGrid>
         </Card>
+        <Suspense>
+          <Await resolve={activities}>
+            {(activities: IActivity[]) => {
+              const sortedActivities = sortByDate(activities, 'endDate');
 
-        <Grid>
-          <Stack gap={2}>
-            <Suspense>
-              <Await resolve={activities}>
-                {(activities: IActivity[]) => {
-                  const sortedActivites = sortByDate(activities, 'endDate');
-                  return (
-                    <Card title="Kommande aktiviteter">
-                      <CollapsibleList
-                        items={sortedActivites}
-                        keyField="id"
-                        renderItem={(activity: IActivity) => <ActivityItem activity={activity} />}
-                      />
-                    </Card>
-                  );
-                }}
-              </Await>
-            </Suspense>
-            {isTeacher && (
-              <LinkCard
-                title="Snabblänkar"
-                buttons={[
-                  { text: 'Hantera användare', link: '/admin/users' },
-                  { text: 'Hantera kurser', link: '/admin/courses' },
-                ]}
-              />
-            )}
-          </Stack>
-        </Grid>
+              if (!sortedActivities || sortedActivities.length === 0) {
+                return <Card title="Kommande aktiviteter">Inga kommande aktiviteter</Card>;
+              }
+
+              return (
+                <Card title="Kommande aktiviteter">
+                  <CollapsibleList
+                    items={sortedActivities}
+                    keyField="id"
+                    renderItem={(activity: IActivity) => <ActivityItem activity={activity} />}
+                  />
+                </Card>
+              );
+            }}
+          </Await>
+        </Suspense>
       </DashboardGrid>
     </>
   );
