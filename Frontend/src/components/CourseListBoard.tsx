@@ -7,12 +7,13 @@ import { Await } from 'react-router';
 import { formatDate } from '../utilities/helpers';
 
 interface CourseListBoardProps {
+  title?: string;
   courses: Promise<ICourse[]>;
 }
 
-const CourseListBoard = ({ courses }: CourseListBoardProps): ReactElement => {
+const CourseListBoard = ({ title, courses }: CourseListBoardProps): ReactElement => {
   return (
-    <CustomCard title="Alla kurser">
+    <CustomCard title={title ? title : undefined}>
       <Grid container spacing={2} columns={3}>
         <Suspense>
           <Await resolve={courses}>
