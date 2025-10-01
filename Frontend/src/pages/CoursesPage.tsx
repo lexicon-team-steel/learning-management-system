@@ -8,8 +8,8 @@ const CoursesPage = (): ReactElement => {
 
   return (
     <>
-      <p>Place for dashbord link</p>
-      <CourseListBoard courses={courses} />
+      {/* <p>Place for dashbord link</p> */}
+      <CourseListBoard title="Mina kurser" courses={courses} />
     </>
   );
 };
