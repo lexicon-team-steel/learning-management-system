@@ -113,5 +113,5 @@ export interface IModuleLoader {
 }
 
 export interface IAdminUsersLoader {
-  users: Promise<IParticipant>;
+  users: IParticipant[];
 }
