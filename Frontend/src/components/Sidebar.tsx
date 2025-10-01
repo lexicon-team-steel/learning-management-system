@@ -77,8 +77,6 @@ const Sidebar = (): ReactElement => {
   const { isTeacher } = useAuthContext();
   const { courses, loading } = useCoursesContext();
 
-  const mainItems = isTeacher ? baseMainItems : [...baseMainItems, studentCourseItem];
-
   const renderNavItems = (items: NavItem[]) =>
     items.map(({ text, icon, path }) => (
       <ListItem key={text} disablePadding>
@@ -94,9 +92,8 @@ const Sidebar = (): ReactElement => {
       <StyledDrawer variant="permanent" anchor="left">
         <Title>LMS System</Title>
         <List>
-          {renderNavItems(mainItems)}
-          {isTeacher &&
-            !loading &&
+          {renderNavItems(baseMainItems)}
+          {!loading &&
             courses.length > 0 &&
             courses.map((c) => (
               <ListItem key={c.id} disablePadding>

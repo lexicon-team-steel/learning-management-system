@@ -16,7 +16,6 @@ export const CoursesProvider = ({ children }: ICoursesProviderProps) => {
   const [error, setError] = useState<string | null>(null);
 
   const fetchCourses = async () => {
-    if (!isLoggedIn || user.role !== 'Teacher') return;
     setLoading(true);
 
     try {

@@ -7,7 +7,7 @@ import LoginPage from '../pages/LoginPage';
 import { dashboardLoader } from '../utilities/loaders/dashboardLoader';
 import CoursePage from '../pages/CoursePage';
 import { moduleLoader } from '../utilities/loaders/moduleLoader';
-import { courseLoader, myCourseLoader } from '../utilities/loaders/courseLoader';
+import { courseLoader } from '../utilities/loaders/courseLoader';
 import NotAuthorized from '../pages/NotAuthorized';
 import ModulePage from '../pages/ModulePage';
 import { adminUsersLoader } from '../utilities/loaders/adminUsersLoader';
@@ -38,11 +38,6 @@ export const router = createBrowserRouter([
         element: <CoursePage />,
         loader: courseLoader,
         children: [],
-      },
-      {
-        path: 'course',
-        element: <div />,
-        loader: myCourseLoader,
       },
       {
         path: 'courses/:courseId/modules/:moduleId',
