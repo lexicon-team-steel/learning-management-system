@@ -19,6 +19,7 @@ export const CoursesProvider = ({ children }: ICoursesProviderProps) => {
     setLoading(true);
 
     try {
+      if (!isLoggedIn) return;
       const data = await fetchWithToken<ICourse[]>(`${BASE_URL}/courses`);
       setCourses(data);
       setError(null);
