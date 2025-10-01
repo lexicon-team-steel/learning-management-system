@@ -1,5 +1,5 @@
 namespace Domain.Models.Exceptions;
 
-public class NotFoundException(string message, string title = "Not Found")
-    : ApiException(message, title)
+public class NotFoundException(string message = "Not Found", int statusCode = 404)
+    : ApiException(message, statusCode)
 { }

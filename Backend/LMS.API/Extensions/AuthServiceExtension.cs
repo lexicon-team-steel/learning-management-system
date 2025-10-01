@@ -1,5 +1,5 @@
 using Domain.Models.Configurations;
-using LMS.Infractructure.Data;
+using LMS.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -62,7 +62,7 @@ public static class AuthServiceExtension
 
             opt.User.RequireUniqueEmail = true;
         })
-               .AddRoles<IdentityRole>()
+               .AddRoles<ApplicationRole>()
                .AddEntityFrameworkStores<ApplicationDbContext>()
                .AddDefaultTokenProviders();
     }

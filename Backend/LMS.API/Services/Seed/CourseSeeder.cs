@@ -1,5 +1,5 @@
 using Bogus;
-using LMS.Infractructure.Data;
+using LMS.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace LMS.API.Services.Seed;
@@ -21,7 +21,7 @@ public class CourseSeeder(ApplicationDbContext context)
     }
 
     private static List<Course> GenerateCourses(int count) =>
-        new Faker<Course>()
+        new Faker<Course>("sv")
             .RuleFor(c => c.Name, f => f.Company.CatchPhrase())
             .RuleFor(c => c.Description, f => f.Lorem.Paragraphs(2))
             .RuleFor(c => c.StartDate, f => f.Date.Recent())
@@ -29,7 +29,7 @@ public class CourseSeeder(ApplicationDbContext context)
             .Generate(count);
 
     private static List<CourseModule> GenerateModules(List<Course> courses, int count) =>
-        new Faker<CourseModule>()
+        new Faker<CourseModule>("sv")
             .RuleFor(c => c.Course, f => f.PickRandom(courses))
             .RuleFor(c => c.Name, f => f.Company.CompanyName())
             .RuleFor(c => c.Description, f => f.Lorem.Paragraphs(2))

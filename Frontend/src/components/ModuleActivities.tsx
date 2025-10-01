@@ -1,0 +1,33 @@
+import Card from './Card';
+import EntityCard from './EntityCard';
+import { formatDate, formatTime } from '../utilities/helpers';
+import { Stack } from '@mui/material';
+import theme from '../styles/theme';
+import { IActivity } from '../utilities/types';
+
+interface ModuleActivitiesProps {
+  items: IActivity[];
+}
+
+const ModuleActivities = ({ items }: ModuleActivitiesProps) => {
+  return (
+    <Card title="Aktiviteter " titleVariant="h2">
+      <Stack spacing={theme.spacing(2)}>
+        {items.map((item) => (
+          <EntityCard
+            key={item.name}
+            title={`${item.activityType.name}: ${item.name}`}
+            text={item.description}
+            date={{ start: formatDate(item.startDate) }}
+            time={{
+              start: formatTime(item.startDate),
+              end: formatTime(item.endDate),
+            }}
+          />
+        ))}
+      </Stack>
+    </Card>
+  );
+};
+
+export default ModuleActivities;

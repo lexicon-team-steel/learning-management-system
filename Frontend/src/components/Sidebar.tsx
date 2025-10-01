@@ -12,8 +12,10 @@ import {
   styled,
 } from '@mui/material';
 import colors from '../styles/colors';
-import { adminItems, mainItems, NavItem } from '../utilities/navigationConstants';
+import { adminItems, baseMainItems, NavItem, studentCourseItem } from '../utilities/navigationConstants';
 import { useAuthContext } from '../utilities/hooks/useAuthContext';
+import { useCoursesContext } from '../utilities/hooks/useCoursesContext';
+import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
 
 interface StyledListItemButtonProps {
   active?: boolean;
@@ -73,6 +75,7 @@ const Sidebar = (): ReactElement => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isTeacher } = useAuthContext();
+  const { courses, loading } = useCoursesContext();
 
   const renderNavItems = (items: NavItem[]) =>
     items.map(({ text, icon, path }) => (
@@ -88,7 +91,24 @@ const Sidebar = (): ReactElement => {
     <SidebarBox>
       <StyledDrawer variant="permanent" anchor="left">
         <Title>LMS System</Title>
-        <List>{renderNavItems(mainItems)}</List>
+        <List>
+          {renderNavItems(baseMainItems)}
+          {!loading &&
+            courses.length > 0 &&
+            courses.map((c) => (
+              <ListItem key={c.id} disablePadding>
+                <StyledListItemButton
+                  active={location.pathname.startsWith(`/courses/${c.id}`)}
+                  onClick={() => navigate(`/courses/${c.id}`)}
+                >
+                  <ListItemIcon>
+                    <ImportContactsOutlinedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={c.name} />
+                </StyledListItemButton>
+              </ListItem>
+            ))}
+        </List>
         <FlexGrowBox />
         {isTeacher && (
           <Box>

@@ -1,5 +1,4 @@
-import { Box, styled, Typography } from '@mui/material';
-import { IActivity, mockCourse } from '../utilities/data/mockData';
+import { Box, Grid, Stack, styled, Typography } from '@mui/material';
 import EntityCard from '../components/EntityCard';
 import Card from '../components/Card';
 import CollapsibleList from '../components/CollapsibleList';
@@ -7,7 +6,10 @@ import ActivityItem from '../components/ActivityItem';
 import { useAuthContext } from '../utilities/hooks/useAuthContext';
 import { Await, useLoaderData } from 'react-router';
 import { Suspense } from 'react';
-import { ICourse } from '../utilities/types';
+import { IActivity, ICourse } from '../utilities/types';
+import { formatDate, sortByDate } from '../utilities/helpers';
+import theme from '../styles/theme';
+import LinkCard from '../components/LinkCard';
 
 const DashboardGrid = styled(Box)(({ theme }) => ({
   display: 'grid',
@@ -28,49 +30,58 @@ const CardGrid = styled(Box)(({ theme }) => ({
   },
 }));
 
-// TODO: move to utilities / use library
-const formatDate = (date: string) => {
-  const dateFromString = new Date(date);
-  return new Intl.DateTimeFormat('sv-SE').format(dateFromString);
-};
-
 const DashboardPage = () => {
-  const { user } = useAuthContext();
-  const { course } = useLoaderData();
+  const { user, isTeacher } = useAuthContext();
+  const { courses, activities } = useLoaderData();
+
+  const title = isTeacher ? 'Mina kurser' : 'Min kurs';
 
   return (
     <>
-      <Typography variant="h1" sx={{ marginBottom: '1rem' }}>
+      <Typography variant="h1" sx={{ marginBottom: theme.layout.gap }}>
         Välkommen {user.fullName}!
       </Typography>
       <DashboardGrid>
-        <Card>
-          <Typography variant="h2" sx={{ marginBottom: '1rem' }}>
-            Min kurs
-          </Typography>
+        <Card title={title}>
           <CardGrid>
             <Suspense>
-              <Await resolve={course}>
-                {(course: ICourse) => (
-                  <EntityCard
-                    title={course.name}
-                    text={course.description.substring(0, 50) + '...'} // TODO: do better
-                    date={{ start: formatDate(course.startDate) }}
-                    link="/course"
-                  />
-                )}
+              <Await resolve={courses}>
+                {(courses: ICourse[]) =>
+                  courses.map((course) => (
+                    <EntityCard
+                      key={course.id}
+                      title={course.name}
+                      text={course.description.substring(0, 50) + '...'} // TODO: do better
+                      date={{ start: formatDate(course.startDate) }}
+                      link={`/courses/${course.id}`}
+                    />
+                  ))
+                }
               </Await>
             </Suspense>
           </CardGrid>
         </Card>
-        <Card>
-          <Typography variant="h2">Kommande aktiviteter</Typography>
-          <CollapsibleList
-            items={mockCourse.activities}
-            keyField="id"
-            renderItem={(item: IActivity) => <ActivityItem activity={item} />}
-          />
-        </Card>
+        <Suspense>
+          <Await resolve={activities}>
+            {(activities: IActivity[]) => {
+              const sortedActivities = sortByDate(activities, 'endDate');
+
+              if (!sortedActivities || sortedActivities.length === 0) {
+                return <Card title="Kommande aktiviteter">Inga kommande aktiviteter</Card>;
+              }
+
+              return (
+                <Card title="Kommande aktiviteter">
+                  <CollapsibleList
+                    items={sortedActivities}
+                    keyField="id"
+                    renderItem={(activity: IActivity) => <ActivityItem activity={activity} />}
+                  />
+                </Card>
+              );
+            }}
+          </Await>
+        </Suspense>
       </DashboardGrid>
     </>
   );

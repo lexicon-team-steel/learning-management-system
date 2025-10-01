@@ -9,6 +9,23 @@ declare module '@mui/material/Typography' {
   }
 }
 
+declare module '@mui/material/styles' {
+  interface Theme {
+    layout: {
+      pageMargin: string;
+      gap: string;
+      gapLarge: string;
+    };
+  }
+  interface ThemeOptions {
+    layout: {
+      pageMargin: string;
+      gap: string;
+      gapLarge: string;
+    };
+  }
+}
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -44,6 +61,11 @@ const theme = createTheme({
   shape: {
     borderRadius: 8,
   },
+  layout: {
+    pageMargin: '1.5rem',
+    gap: '1rem',
+    gapLarge: '1.5rem',
+  },
   components: {
     // example: standard for buttons, can be changed
     MuiButton: {
@@ -61,6 +83,22 @@ const theme = createTheme({
           color: colors.chipTextColor,
         },
       },
+      variants: [
+        {
+          props: { color: 'primary' },
+          style: {
+            backgroundColor: colors.primaryBg,
+            color: colors.primaryBlue,
+          },
+        },
+        {
+          props: { color: 'secondary' },
+          style: {
+            backgroundColor: colors.primaryBg,
+            color: colors.error,
+          },
+        },
+      ],
     },
     MuiAppBar: {
       styleOverrides: {

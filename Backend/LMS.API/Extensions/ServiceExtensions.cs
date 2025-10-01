@@ -1,5 +1,7 @@
-using LMS.Infractructure.Data;
-using LMS.Infractructure.Repositories;
+using LMS.API.Services;
+using LMS.API.Services.Seed;
+using LMS.Infrastructure.Data;
+using LMS.Infrastructure.Repositories;
 using LMS.Presentation;
 using LMS.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -79,12 +81,25 @@ public static class ServiceExtensions
                 options.UseSqlite(configuration.GetConnectionString("ApplicationDbContext") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContext' not found.")));
     }
 
+    public static void AddSeeders(this IServiceCollection services)
+    {
+        services.AddScoped<UserSeeder>();
+        services.AddScoped<CourseSeeder>();
+        services.AddScoped<ActivityTypeSeeder>();
+        services.AddScoped<ActivitySeeder>();
+        services.AddScoped<DataSeeder>();
+
+        services.AddHostedService<DataSeedHostingService>();
+    }
+
     public static void AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddLazyService<IUserRepository, UserRepository>();
         services.AddLazyService<ICourseRepository, CourseRepository>();
+        services.AddLazyService<IModuleRepository, ModuleRepository>();
+        services.AddLazyService<IActivityRepository, ActivityRepository>();
     }
 
     public static void AddServiceLayer(this IServiceCollection services)
@@ -92,7 +107,10 @@ public static class ServiceExtensions
         services.AddScoped<IServiceManager, ServiceManager>();
 
         services.AddLazyService<IAuthService, AuthService>();
-        services.AddLazyService<IStudentService, StudentService>();
+        services.AddLazyService<ICourseService, CourseService>();
+        services.AddLazyService<IModuleService, ModuleService>();
+        services.AddLazyService<IActivityService, ActivityService>();
+        services.AddLazyService<IUserService, UserService>();
     }
 
     private static void AddLazyService<TInterface, TImplementation>(this IServiceCollection services)

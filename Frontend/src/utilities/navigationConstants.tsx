@@ -1,3 +1,4 @@
+// navigationConstants.ts
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
 import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
@@ -11,11 +12,13 @@ export interface NavItem {
   path: string;
 }
 
-// FIXME: change routes to correct route
-export const mainItems: NavItem[] = [
-  { text: 'Dashboard', icon: <HomeOutlinedIcon />, path: '/dashboard' },
-  { text: 'Kurser', icon: <ImportContactsOutlinedIcon />, path: '/courses' },
-];
+export const baseMainItems: NavItem[] = [{ text: 'Dashboard', icon: <HomeOutlinedIcon />, path: '/dashboard' }];
+
+export const studentCourseItem: NavItem = {
+  text: 'Kurs',
+  icon: <ImportContactsOutlinedIcon />,
+  path: '/course',
+};
 
 export const adminItems: NavItem[] = [
   { text: 'Användare', icon: <PeopleOutlineOutlinedIcon />, path: '/admin/users' },

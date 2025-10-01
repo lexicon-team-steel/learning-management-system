@@ -7,12 +7,15 @@ import { RouterProvider } from 'react-router';
 import { ThemeProvider } from '@emotion/react';
 import theme from './styles/theme';
 import { CssBaseline } from '@mui/material';
+import { CoursesProvider } from './utilities/context/course/coursesProvider';
 
 createRoot(document.getElementById('root')!).render(
   <AuthProvider>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <CoursesProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </CoursesProvider>
   </AuthProvider>
 );

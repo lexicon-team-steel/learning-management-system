@@ -2,7 +2,9 @@ namespace Domain.Contracts.Repositories;
 
 public interface IUnitOfWork
 {
-    public IUserRepository Students { get; }
+    public IUserRepository Users { get; }
     public ICourseRepository Courses { get; }
+    public IModuleRepository Modules { get; }
+    public IActivityRepository Activities { get; }
     Task CompleteAsync();
 }
