@@ -97,6 +97,13 @@ export interface IModuleLoader {
   activities: Promise<IActivity[]>;
 }
 
+export interface ICoursesContext {
+  courses: ICourse[];
+  loading: boolean;
+  error: string | null;
+  refetch: () => Promise<void>;
+}
+
 export interface IAdminUsersLoader {
   users: IParticipant[];
 }
