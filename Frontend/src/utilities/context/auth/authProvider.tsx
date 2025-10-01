@@ -2,8 +2,8 @@ import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 import { AuthContext } from './authContext';
 import { loginReq } from '../../api/api';
-import { TOKENS } from '../../constants';
-import { ITokens, IAuthContext, IUser, GuestUser } from '../../types';
+import { GUEST_USER, TOKENS } from '../../constants';
+import { ITokens, IAuthContext, IUser } from '../../types';
 import { CustomError } from '../../classes';
 import decodeToken from '../../token/decodeToken';
 
@@ -14,7 +14,7 @@ interface IAuthProviderProps {
 export function AuthProvider({ children }: IAuthProviderProps): ReactElement {
   // useLocalStorage works as a useState but it is always hooked up to LS, which means, if another component updates LS, this component will update as well.
   const [tokens, setTokens, clearTokens] = useLocalStorage<ITokens | null>(TOKENS, null);
-  const [user, setUser] = useState<IUser>(GuestUser);
+  const [user, setUser] = useState<IUser>(GUEST_USER);
   const isLoggedIn = !!tokens;
 
   const login = async (username: string, password: string) => {
@@ -34,7 +34,7 @@ export function AuthProvider({ children }: IAuthProviderProps): ReactElement {
   const logout = () => clearTokens();
 
   useEffect(() => {
-    setUser(() => (isLoggedIn ? decodeToken(tokens.accessToken) : GuestUser));
+    setUser(() => (isLoggedIn ? decodeToken(tokens.accessToken) : GUEST_USER));
   }, [isLoggedIn, tokens]);
 
   const values: IAuthContext = { user, isLoggedIn, login, logout };

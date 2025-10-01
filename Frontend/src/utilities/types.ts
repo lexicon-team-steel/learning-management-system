@@ -1,16 +1,10 @@
-export type UserRole = 'Teacher' | 'Student' | 'Guest';
-
 export interface IUser {
   fullName: string;
   id: string;
   role: UserRole;
 }
 
-export const GuestUser: IUser = {
-  fullName: '',
-  id: '',
-  role: 'Guest',
-};
+export type UserRole = 'Teacher' | 'Student' | 'Guest';
 
 export interface IAuthContext {
   user: IUser;
@@ -37,15 +31,6 @@ export interface IButtonConfig {
   link: string;
 }
 
-export interface ICourse {
-  id: string;
-  name: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  modules?: IModule[];
-}
-
 export interface IModule {
   id: string;
   name: string;
@@ -61,11 +46,6 @@ export interface ICourseLoader {
   participants: Promise<IParticipant[]>;
 }
 
-export interface IActivityType {
-  id: string;
-  name: string;
-}
-
 export interface IActivity {
   id: string;
   name: string;
@@ -73,6 +53,11 @@ export interface IActivity {
   startDate: string;
   endDate: string;
   activityType: IActivityType;
+}
+
+export interface IActivityType {
+  id: string;
+  name: string;
 }
 
 export interface IModule {
