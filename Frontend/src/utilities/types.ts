@@ -37,6 +37,30 @@ export interface IButtonConfig {
   link: string;
 }
 
+export interface ICourse {
+  id: string;
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  modules?: IModule[];
+}
+
+export interface IModule {
+  id: string;
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  activities: IActivity[];
+  courseName: string;
+}
+
+export interface ICourseLoader {
+  course: Promise<ICourse>;
+  participants: Promise<IParticipant[]>;
+}
+
 export interface IActivityType {
   id: string;
   name: string;

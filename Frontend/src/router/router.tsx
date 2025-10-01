@@ -11,6 +11,7 @@ import { courseLoader, myCourseLoader } from '../utilities/loaders/courseLoader'
 import { allCoursesLoader } from '../utilities/loaders/allCoursesLoader';
 import NotAuthorized from '../pages/NotAuthorized';
 import CoursesPage from '../pages/CoursesPage';
+import ModulePage from '../pages/ModulePage';
 
 export const router = createBrowserRouter([
   {
@@ -50,7 +51,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'courses/:courseId/modules/:moduleId',
-        // element: < ModulePage />, // TODO: to be implemented later
+        element: <ModulePage />,
         loader: moduleLoader,
       },
       { path: 'notauthorized', element: <NotAuthorized /> },
