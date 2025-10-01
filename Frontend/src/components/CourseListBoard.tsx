@@ -24,7 +24,6 @@ const CourseListBoard = ({ title, courses }: CourseListBoardProps): ReactElement
                     title={course.name}
                     text={course.description.substring(0, 50) + '...'} // TODO: do better
                     date={{ start: formatDate(course.startDate) }}
-                    link={`/courses/${course.id}`}
                   />
                 </Grid>
               ))
