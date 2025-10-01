@@ -82,7 +82,7 @@ const DashboardPage = () => {
             </Suspense>
             {isTeacher && (
               <LinkCard
-                title="Snabblänk"
+                title="Snabblänkar"
                 buttons={[
                   { text: 'Hantera användare', link: '/admin/users' },
                   { text: 'Hantera kurser', link: '/admin/courses' },
