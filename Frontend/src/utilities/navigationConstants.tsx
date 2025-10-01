@@ -12,16 +12,7 @@ export interface NavItem {
   path: string;
 }
 
-export const baseMainItems: NavItem[] = [
-  { text: 'Dashboard', icon: <HomeOutlinedIcon />, path: '/dashboard' },
-  // Kurs/kuser löses i Sidebar beroende på isTeacher
-];
-
-export const teacherCourseItem: NavItem = {
-  text: 'Kurser',
-  icon: <ImportContactsOutlinedIcon />,
-  path: '/courses',
-};
+export const baseMainItems: NavItem[] = [{ text: 'Dashboard', icon: <HomeOutlinedIcon />, path: '/dashboard' }];
 
 export const studentCourseItem: NavItem = {
   text: 'Kurs',
