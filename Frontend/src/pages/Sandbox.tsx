@@ -21,14 +21,14 @@ const Sandbox = () => {
             { text: 'Hantera kurser', link: '/admin/courses' },
           ]}
         /> */}
-        <Table
+        {/* <Table
           headers={['Namn', 'E-post', 'Roll', 'Åtgärder']}
           keyField="id"
           rows={mockUsers}
           renderItem={(user: IParticipant) => (
             <UserTableRow user={user} onEdit={() => handleAction(user)} onDelete={() => handleAction(user)} />
           )}
-        ></Table>
+        ></Table> */}
       </Grid>
     </Main>
   );
