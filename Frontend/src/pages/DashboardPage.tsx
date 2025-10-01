@@ -63,11 +63,16 @@ const DashboardPage = () => {
         <Suspense>
           <Await resolve={activities}>
             {(activities: IActivity[]) => {
-              const sortedActivites = sortByDate(activities, 'endDate');
+              const sortedActivities = sortByDate(activities, 'endDate');
+
+              if (!sortedActivities || sortedActivities.length === 0) {
+                return <Card title="Kommande aktiviteter">Inga kommande aktiviteter</Card>;
+              }
+
               return (
                 <Card title="Kommande aktiviteter">
                   <CollapsibleList
-                    items={sortedActivites}
+                    items={sortedActivities}
                     keyField="id"
                     renderItem={(activity: IActivity) => <ActivityItem activity={activity} />}
                   />
