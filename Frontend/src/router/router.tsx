@@ -8,10 +8,12 @@ import { dashboardLoader } from '../utilities/loaders/dashboardLoader';
 import CoursePage from '../pages/CoursePage';
 import { moduleLoader } from '../utilities/loaders/moduleLoader';
 import { courseLoader, myCourseLoader } from '../utilities/loaders/courseLoader';
-import { allCoursesLoader } from '../utilities/loaders/allCoursesLoader';
+import { teacherCoursesLoader } from '../utilities/loaders/teacherCoursesLoader';
 import NotAuthorized from '../pages/NotAuthorized';
 import CoursesPage from '../pages/CoursesPage';
 import ModulePage from '../pages/ModulePage';
+import AdminCoursesPage from '../pages/AdminCoursesPage';
+import { adminCoursesLoader } from '../utilities/loaders/adminCoursesLoader';
 
 export const router = createBrowserRouter([
   {
@@ -36,7 +38,7 @@ export const router = createBrowserRouter([
       {
         path: 'courses',
         element: <CoursesPage />,
-        loader: allCoursesLoader,
+        loader: teacherCoursesLoader,
       },
       {
         path: 'courses/:id',
@@ -53,6 +55,11 @@ export const router = createBrowserRouter([
         path: 'courses/:courseId/modules/:moduleId',
         element: <ModulePage />,
         loader: moduleLoader,
+      },
+      {
+        path: 'admin/courses',
+        element: <AdminCoursesPage />,
+        loader: adminCoursesLoader,
       },
       { path: 'notauthorized', element: <NotAuthorized /> },
     ],
