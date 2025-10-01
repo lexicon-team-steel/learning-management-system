@@ -1,7 +1,8 @@
-import { Card, Link, Stack, styled, Typography } from '@mui/material';
+import { Card, Stack, styled, Typography } from '@mui/material';
 import { ReactElement } from 'react';
 import Date from './Date';
 import Time from './Time';
+import { NavLink } from 'react-router';
 
 interface IEntityCardProps {
   title: string;
@@ -19,7 +20,8 @@ const StyledCard = styled(Card)(({ theme }) => ({
   height: '100%',
 }));
 
-const StyledLink = styled(Link)(({ theme }) => ({
+const StyledLink = styled(NavLink)(({ theme }) => ({
+  textDecoration: 'none',
   borderRadius: theme.shape.borderRadius,
   transition: 'box-shadow .2s ease, transform .2s ease',
   '&:hover': {
@@ -44,13 +46,7 @@ const EntityCard = ({ title, text, link, date, time }: IEntityCardProps): ReactE
     </StyledCard>
   );
 
-  return link ? (
-    <StyledLink href={link} underline="none">
-      {Card}
-    </StyledLink>
-  ) : (
-    Card
-  );
+  return link ? <StyledLink to={link}>{Card}</StyledLink> : Card;
 };
 
 export default EntityCard;
