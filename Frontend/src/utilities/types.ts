@@ -111,3 +111,10 @@ export interface IModuleLoader {
   module: Promise<IModule>;
   activities: Promise<IActivity[]>;
 }
+
+export interface ICoursesContext {
+  courses: ICourse[];
+  loading: boolean;
+  error: string | null;
+  refetch: () => Promise<void>;
+}
