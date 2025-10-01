@@ -14,6 +14,8 @@ import CoursesPage from '../pages/CoursesPage';
 import ModulePage from '../pages/ModulePage';
 import AdminCoursesPage from '../pages/AdminCoursesPage';
 import { adminCoursesLoader } from '../utilities/loaders/adminCoursesLoader';
+import { adminUsersLoader } from '../utilities/loaders/adminUsersLoader';
+import AdminUsersPage from '../pages/AdminUsersPage';
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +57,11 @@ export const router = createBrowserRouter([
         path: 'courses/:courseId/modules/:moduleId',
         element: <ModulePage />,
         loader: moduleLoader,
+      },
+      {
+        path: 'admin/users',
+        element: <AdminUsersPage />,
+        loader: adminUsersLoader,
       },
       {
         path: 'admin/courses',

@@ -1,10 +1,10 @@
 import { ReactElement, Suspense } from 'react';
 import { Grid } from '@mui/material';
 import EntityCard from './EntityCard';
-import { ICourse } from '../utilities/data/mockData';
 import CustomCard from './Card';
 import { Await } from 'react-router';
 import { formatDate } from '../utilities/helpers';
+import { ICourse } from '../utilities/types';
 
 interface CourseListBoardProps {
   title?: string;
