@@ -1,7 +1,7 @@
-import { ReactElement } from 'react';
-import { useLoaderData } from 'react-router';
+import { ReactElement, Suspense } from 'react';
+import { Await, useLoaderData } from 'react-router';
 import { IParticipant } from '../utilities/types';
-import { Stack } from '@mui/material';
+import { Skeleton, Stack } from '@mui/material';
 import theme from '../styles/theme';
 
 import UserTable from '../components/UserTable';
@@ -12,7 +12,7 @@ import AdminPageTitle from '../components/AdminPageTitle';
 const AdminUsersPage = (): ReactElement => {
   const { users } = useLoaderData();
 
-  const { items, selectedItem, isEditing, handleChange, handleDelete, handleCancel } = useCrud<IParticipant>(users);
+  const { selectedItem, isEditing, handleChange, handleDelete, handleCancel } = useCrud<IParticipant>(users);
 
   return (
     <Stack spacing={theme.layout.gapLarge}>
@@ -23,7 +23,11 @@ const AdminUsersPage = (): ReactElement => {
         onButtonClick={() => handleChange({ id: '', lastName: '', firstName: '', email: '', roles: ['Student'] })}
       />
       {selectedItem && <UserForm user={selectedItem} onCancel={handleCancel} />}
-      <UserTable users={items} onEdit={handleChange} onDelete={handleDelete} />
+      <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
+        <Await resolve={users}>
+          {(users: IParticipant[]) => <UserTable users={users} onEdit={handleChange} onDelete={handleDelete} />}
+        </Await>
+      </Suspense>
     </Stack>
   );
 };

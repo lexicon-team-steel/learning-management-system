@@ -105,5 +105,5 @@ export interface ICoursesContext {
 }
 
 export interface IAdminUsersLoader {
-  users: IParticipant[];
+  users: Promise<IParticipant[]>;
 }
