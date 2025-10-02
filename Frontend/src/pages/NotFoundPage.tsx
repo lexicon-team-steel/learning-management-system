@@ -9,7 +9,7 @@ const NotFoundPage = () => {
       <h1>Sidan hittas inte!</h1>
       <p>Sidan du försöker navigera till finns inte.</p>
       <Button component={NavLink} to="/dashboard" startIcon={<ArrowBackIcon />}>
-        Gå tillbaka till Dashboard
+        Gå till Dashboard
       </Button>
     </Stack>
   );
