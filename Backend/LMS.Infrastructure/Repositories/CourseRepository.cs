@@ -35,5 +35,5 @@ public class CourseRepository(ApplicationDbContext context)
             .ToListAsync();
     }
 
-    public void Add(Course course) => Add(course);
+    public void CreateCourse(Course course) => Create(course);
 }
