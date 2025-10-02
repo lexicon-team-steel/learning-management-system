@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import theme from '../styles/theme';
 
-import AdminPageForm from './AminPageForm';
+import AdminPageForm from './AdminPageForm';
 
 interface IStyledTextfield {
   type?: string;
