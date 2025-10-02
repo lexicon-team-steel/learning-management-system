@@ -12,8 +12,7 @@ import AdminPageTitle from '../components/AdminPageTitle';
 const AdminUsersPage = (): ReactElement => {
   const { users } = useLoaderData();
 
-  const { items, selectedItem, isEditing, handleChange, handleSave, handleDelete, handleCancel } =
-    useCrud<IParticipant>(users);
+  const { items, selectedItem, isEditing, handleChange, handleDelete, handleCancel } = useCrud<IParticipant>(users);
 
   return (
     <Stack spacing={theme.layout.gapLarge}>
@@ -21,9 +20,9 @@ const AdminUsersPage = (): ReactElement => {
         pageTitle="Hantera användare"
         buttonLabel="Skapa ny användare"
         buttonDisabled={isEditing}
-        onButtonClick={() => handleChange({ id: '', lastName: '', firstName: '', email: '', roles: [] })}
+        onButtonClick={() => handleChange({ id: '', lastName: '', firstName: '', email: '', roles: ['Student'] })}
       />
-      {selectedItem && <UserForm user={selectedItem} onSubmit={handleSave} onCancel={handleCancel} />}
+      {selectedItem && <UserForm user={selectedItem} onCancel={handleCancel} />}
       <UserTable users={items} onEdit={handleChange} onDelete={handleDelete} />
     </Stack>
   );
