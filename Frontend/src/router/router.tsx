@@ -8,13 +8,14 @@ import { dashboardLoader } from '../utilities/loaders/dashboardLoader';
 import CoursePage from '../pages/CoursePage';
 import { moduleLoader } from '../utilities/loaders/moduleLoader';
 import { courseLoader } from '../utilities/loaders/courseLoader';
-import NotAuthorized from '../pages/NotAuthorized';
+import NotAuthorizedPage from '../pages/NotAuthorizedPage';
 import ModulePage from '../pages/ModulePage';
 import AdminCoursesPage from '../pages/AdminCoursesPage';
 import { adminCoursesLoader } from '../utilities/loaders/adminCoursesLoader';
 import { adminUsersLoader } from '../utilities/loaders/adminUsersLoader';
 import AdminUsersPage from '../pages/AdminUsersPage';
 import { adminUsersAction } from '../utilities/actions/adminUsersAction';
+import NotFoundPage from '../pages/NotFoundPage';
 
 export const router = createBrowserRouter([
   {
@@ -33,19 +34,17 @@ export const router = createBrowserRouter([
         loader: dashboardLoader,
       },
       {
-        path: '*',
-        element: <Sandbox />,
-      },
-      {
         path: 'courses/:id',
         element: <CoursePage />,
         loader: courseLoader,
         children: [],
+        errorElement: <NotFoundPage />, //Remove when ErrorPage is implemented
       },
       {
         path: 'courses/:courseId/modules/:moduleId',
         element: <ModulePage />,
         loader: moduleLoader,
+        errorElement: <NotFoundPage />, //Remove when ErrorPage is implemented
       },
       {
         path: 'admin/users',
@@ -58,7 +57,12 @@ export const router = createBrowserRouter([
         element: <AdminCoursesPage />,
         loader: adminCoursesLoader,
       },
-      { path: 'notauthorized', element: <NotAuthorized /> },
+      /* ---- Add new routes above this comment for a neater structure ---- */
+      { path: 'notauthorized', element: <NotAuthorizedPage /> },
+      {
+        path: '*',
+        element: <NotFoundPage />,
+      },
     ],
   },
   {
