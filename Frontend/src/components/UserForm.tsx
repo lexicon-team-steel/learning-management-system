@@ -55,7 +55,7 @@ const UserForm = ({ onCancel, user, errors }: IUserFormProps): ReactElement => {
       <input type="hidden" name="id" value={user.id} />
       <Grid container spacing={theme.layout.gap}>
         <Grid size={12}>
-          <RadioGroup row defaultValue={user.roles[0]}>
+          <RadioGroup row name="role" defaultValue={user.roles[0]}>
             <FormControlLabel value="Student" control={<Radio />} label="Student" />
             <FormControlLabel value="Teacher" control={<Radio />} label="Teacher" />
           </RadioGroup>
