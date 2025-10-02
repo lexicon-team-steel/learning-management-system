@@ -8,18 +8,22 @@ import UserTable from '../components/UserTable';
 import UserForm from '../components/UserForm';
 import { useCrud } from '../utilities/hooks/useCrud';
 import AdminPageTitle from '../components/AdminPageTitle';
+import { scrollTop } from '../utilities/helpers';
 
 const AdminUsersPage = (): ReactElement => {
   const { selectedItem, isEditing, handleChange, handleDelete, handleCancel, errors, setErrors } =
     useCrud<IParticipant>();
   const { users } = useLoaderData<IAdminUsersLoader>();
   const actionData = useActionData<IAdminUsersAction>();
+  const emptyUser: IParticipant = { id: '', lastName: '', firstName: '', email: '', roles: ['Student'] };
 
   useEffect(() => {
-    if (actionData?.errors) {
-      setErrors(actionData.errors);
-    }
-  }, [actionData]);
+    setErrors(actionData?.errors || {});
+  }, [actionData, setErrors]);
+
+  useEffect(() => {
+    if (selectedItem) scrollTop();
+  }, [selectedItem]);
 
   return (
     <Stack spacing={theme.layout.gapLarge}>
@@ -27,7 +31,7 @@ const AdminUsersPage = (): ReactElement => {
         pageTitle="Hantera användare"
         buttonLabel="Skapa ny användare"
         buttonDisabled={isEditing}
-        onButtonClick={() => handleChange({ id: '', lastName: '', firstName: '', email: '', roles: ['Student'] })}
+        onButtonClick={() => handleChange(emptyUser)}
       />
       {selectedItem && <UserForm key={selectedItem.id} user={selectedItem} onCancel={handleCancel} errors={errors} />}
       <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
