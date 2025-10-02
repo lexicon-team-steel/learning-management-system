@@ -1,7 +1,7 @@
 import { ActionFunctionArgs } from 'react-router';
-import { FormErrorType, IAdminUsersAction } from '../types';
+import { FormErrorType, IBasicAction } from '../types';
 
-const validateUser = (formData: FormData, action: string): IAdminUsersAction => {
+const validateUser = (formData: FormData, action: string): IBasicAction => {
   const lastName = formData.get('lastName') as string;
   const firstName = formData.get('firstName') as string;
   const email = formData.get('email') as string;

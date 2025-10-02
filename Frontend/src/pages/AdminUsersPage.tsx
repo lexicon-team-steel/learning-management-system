@@ -1,6 +1,6 @@
 import { ReactElement, Suspense, useEffect } from 'react';
 import { Await, useActionData, useLoaderData } from 'react-router';
-import { IAdminUsersAction, IAdminUsersLoader, IParticipant } from '../utilities/types';
+import { IBasicAction, IAdminUsersLoader, IParticipant } from '../utilities/types';
 import { Skeleton, Stack } from '@mui/material';
 import theme from '../styles/theme';
 
@@ -14,7 +14,7 @@ const AdminUsersPage = (): ReactElement => {
   const { selectedItem, isEditing, handleChange, handleDelete, handleCancel, errors, setErrors } =
     useCrud<IParticipant>();
   const { users } = useLoaderData<IAdminUsersLoader>();
-  const actionData = useActionData<IAdminUsersAction>();
+  const actionData = useActionData<IBasicAction>();
   const emptyUser: IParticipant = { id: '', lastName: '', firstName: '', email: '', roles: ['Student'] };
 
   useEffect(() => {

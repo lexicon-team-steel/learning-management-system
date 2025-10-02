@@ -110,6 +110,6 @@ export interface IAdminUsersLoader {
 
 export type FormErrorType = Record<string, string>;
 
-export interface IAdminUsersAction {
+export interface IBasicAction {
   errors?: FormErrorType;
 }
