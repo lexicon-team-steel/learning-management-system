@@ -14,7 +14,7 @@ public static class IdentityResultExtensions
 
     private static string MapToField(string code) => code switch
     {
-        "RoleNotPermitted" => "Roles",
+        "RoleNotPermitted" => "Role",
         "DuplicateUserName" => "UserName",
         "DuplicateEmail" => "Email",
         "PasswordTooShort" => "Password",
