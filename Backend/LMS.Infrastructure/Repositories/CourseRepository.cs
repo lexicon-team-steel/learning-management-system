@@ -34,4 +34,6 @@ public class CourseRepository(ApplicationDbContext context)
             .ThenInclude(ur => ur.Role)
             .ToListAsync();
     }
+
+    public void Add(Course course) => Add(course);
 }
