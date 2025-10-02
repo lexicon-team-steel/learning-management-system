@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { IParticipant } from '../utilities/types';
+import { FormErrorType, IParticipant } from '../utilities/types';
 import {
   FormControl,
   FormControlLabel,
@@ -15,12 +15,36 @@ import theme from '../styles/theme';
 
 import AdminPageForm from './AminPageForm';
 
+interface IStyledTextfield {
+  type?: string;
+  label: string;
+  name: string;
+  value: string;
+  error?: string;
+  required?: boolean;
+}
+
+const StyledTextField = ({ type = 'text', label, name, value, required = true, error }: IStyledTextfield) => (
+  <TextField
+    type={type}
+    label={label}
+    name={name}
+    variant="outlined"
+    defaultValue={value}
+    fullWidth
+    required={required}
+    error={!!error}
+    helperText={error}
+  />
+);
+
 interface IUserFormProps {
   onCancel: () => void;
   user: IParticipant;
+  errors: FormErrorType;
 }
 
-const UserForm = ({ onCancel, user }: IUserFormProps): ReactElement => {
+const UserForm = ({ onCancel, user, errors }: IUserFormProps): ReactElement => {
   const action = user.id ? 'edit' : 'create';
   const title = action === 'create' ? 'Ny användare' : 'Redigera användare';
   const submitLabel = action === 'create' ? 'Skapa' : 'Spara';
@@ -32,51 +56,27 @@ const UserForm = ({ onCancel, user }: IUserFormProps): ReactElement => {
       <Grid container spacing={theme.layout.gap}>
         <Grid size={12}>
           <RadioGroup row defaultValue={user.roles[0]}>
-            {['Student', 'Teacher'].map((role) => (
-              <FormControlLabel key={role} control={<Radio name="roles" value={role} />} label={role} />
-            ))}
+            <FormControlLabel value="Student" control={<Radio />} label="Student" />
+            <FormControlLabel value="Teacher" control={<Radio />} label="Teacher" />
           </RadioGroup>
         </Grid>
         <Grid size={6}>
-          <TextField
-            label="Förnamn"
-            name="firstName"
-            variant="outlined"
-            defaultValue={user.firstName}
-            fullWidth
-            required
-          />
+          <StyledTextField label="Förnamn" name="firstName" value={user.firstName} error={errors?.firstName} />
         </Grid>
         <Grid size={6}>
-          <TextField
-            label="Efternamn"
-            name="lastName"
-            variant="outlined"
-            defaultValue={user.lastName}
-            fullWidth
-            required
-          />
+          <StyledTextField label="Efternamn" name="lastName" value={user.lastName} error={errors?.lastName} />
         </Grid>
         <Grid size={6}>
-          <TextField
-            type="email"
-            label="E-post"
-            name="email"
-            variant="outlined"
-            defaultValue={user.email}
-            fullWidth
-            required
-          />
+          <StyledTextField type="email" label="E-post" name="email" value={user.email} error={errors?.email} />
         </Grid>
         <Grid size={6}>
-          <TextField
+          <StyledTextField
             type="password"
             label="Lösenord"
             name="password"
-            variant="outlined"
-            defaultValue=""
-            fullWidth
+            value=""
             required={action === 'create'}
+            error={errors?.password}
           />
         </Grid>
         {/* <Grid size={6}>
