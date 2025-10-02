@@ -8,7 +8,7 @@ import { dashboardLoader } from '../utilities/loaders/dashboardLoader';
 import CoursePage from '../pages/CoursePage';
 import { moduleLoader } from '../utilities/loaders/moduleLoader';
 import { courseLoader } from '../utilities/loaders/courseLoader';
-import NotAuthorized from '../pages/NotAuthorized';
+import NotAuthorizedPage from '../pages/NotAuthorizedPage';
 import ModulePage from '../pages/ModulePage';
 import AdminCoursesPage from '../pages/AdminCoursesPage';
 import { adminCoursesLoader } from '../utilities/loaders/adminCoursesLoader';
@@ -33,10 +33,6 @@ export const router = createBrowserRouter([
         loader: dashboardLoader,
       },
       {
-        path: '*',
-        element: <Sandbox />,
-      },
-      {
         path: 'courses/:id',
         element: <CoursePage />,
         loader: courseLoader,
@@ -57,7 +53,7 @@ export const router = createBrowserRouter([
         element: <AdminCoursesPage />,
         loader: adminCoursesLoader,
       },
-      { path: 'notauthorized', element: <NotAuthorized /> },
+      { path: 'notauthorized', element: <NotAuthorizedPage /> },
       {
         path: '*',
         element: <NotFoundPage />,
