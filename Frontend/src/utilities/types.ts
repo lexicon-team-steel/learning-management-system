@@ -107,3 +107,9 @@ export interface ICoursesContext {
 export interface IAdminUsersLoader {
   users: Promise<IParticipant[]>;
 }
+
+export type FormErrorType = Record<string, string>;
+
+export interface IAdminUsersAction {
+  errors?: FormErrorType;
+}
