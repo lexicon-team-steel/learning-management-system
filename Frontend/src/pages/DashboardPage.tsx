@@ -61,27 +61,39 @@ const DashboardPage = () => {
             </Suspense>
           </CardGrid>
         </Card>
-        <Suspense>
-          <Await resolve={activities}>
-            {(activities: IActivity[]) => {
-              const sortedActivities = sortByDate(activities, 'endDate');
+        <Grid>
+          <Stack gap={2}>
+            <Suspense>
+              <Await resolve={activities}>
+                {(activities: IActivity[]) => {
+                  if (!activities || activities.length === 0) {
+                    return <Card title="Kommande aktiviteter">Inga kommande aktiviteter</Card>;
+                  }
 
-              if (!sortedActivities || sortedActivities.length === 0) {
-                return <Card title="Kommande aktiviteter">Inga kommande aktiviteter</Card>;
-              }
-
-              return (
-                <Card title="Kommande aktiviteter">
-                  <CollapsibleList
-                    items={sortedActivities}
-                    keyField="id"
-                    renderItem={(activity: IActivity) => <ActivityItem activity={activity} />}
-                  />
-                </Card>
-              );
-            }}
-          </Await>
-        </Suspense>
+                  const sortedActivities = sortByDate(activities, 'endDate');
+                  return (
+                    <Card title="Kommande aktiviteter">
+                      <CollapsibleList
+                        items={sortedActivities}
+                        keyField="id"
+                        renderItem={(activity: IActivity) => <ActivityItem activity={activity} />}
+                      />
+                    </Card>
+                  );
+                }}
+              </Await>
+            </Suspense>
+            {isTeacher && (
+              <LinkCard
+                title="Snabblänkar"
+                buttons={[
+                  { text: 'Hantera användare', link: '/admin/users' },
+                  { text: 'Hantera kurser', link: '/admin/courses' },
+                ]}
+              />
+            )}
+          </Stack>
+        </Grid>
       </DashboardGrid>
     </>
   );
