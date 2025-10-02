@@ -1,6 +1,6 @@
-import { ReactElement, Suspense } from 'react';
-import { Await, useLoaderData } from 'react-router';
-import { IParticipant } from '../utilities/types';
+import { ReactElement, Suspense, useEffect } from 'react';
+import { Await, useActionData, useLoaderData } from 'react-router';
+import { IAdminUsersAction, IAdminUsersLoader, IParticipant } from '../utilities/types';
 import { Skeleton, Stack } from '@mui/material';
 import theme from '../styles/theme';
 
@@ -10,9 +10,16 @@ import { useCrud } from '../utilities/hooks/useCrud';
 import AdminPageTitle from '../components/AdminPageTitle';
 
 const AdminUsersPage = (): ReactElement => {
-  const { users } = useLoaderData();
+  const { selectedItem, isEditing, handleChange, handleDelete, handleCancel, errors, setErrors } =
+    useCrud<IParticipant>();
+  const { users } = useLoaderData<IAdminUsersLoader>();
+  const actionData = useActionData<IAdminUsersAction>();
 
-  const { selectedItem, isEditing, handleChange, handleDelete, handleCancel } = useCrud<IParticipant>();
+  useEffect(() => {
+    if (actionData?.errors) {
+      setErrors(actionData.errors);
+    }
+  }, [actionData]);
 
   return (
     <Stack spacing={theme.layout.gapLarge}>
@@ -22,7 +29,7 @@ const AdminUsersPage = (): ReactElement => {
         buttonDisabled={isEditing}
         onButtonClick={() => handleChange({ id: '', lastName: '', firstName: '', email: '', roles: ['Student'] })}
       />
-      {selectedItem && <UserForm key={selectedItem.id} user={selectedItem} onCancel={handleCancel} />}
+      {selectedItem && <UserForm key={selectedItem.id} user={selectedItem} onCancel={handleCancel} errors={errors} />}
       <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
         <Await resolve={users}>
           {(users: IParticipant[]) => <UserTable users={users} onEdit={handleChange} onDelete={handleDelete} />}
