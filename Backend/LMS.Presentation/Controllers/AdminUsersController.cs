@@ -36,6 +36,6 @@ public class AdminUsersController(IServiceManager serviceManager) : ControllerBa
         public async Task<ActionResult> CreateUser(UserRegistrationDto userRegistrationDto)
         {
                 IdentityResult result = await serviceManager.AuthService.RegisterUserAsync(userRegistrationDto);
-                return result.Succeeded ? StatusCode(StatusCodes.Status201Created) : BadRequest(result.Errors);
+                return result.Succeeded ? StatusCode(StatusCodes.Status201Created) : BadRequest(new { errors = result.ToErrorDictionary() });
         }
 }
