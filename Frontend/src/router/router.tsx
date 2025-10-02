@@ -37,11 +37,13 @@ export const router = createBrowserRouter([
         element: <CoursePage />,
         loader: courseLoader,
         children: [],
+        errorElement: <NotFoundPage />, //Remove when ErrorPage is implemented
       },
       {
         path: 'courses/:courseId/modules/:moduleId',
         element: <ModulePage />,
         loader: moduleLoader,
+        errorElement: <NotFoundPage />, //Remove when ErrorPage is implemented
       },
       {
         path: 'admin/users',
