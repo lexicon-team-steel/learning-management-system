@@ -118,7 +118,7 @@ public class AuthService : IAuthService
         {
             var roleExists = await roleManager.RoleExistsAsync(userRegistrationDto.Role!);
             if (!roleExists)
-                return IdentityResult.Failed(new IdentityError { Description = "Role does not exist" });
+                return IdentityResult.Failed(new IdentityError { Code = "RoleNotPermitted", Description = "Role does not exist" });
         }
 
         var user = mapper.Map<ApplicationUser>(userRegistrationDto);
