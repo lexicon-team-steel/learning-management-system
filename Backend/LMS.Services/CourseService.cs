@@ -58,7 +58,7 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
 
         var course = mapper.Map<Course>(dto);
 
-        uow.Courses.Add(course);
+        uow.Courses.CreateCourse(course);
         await uow.CompleteAsync();
 
         return mapper.Map<CourseDto>(course);
