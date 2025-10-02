@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const useCrud = <T>(initialItems: T[] /*, baseUrl: ''*/) => {
+export const useCrud = <T>() => {
   const [selectedItem, setSelectedItem] = useState<T | null>(null);
 
   const handleChange = (item: T) => setSelectedItem(item);

@@ -12,7 +12,7 @@ import AdminPageTitle from '../components/AdminPageTitle';
 const AdminUsersPage = (): ReactElement => {
   const { users } = useLoaderData();
 
-  const { selectedItem, isEditing, handleChange, handleDelete, handleCancel } = useCrud<IParticipant>(users);
+  const { selectedItem, isEditing, handleChange, handleDelete, handleCancel } = useCrud<IParticipant>();
 
   return (
     <Stack spacing={theme.layout.gapLarge}>
@@ -22,7 +22,7 @@ const AdminUsersPage = (): ReactElement => {
         buttonDisabled={isEditing}
         onButtonClick={() => handleChange({ id: '', lastName: '', firstName: '', email: '', roles: ['Student'] })}
       />
-      {selectedItem && <UserForm user={selectedItem} onCancel={handleCancel} />}
+      {selectedItem && <UserForm key={selectedItem.id} user={selectedItem} onCancel={handleCancel} />}
       <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
         <Await resolve={users}>
           {(users: IParticipant[]) => <UserTable users={users} onEdit={handleChange} onDelete={handleDelete} />}
