@@ -46,6 +46,10 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
     {
         var userId = currentUser.UserId ?? throw new UnauthorizedException();
 
+        var exists = await uow.Courses.ExistsByNameAsync(dto.Name);
+        if (exists)
+            throw new ConflictException($"A course with the name '{dto.Name}' already exists.");
+
         if (dto.EndDate < dto.StartDate)
         {
             throw new BadRequestException("End date cannot be earlier than start date");
