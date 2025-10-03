@@ -31,7 +31,6 @@ const getAlertMessage = (entity: Entity, action: Action, status: Status, errDeta
     if (action === 'update') return `${entitySvenska} har uppdaterats!`;
   }
 
-  // status === 'error'
   if (action === 'create') return `${entitySvenska} kunde inte skapas${errDetails ? `: ${errDetails}` : ''}`;
   if (action === 'update') return `${entitySvenska} kunde inte uppdateras${errDetails ? `: ${errDetails}` : ''}`;
 
