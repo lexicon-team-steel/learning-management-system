@@ -18,7 +18,7 @@ const AdminUsersPage = (): ReactElement => {
   const emptyUser: IParticipant = { id: '', lastName: '', firstName: '', email: '', roles: ['Student'] };
 
   useEffect(() => {
-    setErrors(actionData?.errors || {});
+    setErrors(actionData?.errors?.fieldErrors || {});
   }, [actionData, setErrors]);
 
   useEffect(() => {

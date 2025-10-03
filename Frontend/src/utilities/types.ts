@@ -116,5 +116,5 @@ export type ApiErrorType = {
 };
 
 export interface IBasicAction {
-  errors?: FormErrorType;
+  errors?: ApiErrorType;
 }
