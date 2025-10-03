@@ -19,11 +19,17 @@ public class ModuleService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
         return mapper.Map<CourseModuleDto>(module);
     }
 
+    public async Task<IEnumerable<CourseModuleDto>> GetAllModulesFromCourseAsync(Guid courseId)
+    {
+        var modules = await uow.Modules.GetModulesAsync(courseId);
+        return mapper.Map<IEnumerable<CourseModuleDto>>(modules);
+    }
+
     public async Task<CourseModuleDto> CreateModuleAsync(Guid courseId, CreateModuleDto dto)
     {
         var exists = await uow.Modules.ExistsByNameAsync(courseId, dto.Name);
         if (exists)
-            throw new ConflictException($"A course with the name '{dto.Name}' already exists.");
+            throw new ConflictException($"A module with the name '{dto.Name}' already exists on this course.");
 
         if (dto.EndDate < dto.StartDate)
         {
