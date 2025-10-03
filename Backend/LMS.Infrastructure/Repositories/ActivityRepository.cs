@@ -27,4 +27,11 @@ public class ActivityRepository(ApplicationDbContext context)
             .OrderBy(a => a.StartDate)
             .ToListAsync(cancellationToken);
     }
+
+    public async Task<Activity?> GetActivityWithTypeAsync(Guid activityId)
+    {
+        return await FindByCondition(a => a.Id == activityId)
+            .Include(a => a.ActivityType)
+            .FirstOrDefaultAsync();
+    }
 }
