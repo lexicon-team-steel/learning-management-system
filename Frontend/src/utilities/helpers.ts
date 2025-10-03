@@ -42,3 +42,9 @@ export const requireTeacherRole = () => {
     throw redirect('/notauthorized');
   }
 };
+
+export const scrollTop = () =>
+  scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
