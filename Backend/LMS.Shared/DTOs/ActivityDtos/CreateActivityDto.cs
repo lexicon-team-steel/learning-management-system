@@ -19,5 +19,5 @@ public class CreateActivityDto
     public DateTime EndDate { get; set; }
 
     [Required(ErrorMessage = "Activity type is required")]
-    public required ActivityTypeDto ActivityType { get; set; }
+    public Guid ActivityTypeId { get; set; }
 }

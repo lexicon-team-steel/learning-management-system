@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using AutoMapper;
 using Domain.Contracts.Repositories;
 using Domain.Models.Entities;
@@ -28,16 +29,18 @@ public class ActivityService(IMapper mapper, IUnitOfWork uow, ICurrentUserServic
         return mapper.Map<IEnumerable<ActivityDto>>(activities);
     }
 
+
     public async Task<ActivityDto> CreateActivityAsync(Guid moduleId, CreateActivityDto dto)
     {
         if (dto.EndDate <= dto.StartDate)
             throw new BadRequestException("End date must be after start date");
 
-        var userId = GetUserId();
+        if (!(currentUser.Role?.Contains("Teacher") ?? false))
+            throw new ForbiddenException("Only teachers can create activities");
 
-        var module = await uow.Modules.GetUserModuleWithActivitiesAsync(userId, moduleId);
+        var module = await uow.Modules.GetModuleWithActivitiesAsync(moduleId);
         if (module == null)
-            throw new NotFoundException("Module not found or you don't have access");
+            throw new NotFoundException("Module not found");
 
         var overlapping = module.Activities.Any(a =>
             dto.StartDate < a.EndDate && dto.EndDate > a.StartDate);
@@ -50,7 +53,9 @@ public class ActivityService(IMapper mapper, IUnitOfWork uow, ICurrentUserServic
         uow.Activities.Create(activity);
         await uow.CompleteAsync();
 
-        return mapper.Map<ActivityDto>(activity);
+        var created = await uow.Activities.GetActivityWithTypeAsync(activity.Id);
+
+        return mapper.Map<ActivityDto>(created);
     }
 
     private string GetUserId() =>
