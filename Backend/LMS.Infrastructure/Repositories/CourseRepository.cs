@@ -34,4 +34,7 @@ public class CourseRepository(ApplicationDbContext context)
             .ThenInclude(ur => ur.Role)
             .ToListAsync();
     }
+
+    public async Task<bool> ExistsByNameAsync(string name) =>
+        await FindAll().AnyAsync(c => c.Name.ToLower() == name.ToLower());
 }

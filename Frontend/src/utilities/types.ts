@@ -105,5 +105,11 @@ export interface ICoursesContext {
 }
 
 export interface IAdminUsersLoader {
-  users: IParticipant[];
+  users: Promise<IParticipant[]>;
+}
+
+export type FormErrorType = Record<string, string>;
+
+export interface IBasicAction {
+  errors?: FormErrorType;
 }

@@ -1,32 +1,29 @@
-import { ReactElement } from 'react';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { ReactElement, Suspense } from 'react';
+import { Stack } from '@mui/material';
 import theme from '../styles/theme';
-import PlusIcon from '@mui/icons-material/Add';
-import CourseListBoard from '../components/CourseListBoard';
-import { useLoaderData } from 'react-router';
-
-interface IAdminProps {
-  pageTitle: string;
-  buttonLabel: string;
-  buttonDisabled?: boolean;
-  onButtonClick?: () => void;
-}
-
-const AdminTitle = ({ pageTitle, buttonLabel, buttonDisabled, onButtonClick }: IAdminProps): ReactElement => (
-  <Box display="flex" justifyContent="space-between" alignItems="center" gap={theme.layout.gap}>
-    <Typography variant="h1">{pageTitle}</Typography>
-    <Button startIcon={<PlusIcon />} variant="contained" disabled={buttonDisabled} onClick={onButtonClick}>
-      {buttonLabel}
-    </Button>
-  </Box>
-);
+import { Await, useLoaderData } from 'react-router';
+import AdminPageTitle from '../components/AdminPageTitle';
+import { useCrud } from '../utilities/hooks/useCrud';
+import { ICourse } from '../utilities/types';
+import CourseTable from '../components/CourseTable';
 
 const AdminCoursesPage = (): ReactElement => {
   const { courses } = useLoaderData();
+  const { items, isEditing, handleChange, handleDelete } = useCrud<ICourse>(courses);
+
   return (
     <Stack spacing={theme.layout.gapLarge}>
-      <AdminTitle pageTitle="Hantera kurser" buttonLabel="Skapa ny kurs" />
-      <CourseListBoard courses={courses} />
+      <AdminPageTitle
+        pageTitle="Hantera kurser"
+        buttonLabel="Skapa ny kurs"
+        buttonDisabled={isEditing}
+        onButtonClick={() => handleChange({ id: '', name: '', description: '', startDate: '', endDate: '' })}
+      />
+      <Suspense>
+        <Await resolve={items}>
+          {(items: ICourse[]) => <CourseTable courses={items} onEdit={handleChange} onDelete={handleDelete} />}
+        </Await>
+      </Suspense>
     </Stack>
   );
 };
