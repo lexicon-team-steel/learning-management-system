@@ -1,10 +1,9 @@
-import { Chip, IconButton, TableCell, TableRow } from '@mui/material';
+import { Chip, TableCell, TableRow } from '@mui/material';
 import { ReactElement } from 'react';
 import { IParticipant } from '../utilities/types';
 import EmailLink from './EmailLink';
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import EditIcon from '@mui/icons-material/EditOutlined';
 import theme from '../styles/theme';
+import ActionButtons from './ActionButtons';
 
 interface IUserItem {
   user: IParticipant;
@@ -26,12 +25,7 @@ const UserTableRow = ({ user, onEdit, onDelete }: IUserItem): ReactElement => {
         <Chip label={userRole} color={chipColor} />
       </TableCell>
       <TableCell align="right" sx={{ paddingX: theme.spacing(1) }}>
-        <IconButton onClick={onEdit} aria-label="edit">
-          <EditIcon fontSize="small" color="primary" />
-        </IconButton>
-        <IconButton onClick={onDelete} aria-label="delete">
-          <DeleteIcon fontSize="small" color="error" />
-        </IconButton>
+        <ActionButtons onEdit={onEdit} onDelete={onDelete} />
       </TableCell>
     </TableRow>
   );
