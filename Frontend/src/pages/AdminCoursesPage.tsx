@@ -9,7 +9,7 @@ import CourseTable from '../components/CourseTable';
 
 const AdminCoursesPage = (): ReactElement => {
   const { courses } = useLoaderData();
-  const { items, isEditing, handleChange, handleDelete } = useCrud<ICourse>(courses);
+  const { isEditing, handleChange, handleDelete } = useCrud<ICourse>();
 
   return (
     <Stack spacing={theme.layout.gapLarge}>
@@ -20,8 +20,8 @@ const AdminCoursesPage = (): ReactElement => {
         onButtonClick={() => handleChange({ id: '', name: '', description: '', startDate: '', endDate: '' })}
       />
       <Suspense>
-        <Await resolve={items}>
-          {(items: ICourse[]) => <CourseTable courses={items} onEdit={handleChange} onDelete={handleDelete} />}
+        <Await resolve={courses}>
+          {(courses: ICourse[]) => <CourseTable courses={courses} onEdit={handleChange} onDelete={handleDelete} />}
         </Await>
       </Suspense>
     </Stack>
