@@ -1,4 +1,4 @@
-import { ReactElement, Suspense, useEffect } from 'react';
+import { ReactElement, Suspense, useEffect, useState } from 'react';
 import { Await, useActionData, useLoaderData } from 'react-router';
 import { IBasicAction, IAdminUsersLoader, IParticipant } from '../utilities/types';
 import { Skeleton, Stack } from '@mui/material';
@@ -11,11 +11,18 @@ import AdminPageTitle from '../components/AdminPageTitle';
 import { scrollTop } from '../utilities/helpers';
 
 const AdminUsersPage = (): ReactElement => {
-  const { selectedItem, isEditing, handleChange, handleDelete, handleCancel, errors, setErrors } =
+  const { selectedItem, isEditing, formKey, handleChange, handleDelete, handleCancel, errors, setErrors } =
     useCrud<IParticipant>();
   const { users } = useLoaderData<IAdminUsersLoader>();
   const actionData = useActionData<IBasicAction>();
-  const emptyUser: IParticipant = { id: '', lastName: '', firstName: '', email: '', roles: ['Student'] };
+
+  const emptyUser: IParticipant = {
+    id: '',
+    lastName: '',
+    firstName: '',
+    email: '',
+    roles: ['Student'],
+  };
 
   useEffect(() => {
     setErrors(actionData?.errors?.fieldErrors || {});
@@ -25,6 +32,10 @@ const AdminUsersPage = (): ReactElement => {
     if (selectedItem) scrollTop();
   }, [selectedItem]);
 
+  useEffect(() => {
+    if (actionData?.success) handleCancel();
+  }, [actionData]);
+
   return (
     <Stack spacing={theme.layout.gapLarge}>
       <AdminPageTitle
@@ -33,7 +44,7 @@ const AdminUsersPage = (): ReactElement => {
         buttonDisabled={isEditing}
         onButtonClick={() => handleChange(emptyUser)}
       />
-      {selectedItem && <UserForm key={selectedItem.id} user={selectedItem} onCancel={handleCancel} errors={errors} />}
+      {selectedItem && <UserForm key={formKey} user={selectedItem} onCancel={handleCancel} errors={errors} />}
       <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
         <Await resolve={users}>
           {(users: IParticipant[]) => <UserTable users={users} onEdit={handleChange} onDelete={handleDelete} />}

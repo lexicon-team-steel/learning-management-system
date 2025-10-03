@@ -1,5 +1,5 @@
 import { ActionFunctionArgs, redirect } from 'react-router';
-import { ApiErrorType, FormErrorType, IBasicAction } from '../types';
+import { FormErrorType, IBasicAction } from '../types';
 import { safeFetch } from '../api/safeFetch';
 import { BASE_URL } from '../constants';
 
@@ -21,7 +21,7 @@ const validateUser = (formData: FormData, action: string): FormErrorType => {
   return errors;
 };
 
-export const adminUsersAction = async ({ request }: ActionFunctionArgs): Promise<IBasicAction | undefined> => {
+export const adminUsersAction = async ({ request }: ActionFunctionArgs): Promise<IBasicAction> => {
   const formData = await request.formData();
   const actionType = formData.get('_action') as string;
 
@@ -46,4 +46,5 @@ export const adminUsersAction = async ({ request }: ActionFunctionArgs): Promise
       throw new Error(`Unknown action: ${actionType}`);
   }
   redirect('/admin/users');
+  return { success: true };
 };
