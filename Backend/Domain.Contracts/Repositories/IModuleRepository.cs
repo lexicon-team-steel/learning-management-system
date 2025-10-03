@@ -6,4 +6,6 @@ public interface IModuleRepository : IRepositoryBase<CourseModule>
 {
     public Task<CourseModule?> GetModuleAsync(string userId, Guid moduleId);
     public Task<CourseModule?> GetUserModuleWithActivitiesAsync(string userId, Guid moduleId);
+    public Task<bool> ExistsByNameAsync(Guid courseId, string name);
+
 }
