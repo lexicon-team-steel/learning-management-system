@@ -24,7 +24,7 @@ const AdminPageForm = ({
       <Typography variant="h2" sx={{ marginBottom: theme.layout.gap }}>
         {title}
       </Typography>
-      <Form method="post">
+      <Form method="post" noValidate>
         <Stack gap={theme.layout.gapLarge}>
           {children}
           <Stack direction="row" spacing={theme.layout.gap} justifyContent="flex-end">

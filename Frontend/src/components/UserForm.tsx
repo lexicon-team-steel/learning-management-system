@@ -1,16 +1,6 @@
 import { ReactElement } from 'react';
 import { FormErrorType, IParticipant } from '../utilities/types';
-import {
-  FormControl,
-  FormControlLabel,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Radio,
-  RadioGroup,
-  Select,
-  TextField,
-} from '@mui/material';
+import { FormControlLabel, Grid, Radio, RadioGroup, TextField } from '@mui/material';
 import theme from '../styles/theme';
 
 import AdminPageForm from './AdminPageForm';
@@ -79,15 +69,6 @@ const UserForm = ({ onCancel, user, errors }: IUserFormProps): ReactElement => {
             error={errors?.password}
           />
         </Grid>
-        {/* <Grid size={6}>
-          <FormControl fullWidth>
-            <InputLabel id="roll-select-label">Roll</InputLabel>
-            <Select labelId="roll-select-label" label="Roll" name="roles" defaultValue={user.roles[0]} required>
-              <MenuItem value="Student">Student</MenuItem>
-              <MenuItem value="Teacher">Teacher</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid> */}
       </Grid>
     </AdminPageForm>
   );
