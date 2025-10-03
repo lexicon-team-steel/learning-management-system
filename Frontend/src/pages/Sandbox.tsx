@@ -1,5 +1,5 @@
 import { Button, Stack } from '@mui/material';
-import GetAlertMessage from '../components/GetAlertMessage';
+import AlertMessage from '../components/AlertMessage';
 import Main from '../components/Main';
 import { useState } from 'react';
 import { Action, Entity, Status } from '../utilities/types';
@@ -59,14 +59,7 @@ const Sandbox = () => {
       </Stack>
 
       {open && entity && action && status && (
-        <GetAlertMessage
-          open={open}
-          onClose={handleClose}
-          entity={entity}
-          action={action}
-          status={status}
-          severity={status}
-        />
+        <AlertMessage open={open} onClose={handleClose} entity={entity} action={action} status={status} />
       )}
     </Main>
   );

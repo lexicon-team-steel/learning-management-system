@@ -1,9 +1,8 @@
-import { Alert, AlertColor, Snackbar } from '@mui/material';
+import { Alert, Snackbar } from '@mui/material';
 import { ReactElement } from 'react';
 import { Action, Entity, Status } from '../utilities/types';
 
-interface IGetAlertMessageProps {
-  severity: AlertColor;
+interface IAlertMessageProps {
   entity: Entity;
   action: Action;
   status: Status;
@@ -39,18 +38,8 @@ const getAlertMessage = (entity: Entity, action: Action, status: Status, errDeta
   return 'Något gick fel';
 };
 
-const GetAlertMessage = ({
-  severity,
-  entity,
-  action,
-  status,
-  errDetails,
-  open,
-  onClose,
-}: IGetAlertMessageProps): ReactElement => {
+const AlertMessage = ({ entity, action, status, errDetails, open, onClose }: IAlertMessageProps): ReactElement => {
   const message = getAlertMessage(entity, action, status, errDetails);
-
-  const derivedSeverity: AlertColor = severity ?? (status === 'error' ? 'error' : 'success');
 
   return (
     <Snackbar
@@ -59,10 +48,10 @@ const GetAlertMessage = ({
       onClose={onClose}
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
     >
-      <Alert severity={derivedSeverity} onClose={onClose} sx={styledCenterIcon}>
+      <Alert severity={status} onClose={onClose} sx={styledCenterIcon}>
         {message}
       </Alert>
     </Snackbar>
   );
 };
-export default GetAlertMessage;
+export default AlertMessage;
