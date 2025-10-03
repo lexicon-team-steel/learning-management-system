@@ -11,7 +11,7 @@ interface ICourseTableProps {
 
 const CourseTable = ({ courses, onEdit, onDelete }: ICourseTableProps): ReactElement => (
   <Table
-    headers={['Namn', 'Period', 'Åtgärder']}
+    headers={['Namn', 'Period', 'Modules', 'Åtgärder']}
     keyField="id"
     rows={courses}
     renderItem={(course: ICourse) => (

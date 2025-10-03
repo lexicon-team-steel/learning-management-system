@@ -1,10 +1,11 @@
-import { TableCell, TableRow } from '@mui/material';
+import { Link, TableCell, TableRow } from '@mui/material';
 import { ReactElement } from 'react';
 import { ICourse } from '../utilities/types';
 import theme from '../styles/theme';
 import Date from './Date';
 import { formatDate } from '../utilities/helpers';
 import ActionButtons from './ActionButtons';
+import { NavLink } from 'react-router';
 
 interface ICourseTableRowProps {
   course: ICourse;
@@ -17,6 +18,11 @@ const CourseTableRow = ({ course, onEdit, onDelete }: ICourseTableRowProps): Rea
       <TableCell>{course.name}</TableCell>
       <TableCell>
         <Date start={formatDate(course.startDate)} end={formatDate(course.endDate)} />
+      </TableCell>
+      <TableCell>
+        <Link component={NavLink} to={`/admin/courses/${course.id}/modules`} underline="hover">
+          Hantera
+        </Link>
       </TableCell>
       <TableCell align="right" sx={{ paddingX: theme.spacing(1) }}>
         <ActionButtons onEdit={onEdit} onDelete={onDelete} />
