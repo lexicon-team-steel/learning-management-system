@@ -12,17 +12,31 @@ interface IGetAlertMessageProps {
   onClose: () => void;
 }
 
+const entityMap: Record<Entity, string> = {
+  activity: 'Aktiviteten',
+  user: 'Användaren',
+  course: 'Kursen',
+  module: 'Modulen',
+};
+
+const styledCenterIcon = {
+  '& .MuiAlert-icon': { paddingTop: '4px' },
+  '& .MuiAlert-action': { padding: '0 0 0 16px' },
+};
+
 const getAlertMessage = (entity: Entity, action: Action, status: Status, errDetails?: string): string => {
+  const entitySvenska = entityMap[entity] || entity;
+
   if (status === 'success') {
-    const actionWord = action === 'create' ? 'skapat' : 'uppdaterat';
-    const article = action === 'create' ? 'en ny' : '';
-    return `Du har ${actionWord} ${article} ${entity}`;
+    if (action === 'create') return `${entitySvenska} har skapats!`;
+    if (action === 'update') return `${entitySvenska} har uppdaterats!`;
   }
 
-  // Status === 'error'
-  const errActionWord = action === 'create' ? 'skapa' : 'updatera';
-  const base = `Det gick inte att ${errActionWord} ${entity}`;
-  return errDetails ? `${base}: ${errDetails}` : base;
+  // status === 'error'
+  if (action === 'create') return `${entitySvenska} kunde inte skapas${errDetails ? `: ${errDetails}` : ''}`;
+  if (action === 'update') return `${entitySvenska} kunde inte uppdateras${errDetails ? `: ${errDetails}` : ''}`;
+
+  return 'Något gick fel';
 };
 
 const GetAlertMessage = ({
@@ -41,11 +55,11 @@ const GetAlertMessage = ({
   return (
     <Snackbar
       open={open}
-      autoHideDuration={3000}
+      autoHideDuration={1500000}
       onClose={onClose}
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
     >
-      <Alert severity={derivedSeverity} onClose={onClose}>
+      <Alert severity={derivedSeverity} onClose={onClose} sx={styledCenterIcon}>
         {message}
       </Alert>
     </Snackbar>
