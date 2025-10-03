@@ -24,4 +24,19 @@ public class AdminCoursesController(IServiceManager serviceManager) : Controller
         public async Task<ActionResult<IEnumerable<CourseDto>>> GetAllCourses() =>
             Ok(await courseService.GetAllCoursesAsync());
 
+        [HttpPost]
+        [SwaggerOperation(
+                Summary = "Create a new course",
+                Description = "Creates a new course. Only teachers are allowed.")]
+        [SwaggerResponse(StatusCodes.Status201Created, "Course created", typeof(CourseDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Validation failed (e.g. endDate < startDate)")]
+        [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+        [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - only teachers can create courses")]
+        public async Task<ActionResult<CourseDto>> CreateCourse([FromBody] CreateCourseDto dto)
+        {
+                var course = await courseService.CreateAsync(dto);
+
+                return CreatedAtAction(nameof(CreateCourse), new { status = "ok" });
+        }
+
 }

@@ -46,11 +46,6 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
     {
         var userId = currentUser.UserId ?? throw new UnauthorizedException();
 
-        if (currentUser.Role != "Teacher")
-        {
-            throw new UnauthorizedException("Only teachers can create courses");
-        }
-
         if (dto.EndDate < dto.StartDate)
         {
             throw new BadRequestException("End date cannot be earlier than start date");
@@ -58,7 +53,7 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
 
         var course = mapper.Map<Course>(dto);
 
-        uow.Courses.CreateCourse(course);
+        uow.Courses.Create(course);
         await uow.CompleteAsync();
 
         return mapper.Map<CourseDto>(course);
