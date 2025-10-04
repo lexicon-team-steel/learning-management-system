@@ -119,3 +119,15 @@ export interface IBasicAction {
   errors?: ApiErrorType;
   success?: boolean;
 }
+
+export interface IForm<T> {
+  item: T;
+  onCancel: () => void;
+  errors: FormErrorType;
+}
+
+export interface ITable<T> {
+  items: T[];
+  onEdit: (item: T) => void;
+  onDelete: (item: T) => void;
+}
