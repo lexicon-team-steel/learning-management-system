@@ -1,4 +1,4 @@
-import { ComponentType, ReactElement, Suspense, useEffect } from 'react';
+import { ComponentType, ReactElement, Suspense, useEffect, useState } from 'react';
 import { Await, useActionData } from 'react-router';
 import { IBasicAction, IForm, ITable } from '../utilities/types';
 import { Skeleton, Stack } from '@mui/material';
@@ -6,6 +6,7 @@ import theme from '../styles/theme';
 import { useCrud } from '../utilities/hooks/useCrud';
 import AdminPageTitle from '../components/AdminPageTitle';
 import { scrollTop } from '../utilities/helpers';
+import AlertMessage from './AlertMessage';
 
 interface IAdminCrudPageProps<T> {
   itemsPromise: Promise<T[]>;
@@ -27,6 +28,7 @@ const AdminCrudPage = <T,>({
   const { selectedItem, isEditing, formKey, handleChange, handleDelete, handleCancel, errors, setErrors } =
     useCrud<T>();
   const actionData = useActionData<IBasicAction>();
+  const [showAlert, setShowAlert] = useState<boolean>(!!actionData);
 
   useEffect(() => {
     setErrors(actionData?.errors?.fieldErrors || {});
@@ -40,24 +42,42 @@ const AdminCrudPage = <T,>({
     if (actionData?.success) handleCancel();
   }, [actionData]);
 
+  useEffect(() => {
+    if (actionData) setShowAlert(true);
+  }, [actionData]);
+
+  const Alert = showAlert && actionData && (
+    <AlertMessage
+      entity={actionData.entity}
+      action={actionData.action}
+      status={actionData.success ? 'success' : 'error'}
+      errDetails={actionData.errors?.generalError}
+      onClose={() => setShowAlert(false)}
+      open={true}
+    />
+  );
+
   return (
-    <Stack spacing={theme.layout.gapLarge}>
-      {/* Title */}
-      <AdminPageTitle
-        pageTitle={title}
-        buttonLabel={buttonLabel}
-        buttonDisabled={isEditing}
-        onButtonClick={() => handleChange(emptyItem)}
-      />
-      {/* Form */}
-      {selectedItem && <FormComponent key={formKey} item={selectedItem} onCancel={handleCancel} errors={errors} />}
-      {/* Table of items */}
-      <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
-        <Await resolve={itemsPromise}>
-          {(items: T[]) => <TableComponent items={items} onEdit={handleChange} onDelete={handleDelete} />}
-        </Await>
-      </Suspense>
-    </Stack>
+    <>
+      {Alert}
+      <Stack spacing={theme.layout.gapLarge}>
+        {/* Title */}
+        <AdminPageTitle
+          pageTitle={title}
+          buttonLabel={buttonLabel}
+          buttonDisabled={isEditing}
+          onButtonClick={() => handleChange(emptyItem)}
+        />
+        {/* Form */}
+        {selectedItem && <FormComponent key={formKey} item={selectedItem} onCancel={handleCancel} errors={errors} />}
+        {/* Table of items */}
+        <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
+          <Await resolve={itemsPromise}>
+            {(items: T[]) => <TableComponent items={items} onEdit={handleChange} onDelete={handleDelete} />}
+          </Await>
+        </Suspense>
+      </Stack>
+    </>
   );
 };
 

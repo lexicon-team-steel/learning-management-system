@@ -1,5 +1,5 @@
 import { ActionFunctionArgs, redirect } from 'react-router';
-import { FormErrorType, IBasicAction } from '../types';
+import { Action, FormErrorType, IBasicAction } from '../types';
 import { safeFetch } from '../api/safeFetch';
 import { BASE_URL } from '../constants';
 
@@ -23,12 +23,13 @@ const validateUser = (formData: FormData, action: string): FormErrorType => {
 
 export const adminUsersAction = async ({ request }: ActionFunctionArgs): Promise<IBasicAction> => {
   const formData = await request.formData();
-  const actionType = formData.get('_action') as string;
+  const actionType = formData.get('_action') as Action;
 
   const errors = validateUser(formData, formData.get('_action') as string);
+  const response: IBasicAction = { entity: 'user', action: actionType };
 
   if (Object.keys(errors).length > 0) {
-    return { errors: { fieldErrors: errors } };
+    return { ...response, errors: { fieldErrors: errors } };
   }
 
   switch (actionType) {
@@ -39,12 +40,12 @@ export const adminUsersAction = async ({ request }: ActionFunctionArgs): Promise
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      if (errorResult) return errorResult;
+      if (errorResult) return { ...response, ...errorResult };
       break;
     }
     default:
       throw new Error(`Unknown action: ${actionType}`);
   }
   redirect('/admin/users');
-  return { success: true };
+  return { ...response, success: true };
 };

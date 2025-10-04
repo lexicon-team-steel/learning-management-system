@@ -125,6 +125,8 @@ export type ApiErrorType = {
 export interface IBasicAction {
   errors?: ApiErrorType;
   success?: boolean;
+  entity: Entity;
+  action: Action;
 }
 
 export interface IForm<T> {
