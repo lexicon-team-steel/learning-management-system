@@ -1,56 +1,36 @@
-import { ReactElement, Suspense, useEffect, useState } from 'react';
-import { Await, useActionData, useLoaderData } from 'react-router';
-import { IBasicAction, IAdminUsersLoader, IParticipant } from '../utilities/types';
-import { Skeleton, Stack } from '@mui/material';
-import theme from '../styles/theme';
+import { ReactElement, useCallback } from 'react';
+import { useLoaderData } from 'react-router';
+import { IAdminUsersLoader, IForm, IParticipant, ITable } from '../utilities/types';
 
 import UserTable from '../components/UserTable';
 import UserForm from '../components/UserForm';
-import { useCrud } from '../utilities/hooks/useCrud';
-import AdminPageTitle from '../components/AdminPageTitle';
-import { scrollTop } from '../utilities/helpers';
+import AdminCrudPage from '../components/AdminCrudPage';
+import { EMPTY_PARTICIPANT } from '../utilities/constants';
 
 const AdminUsersPage = (): ReactElement => {
-  const { selectedItem, isEditing, formKey, handleChange, handleDelete, handleCancel, errors, setErrors } =
-    useCrud<IParticipant>();
   const { users } = useLoaderData<IAdminUsersLoader>();
-  const actionData = useActionData<IBasicAction>();
 
-  const emptyUser: IParticipant = {
-    id: '',
-    lastName: '',
-    firstName: '',
-    email: '',
-    roles: ['Student'],
-  };
+  const FormComponent = useCallback(
+    ({ item, onCancel, errors }: IForm<IParticipant>) => <UserForm user={item} onCancel={onCancel} errors={errors} />,
+    []
+  );
 
-  useEffect(() => {
-    setErrors(actionData?.errors?.fieldErrors || {});
-  }, [actionData, setErrors]);
-
-  useEffect(() => {
-    if (selectedItem) scrollTop();
-  }, [selectedItem]);
-
-  useEffect(() => {
-    if (actionData?.success) handleCancel();
-  }, [actionData]);
+  const TableComponent = useCallback(
+    ({ items, onEdit, onDelete }: ITable<IParticipant>) => (
+      <UserTable users={items} onEdit={onEdit} onDelete={onDelete} />
+    ),
+    []
+  );
 
   return (
-    <Stack spacing={theme.layout.gapLarge}>
-      <AdminPageTitle
-        pageTitle="Hantera användare"
-        buttonLabel="Skapa ny användare"
-        buttonDisabled={isEditing}
-        onButtonClick={() => handleChange(emptyUser)}
-      />
-      {selectedItem && <UserForm key={formKey} user={selectedItem} onCancel={handleCancel} errors={errors} />}
-      <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
-        <Await resolve={users}>
-          {(users: IParticipant[]) => <UserTable users={users} onEdit={handleChange} onDelete={handleDelete} />}
-        </Await>
-      </Suspense>
-    </Stack>
+    <AdminCrudPage
+      itemsPromise={users}
+      emptyItem={EMPTY_PARTICIPANT}
+      title="Hantera användare"
+      buttonLabel="Skapa ny användare"
+      FormComponent={FormComponent}
+      TableComponent={TableComponent}
+    />
   );
 };
 
