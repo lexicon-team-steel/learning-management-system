@@ -1,4 +1,4 @@
-import { IParticipant, IUser } from './types';
+import { ICourse, IParticipant, IUser } from './types';
 
 export const TOKENS = 'tokens';
 export const BASE_URL = 'http://localhost:5166/api';
@@ -14,3 +14,5 @@ export const EMPTY_PARTICIPANT: IParticipant = {
   email: '',
   roles: ['Student'],
 };
+
+export const EMPTY_COURSE: ICourse = { id: '', name: '', description: '', startDate: '', endDate: '' };
