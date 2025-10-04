@@ -1,10 +1,17 @@
+/* === type === */
+
+export type UserRole = 'Teacher' | 'Student' | 'Guest';
+export type Entity = 'activity' | 'module' | 'course' | 'user';
+export type Action = 'create' | 'update';
+export type Status = 'success' | 'error';
+
+/* === interface === */
+
 export interface IUser {
   fullName: string;
   id: string;
   role: UserRole;
 }
-
-export type UserRole = 'Teacher' | 'Student' | 'Guest';
 
 export interface IAuthContext {
   user: IUser;
