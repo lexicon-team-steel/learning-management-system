@@ -63,6 +63,10 @@ export const router = createBrowserRouter([
         path: '*',
         element: <NotFoundPage />,
       },
+      {
+        path: 'sandbox',
+        element: <Sandbox />,
+      },
     ],
   },
   {
