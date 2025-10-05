@@ -1,9 +1,10 @@
-import { ActionFunctionArgs, redirect } from 'react-router';
-import { Action, FormErrorType, IBasicAction } from '../types';
-import { safeFetch } from '../api/safeFetch';
+import { Action, FormErrorType } from '../types';
 import { BASE_URL } from '../constants';
+import { adminEntityAction } from './adminEntityAction';
 
-const validateUser = (formData: FormData, action: string): FormErrorType => {
+const validateUser = (formData: FormData): FormErrorType => {
+  const actionType = formData.get('_action') as Action;
+
   const lastName = formData.get('lastName') as string;
   const firstName = formData.get('firstName') as string;
   const email = formData.get('email') as string;
@@ -15,37 +16,15 @@ const validateUser = (formData: FormData, action: string): FormErrorType => {
   if (!lastName) errors.lastName = 'Efternamn är obligatoriskt';
 
   if (!email || !/.+@.+\..+/.test(email)) errors.email = 'Ogiltig e-postadress';
-  if (!password && action === 'create') errors.password = 'Lösenordet är obligatoriskt';
+  if (!password && actionType === 'create') errors.password = 'Lösenordet är obligatoriskt';
   if (password && password.length < 6) errors.password = 'Lösenordet måste vara minst 6 tecken';
 
   return errors;
 };
 
-export const adminUsersAction = async ({ request }: ActionFunctionArgs): Promise<IBasicAction> => {
-  const formData = await request.formData();
-  const actionType = formData.get('_action') as Action;
-
-  const errors = validateUser(formData, formData.get('_action') as string);
-  const response: IBasicAction = { entity: 'user', action: actionType };
-
-  if (Object.keys(errors).length > 0) {
-    return { ...response, errors: { fieldErrors: errors } };
-  }
-
-  switch (actionType) {
-    case 'create': {
-      const body = Object.fromEntries(formData.entries());
-      const errorResult = await safeFetch(`${BASE_URL}/admin/users`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
-      if (errorResult) return { ...response, ...errorResult };
-      break;
-    }
-    default:
-      throw new Error(`Unknown action: ${actionType}`);
-  }
-  redirect('/admin/users');
-  return { ...response, success: true };
-};
+export const adminUsersAction = adminEntityAction({
+  entity: 'user',
+  validate: validateUser,
+  apiURL: `${BASE_URL}/admin/users`,
+  redirectURL: '/admin/users',
+});
