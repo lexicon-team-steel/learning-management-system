@@ -1,4 +1,4 @@
-import { Alert, Snackbar } from '@mui/material';
+import { Alert, Snackbar, Typography } from '@mui/material';
 import { ReactElement } from 'react';
 import { Action, Entity, Status } from '../utilities/types';
 
@@ -19,7 +19,8 @@ const entityMap: Record<Entity, string> = {
 };
 
 const styledCenterIcon = {
-  '& .MuiAlert-icon': { paddingTop: '4px' },
+  display: 'flex',
+  alignItems: 'center',
   '& .MuiAlert-action': { padding: '0 0 0 16px' },
 };
 
@@ -41,14 +42,11 @@ const AlertMessage = ({ entity, action, status, errDetails, open, onClose }: IAl
   const message = getAlertMessage(entity, action, status, errDetails);
 
   return (
-    <Snackbar
-      open={open}
-      autoHideDuration={3000}
-      onClose={onClose}
-      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-    >
+    <Snackbar open={open} onClose={onClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
       <Alert severity={status} onClose={onClose} sx={styledCenterIcon}>
-        {message}
+        <Typography variant="body1" sx={{ fontWeight: 700 }}>
+          {message}
+        </Typography>
       </Alert>
     </Snackbar>
   );
