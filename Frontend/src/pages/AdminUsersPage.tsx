@@ -11,8 +11,7 @@ import AdminPageTitle from '../components/AdminPageTitle';
 import { scrollTop } from '../utilities/helpers';
 
 const AdminUsersPage = (): ReactElement => {
-  const { selectedItem, isEditing, handleChange, handleDelete, handleCancel, errors, setErrors } =
-    useCrud<IParticipant>();
+  const { selectedItem, isEditing, handleChange, handleCancel, errors, setErrors } = useCrud<IParticipant>();
   const { users } = useLoaderData<IAdminUsersLoader>();
   const actionData = useActionData<IBasicAction>();
   const emptyUser: IParticipant = { id: '', lastName: '', firstName: '', email: '', roles: ['Student'] };
@@ -35,9 +34,7 @@ const AdminUsersPage = (): ReactElement => {
       />
       {selectedItem && <UserForm key={selectedItem.id} user={selectedItem} onCancel={handleCancel} errors={errors} />}
       <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
-        <Await resolve={users}>
-          {(users: IParticipant[]) => <UserTable users={users} onEdit={handleChange} onDelete={handleDelete} />}
-        </Await>
+        <Await resolve={users}>{(users: IParticipant[]) => <UserTable users={users} onEdit={handleChange} />}</Await>
       </Suspense>
     </Stack>
   );

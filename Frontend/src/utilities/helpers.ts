@@ -1,6 +1,7 @@
 import { redirect } from 'react-router';
 import { getTokens } from './token';
 import decodeToken from './token/decodeToken';
+import { Entity } from './types';
 
 export const formatDate = (date: string) => {
   const dateFromString = new Date(date);
@@ -48,3 +49,10 @@ export const scrollTop = () =>
     top: 0,
     behavior: 'smooth',
   });
+
+export const entityMap: Record<Entity, string> = {
+  activity: 'Aktiviteten',
+  user: 'Användaren',
+  course: 'Kursen',
+  module: 'Modulen',
+};

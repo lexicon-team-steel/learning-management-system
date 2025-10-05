@@ -2,7 +2,7 @@
 
 export type UserRole = 'Teacher' | 'Student' | 'Guest';
 export type Entity = 'activity' | 'module' | 'course' | 'user';
-export type Action = 'create' | 'update';
+export type Action = 'create' | 'update' | 'delete';
 export type Status = 'success' | 'error';
 
 /* === interface === */
