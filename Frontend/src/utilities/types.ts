@@ -20,6 +20,17 @@ export interface IAuthContext {
   logout: () => void;
 }
 
+export interface IAlertContext {
+  showAlert: (options: IAlertOptions) => void;
+}
+
+export interface IAlertOptions {
+  entity: Entity;
+  action: Action;
+  status: Status;
+  errDetails?: string;
+}
+
 export interface ITokens {
   accessToken: string;
   refreshToken: string;
