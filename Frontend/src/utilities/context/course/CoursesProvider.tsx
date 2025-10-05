@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { ICourse } from '../../types';
 import { useAuthContext } from '../../hooks/useAuthContext';
-import { CoursesContext } from './coursesContext';
+import { CoursesContext } from './CoursesContext';
 import { fetchWithToken } from '../../api/fetchWithToken';
 import { BASE_URL } from '../../constants';
 
