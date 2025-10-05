@@ -22,7 +22,7 @@ const AdminCoursesPage = (): ReactElement => {
 
   return (
     <AdminCrudPage
-      itemsPromise={courses}
+      items={courses}
       emptyItem={EMPTY_COURSE}
       title="Hantera kurser"
       buttonLabel="Skapa ny kurs"

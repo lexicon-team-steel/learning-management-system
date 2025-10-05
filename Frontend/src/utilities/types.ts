@@ -112,7 +112,10 @@ export interface ICoursesContext {
 }
 
 export interface IAdminUsersLoader {
-  users: Promise<IParticipant[]>;
+  users: IParticipant[];
+}
+export interface IAdminCoursesLoader {
+  courses: ICourse[];
 }
 
 export type FormErrorType = Record<string, string>;

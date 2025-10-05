@@ -9,7 +9,7 @@ import { scrollTop } from '../utilities/helpers';
 import AlertMessage from './AlertMessage';
 
 interface IAdminCrudPageProps<T> {
-  itemsPromise: Promise<T[]>;
+  items: T[];
   emptyItem: T;
   title: string;
   buttonLabel: string;
@@ -18,7 +18,7 @@ interface IAdminCrudPageProps<T> {
 }
 
 const AdminCrudPage = <T,>({
-  itemsPromise,
+  items,
   emptyItem,
   title,
   buttonLabel,
@@ -71,11 +71,8 @@ const AdminCrudPage = <T,>({
         {/* Form */}
         {selectedItem && <FormComponent key={formKey} item={selectedItem} onCancel={handleCancel} errors={errors} />}
         {/* Table of items */}
-        <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
-          <Await resolve={itemsPromise}>
-            {(items: T[]) => <TableComponent items={items} onEdit={handleChange} onDelete={handleDelete} />}
-          </Await>
-        </Suspense>
+
+        <TableComponent items={items} onEdit={handleChange} onDelete={handleDelete} />
       </Stack>
     </>
   );

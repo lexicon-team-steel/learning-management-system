@@ -24,7 +24,7 @@ const AdminUsersPage = (): ReactElement => {
 
   return (
     <AdminCrudPage
-      itemsPromise={users}
+      items={users}
       emptyItem={EMPTY_PARTICIPANT}
       title="Hantera användare"
       buttonLabel="Skapa ny användare"
