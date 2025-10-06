@@ -1,26 +1,26 @@
 import { Link, TableCell, TableRow } from '@mui/material';
 import { ReactElement } from 'react';
-import { ICourse } from '../utilities/types';
+import { IModule } from '../utilities/types';
 import theme from '../styles/theme';
 import Date from './Date';
 import { formatDate } from '../utilities/helpers';
 import ActionButtons from './ActionButtons';
 import { NavLink } from 'react-router';
 
-interface ICourseTableRowProps {
-  course: ICourse;
+interface IModuleTableRowProps {
+  module: IModule;
   onEdit: () => void;
   onDelete: () => void;
 }
-const CourseTableRow = ({ course, onEdit, onDelete }: ICourseTableRowProps): ReactElement => {
+const ModuleTableRow = ({ module, onEdit, onDelete }: IModuleTableRowProps): ReactElement => {
   return (
     <TableRow>
-      <TableCell>{course.name}</TableCell>
+      <TableCell>{module.name}</TableCell>
       <TableCell>
-        <Date start={formatDate(course.startDate)} end={formatDate(course.endDate)} />
+        <Date start={formatDate(module.startDate)} end={formatDate(module.endDate)} />
       </TableCell>
       <TableCell>
-        <Link component={NavLink} to={`/admin/courses/${course.id}`} underline="hover">
+        <Link component={NavLink} to={`/admin/modules/${module.id}`} underline="hover">
           Hantera
         </Link>
       </TableCell>
@@ -31,4 +31,4 @@ const CourseTableRow = ({ course, onEdit, onDelete }: ICourseTableRowProps): Rea
   );
 };
 
-export default CourseTableRow;
+export default ModuleTableRow;
