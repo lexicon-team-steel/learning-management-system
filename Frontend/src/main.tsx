@@ -15,10 +15,10 @@ createRoot(document.getElementById('root')!).render(
   <AuthProvider>
     <CoursesProvider>
       <ThemeProvider theme={theme}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <CssBaseline />
-            <RouterProvider router={router} />
-          </LocalizationProvider>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <CssBaseline />
+          <RouterProvider router={router} />
+        </LocalizationProvider>
       </ThemeProvider>
     </CoursesProvider>
   </AuthProvider>

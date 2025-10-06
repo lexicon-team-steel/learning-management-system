@@ -2,7 +2,6 @@ import { ActionFunctionArgs } from 'react-router';
 import { FormErrorType, IBasicAction } from '../types';
 
 const validateCourse = (formData: FormData): IBasicAction => {
-
   const name = formData.get('name') as string;
   const description = formData.get('description') as string;
   const startDateStr = formData.get('startDate') as string;
