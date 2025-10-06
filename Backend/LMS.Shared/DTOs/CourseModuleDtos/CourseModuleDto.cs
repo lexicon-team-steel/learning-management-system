@@ -10,5 +10,5 @@ public class CourseModuleDto
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public string CourseName { get; set; } = string.Empty;
-
+    public List<ActivityDto> Activities { get; set; } = [];
 }
