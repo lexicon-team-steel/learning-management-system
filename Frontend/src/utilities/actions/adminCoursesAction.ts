@@ -31,8 +31,8 @@ const validateCourse = (formData: FormData): FormErrorType => {
 };
 
 export const adminCoursesAction = adminEntityAction({
-  entity: 'user',
+  entity: 'course',
   validate: validateCourse,
-  apiURL: `${BASE_URL}/admin/users`,
-  redirectURL: '/admin/users',
+  apiURL: `${BASE_URL}/admin/courses`,
+  redirectURL: '/admin/courses',
 });
