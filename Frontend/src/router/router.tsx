@@ -18,6 +18,8 @@ import { adminUsersAction } from '../utilities/actions/adminUsersAction';
 import NotFoundPage from '../pages/NotFoundPage';
 import { adminActivitiesLoader } from '../utilities/loaders/adminActivitiesLoader';
 import AdminActivitiesPage from '../pages/AdminActivitiesPage';
+import AdminModulesPage from '../pages/AdminModulesPage';
+import { adminModulesLoader } from '../utilities/loaders/adminModulesLoader';
 
 export const router = createBrowserRouter([
   {
@@ -60,7 +62,15 @@ export const router = createBrowserRouter([
         loader: adminCoursesLoader,
       },
       {
-        path: 'admin/modules/:moduleId/activities',
+        path: 'admin/courses/:courseId',
+        element: <AdminModulesPage />,
+        loader: async (args) => {
+          const courseId = args.params.courseId ?? '';
+          return adminModulesLoader(courseId);
+        },
+      },
+      {
+        path: 'admin/modules/:moduleId',
         element: <AdminActivitiesPage />,
         loader: adminActivitiesLoader,
       },
