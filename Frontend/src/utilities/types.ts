@@ -2,7 +2,7 @@
 
 export type UserRole = 'Teacher' | 'Student' | 'Guest';
 export type Entity = 'activity' | 'module' | 'course' | 'user';
-export type Action = 'create' | 'update';
+export type Action = 'create' | 'update' | 'delete';
 export type Status = 'success' | 'error';
 
 /* === interface === */
@@ -18,6 +18,17 @@ export interface IAuthContext {
   isLoggedIn: boolean;
   login: (username: string, password: string) => Promise<{ success: boolean; message?: string }>;
   logout: () => void;
+}
+
+export interface IAlertContext {
+  showAlert: (options: IAlertOptions) => void;
+}
+
+export interface IAlertOptions {
+  entity: Entity;
+  action: Action;
+  status: Status;
+  errDetails?: string;
 }
 
 export interface ITokens {
