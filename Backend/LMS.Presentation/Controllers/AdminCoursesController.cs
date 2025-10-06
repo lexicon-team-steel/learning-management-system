@@ -27,6 +27,16 @@ public class AdminCoursesController(IServiceManager serviceManager) : Controller
         public async Task<ActionResult<IEnumerable<CourseDto>>> GetAllCourses() =>
             Ok(await courseService.GetAllCoursesAsync());
 
+        [HttpGet("{courseId}")]
+        [SwaggerOperation(
+        Summary = "Get course with modules",
+        Description = "Returns course with its modules for admin")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Course with modules", typeof(CourseDto))]
+        [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Course not found")]
+        public async Task<ActionResult<CourseDto>> GetCourseWithModules(Guid courseId) =>
+        Ok(await courseService.GetCourseWithModulesAsync(courseId));
+
         [HttpPost]
         [SwaggerOperation(
                 Summary = "Create a new course",
