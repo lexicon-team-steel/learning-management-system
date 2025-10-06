@@ -40,4 +40,20 @@ public class AdminUsersController(IServiceManager serviceManager) : ControllerBa
                 ? CreatedAtAction(nameof(CreateUser), new { status = "ok" })
                 : BadRequest(new { errors = result.ToErrorDictionary() });
     }
+
+    [HttpPut]
+    [SwaggerOperation(
+            Summary = "Update user",
+            Description = "Updates existing user account")]
+    [SwaggerResponse(StatusCodes.Status200OK, "User successfully updated")]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input")]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+    [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - You do not have permission to access this resource.")]
+    public async Task<ActionResult> UpdateUser(string id, UserUpdateDto userUpdateDto)
+    {
+        IdentityResult result = await serviceManager.UserService.UpdateUserAsync(id, userUpdateDto);
+        return result.Succeeded
+                ? Ok(new { success = true })
+                : BadRequest(new { errors = result.ToErrorDictionary() });
+    }
 }
