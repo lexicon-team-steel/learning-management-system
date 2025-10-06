@@ -23,6 +23,7 @@ public class AdminModulesController(IServiceManager serviceManager) : Controller
     [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
     [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - only teachers can create activities")]
     [SwaggerResponse(StatusCodes.Status404NotFound, "Module not found or no access")]
+    [SwaggerResponse(StatusCodes.Status409Conflict, "There was a conflict creating the activity (e.g. overlapping dates)")]
     public async Task<ActionResult<ActivityDto>> CreateActivity(Guid moduleId, [FromBody] CreateActivityDto dto)
     {
         var activity = await activityService.CreateActivityAsync(moduleId, dto);
