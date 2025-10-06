@@ -20,15 +20,10 @@ export const useCrud = <T extends { id: string }>() => {
     setFormKey(crypto.randomUUID());
   }, []);
 
-  const handleSave = (item: T) => {
-    setSelectedItem(null);
-    /* API call */
-  };
   const handleDelete = (item: T) => {
     if (confirm(`Vill du verkligen ta bort det?`)) {
       fetcher.submit({ id: item.id, _action: 'delete' }, { method: 'post' });
     }
-    /* API call*/
   };
 
   return {
@@ -39,7 +34,6 @@ export const useCrud = <T extends { id: string }>() => {
     setErrors,
     handleChange,
     handleCancel,
-    handleSave,
     handleDelete,
   };
 };
