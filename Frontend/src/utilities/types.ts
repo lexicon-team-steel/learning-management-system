@@ -125,8 +125,14 @@ export interface ICoursesContext {
 export interface IAdminUsersLoader {
   users: IParticipant[];
 }
+
 export interface IAdminCoursesLoader {
   courses: ICourse[];
+}
+
+export interface IAdminActivitiesLoader {
+  module: IModule;
+  activityTypes: IActivityType[];
 }
 
 export type FormErrorType = Record<string, string>;
