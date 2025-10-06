@@ -30,10 +30,12 @@ const getAlertMessage = (entity: Entity, action: Action, status: Status, errDeta
   if (status === 'success') {
     if (action === 'create') return `${entitySvenska} har skapats!`;
     if (action === 'update') return `${entitySvenska} har uppdaterats!`;
+    if (action === 'delete') return `${entitySvenska} har tagits bort!`;
   }
 
   if (action === 'create') return `${entitySvenska} kunde inte skapas${errDetails ? `: ${errDetails}` : ''}`;
   if (action === 'update') return `${entitySvenska} kunde inte uppdateras${errDetails ? `: ${errDetails}` : ''}`;
+  if (action === 'delete') return `${entitySvenska} kunde inte tas bort${errDetails ? `: ${errDetails}` : ''}`;
 
   return 'Något gick fel';
 };
@@ -42,7 +44,12 @@ const AlertMessage = ({ entity, action, status, errDetails, open, onClose }: IAl
   const message = getAlertMessage(entity, action, status, errDetails);
 
   return (
-    <Snackbar autoHideDuration={3000} open={open} onClose={onClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+    <Snackbar
+      autoHideDuration={3000}
+      open={open}
+      onClose={onClose}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+    >
       <Alert severity={status} onClose={onClose} sx={styledCenterIcon}>
         <Typography variant="body1" sx={{ fontWeight: 700 }}>
           {message}
