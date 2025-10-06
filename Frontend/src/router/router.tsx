@@ -62,7 +62,10 @@ export const router = createBrowserRouter([
       {
         path: 'admin/courses/:courseId/modules',
         element: <AdminModulesPage />,
-        loader: adminModulesLoader,
+        loader: async (args) => {
+          const courseId = args.params.courseId ?? '';
+          return adminModulesLoader(courseId);
+        },
       },
       /* ---- Add new routes above this comment for a neater structure ---- */
       { path: 'notauthorized', element: <NotAuthorizedPage /> },

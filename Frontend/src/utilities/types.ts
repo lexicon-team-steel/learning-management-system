@@ -119,6 +119,10 @@ export interface IAdminCoursesLoader {
   courses: ICourse[];
 }
 
+export interface IAdminModulesLoader {
+  courseWithModules: ICourse;
+}
+
 export type FormErrorType = Record<string, string>;
 
 export type ApiErrorType = {

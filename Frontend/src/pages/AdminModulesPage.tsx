@@ -8,13 +8,15 @@ import { IModule } from '../utilities/types';
 import { useCrud } from '../utilities/hooks/useCrud';
 
 const AdminModulesPage = () => {
-  const { modules } = useLoaderData();
+  const { courseWithModules } = useLoaderData();
   const { isEditing, handleChange, handleDelete } = useCrud<IModule>();
+  const modules = courseWithModules.modules;
+  const courseName = courseWithModules.name;
 
   return (
     <Stack spacing={theme.layout.gapLarge}>
       <AdminPageTitle
-        pageTitle="Kursnamn"
+        pageTitle={courseName}
         subTitle="Hantera moduler"
         buttonLabel="Skapa ny modul"
         buttonDisabled={isEditing}
