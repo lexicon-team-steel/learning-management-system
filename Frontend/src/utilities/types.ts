@@ -115,8 +115,14 @@ export interface ICoursesContext {
 export interface IAdminUsersLoader {
   users: IParticipant[];
 }
+
 export interface IAdminCoursesLoader {
   courses: ICourse[];
+}
+
+export interface IAdminActivitiesLoader {
+  module: IModule;
+  activityTypes: IActivityType[];
 }
 
 export interface IAdminModulesLoader {
