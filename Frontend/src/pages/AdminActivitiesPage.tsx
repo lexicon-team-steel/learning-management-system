@@ -32,6 +32,7 @@ const AdminActivitiesPage = (): ReactElement => {
       items={module.activities}
       emptyItem={emptyActivity}
       title={module.name}
+      subTitle="Hantera aktiviteter"
       buttonLabel="Skapa ny activity"
       FormComponent={FormComponent}
       TableComponent={TableComponent}
