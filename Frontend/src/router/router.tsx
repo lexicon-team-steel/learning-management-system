@@ -14,6 +14,7 @@ import AdminCoursesPage from '../pages/AdminCoursesPage';
 import { adminCoursesLoader } from '../utilities/loaders/adminCoursesLoader';
 import { adminUsersLoader } from '../utilities/loaders/adminUsersLoader';
 import AdminUsersPage from '../pages/AdminUsersPage';
+import { adminCoursesAction } from '../utilities/actions/adminCoursesAction';
 import { adminUsersAction } from '../utilities/actions/adminUsersAction';
 import NotFoundPage from '../pages/NotFoundPage';
 import { adminActivitiesLoader } from '../utilities/loaders/adminActivitiesLoader';
@@ -60,6 +61,7 @@ export const router = createBrowserRouter([
         path: 'admin/courses',
         element: <AdminCoursesPage />,
         loader: adminCoursesLoader,
+        action: adminCoursesAction,
       },
       {
         path: 'admin/courses/:courseId',
