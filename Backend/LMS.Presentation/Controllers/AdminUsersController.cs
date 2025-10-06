@@ -56,4 +56,20 @@ public class AdminUsersController(IServiceManager serviceManager) : ControllerBa
                 ? Ok(new { success = true })
                 : BadRequest(new { errors = result.ToErrorDictionary() });
     }
+
+    [HttpDelete]
+    [SwaggerOperation(
+            Summary = "Delete user",
+            Description = "Deletes existing user account")]
+    [SwaggerResponse(StatusCodes.Status200OK, "User successfully deleted")]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input")]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+    [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - You do not have permission to access this resource.")]
+    public async Task<ActionResult> DeleteUser(string id)
+    {
+        IdentityResult result = await serviceManager.UserService.DeleteUserAsync(id);
+        return result.Succeeded
+                ? Ok(new { success = true })
+                : BadRequest(new { errors = result.ToErrorDictionary() });
+    }
 }
