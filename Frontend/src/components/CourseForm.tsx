@@ -1,49 +1,11 @@
 import { ReactElement, useState } from 'react';
 import { FormErrorType, ICourse } from '../utilities/types';
-import { Box, Grid, TextField } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
 import theme from '../styles/theme';
 import AdminPageForm from './AdminPageForm';
-
-interface IStyledTextfield {
-  type?: string;
-  label: string;
-  name: string;
-  value: string;
-  error?: string;
-  required?: boolean;
-}
-
-const StyledTextField = ({ type = 'text', label, name, value, required = true, error }: IStyledTextfield) => (
-  <TextField
-    type={type}
-    label={label}
-    name={name}
-    variant="outlined"
-    defaultValue={value}
-    fullWidth
-    required={required}
-    error={!!error}
-    helperText={error}
-  />
-);
-
-const StyledAreaField = ({ type = 'text', label, name, value, required = true, error }: IStyledTextfield) => (
-  <TextField
-    multiline
-    type={type}
-    label={label}
-    name={name}
-    variant="outlined"
-    defaultValue={value}
-    fullWidth
-    required={required}
-    error={!!error}
-    helperText={error}
-    minRows={3}
-  />
-);
+import TextInput from './TextInput';
 
 interface ICourseFormProps {
   onCancel: () => void;
@@ -67,12 +29,13 @@ const CourseForm = ({ onCancel, course, errors }: ICourseFormProps): ReactElemen
       <input type="hidden" name="endDate" value={endDate?.isValid() ? endDate.format('YYYY-MM-DD') : ''} />
       <Grid container spacing={theme.layout.gap}>
         <Grid size={12}>
-          <StyledTextField label="Titel" name="name" value={course.name} error={errors?.name} />
+          <TextInput label="Titel" name="name" value={course.name} error={errors?.name} />
         </Grid>
         <Grid size={12}>
-          <StyledAreaField
+          <TextInput
             label="Beskrivning"
             name="description"
+            minRows={3}
             value={course.description}
             error={errors?.description}
           />
