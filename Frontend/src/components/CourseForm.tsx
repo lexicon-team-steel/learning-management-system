@@ -61,11 +61,10 @@ const CourseForm = ({ onCancel, course, errors }: ICourseFormProps): ReactElemen
 
   return (
     <AdminPageForm title={title} submitLabel={submitLabel} onCancel={onCancel}>
-      <input type="hidden" name="_action" value={action} />
-      <input type="hidden" name="id" value={course.id} />
-      <input type="hidden" name="startDate" value={startDate?.format('YYYY-MM-DD') ?? ''} />
-      <input type="hidden" name="endDate" value={endDate?.format('YYYY-MM-DD') ?? ''} />
-
+      <input type="hidden" name="_action" value={action} /> {/* Not used now but my be of use in api call later? */}
+      <input type="hidden" name="id" value={course.id} /> {/* Not used now but my be of use in api call later? */}
+      <input type="hidden" name="startDate" value={startDate?.isValid() ? startDate.format('YYYY-MM-DD') : ''} />
+      <input type="hidden" name="endDate" value={endDate?.isValid() ? endDate.format('YYYY-MM-DD') : ''} />
       <Grid container spacing={theme.layout.gap}>
         <Grid size={12}>
           <StyledTextField label="Titel" name="name" value={course.name} error={errors?.name} />
@@ -81,9 +80,10 @@ const CourseForm = ({ onCancel, course, errors }: ICourseFormProps): ReactElemen
         <Grid size={12}>
           <Box display={'flex'} gap={theme.layout.gap}>
             <DatePicker
-              label="Startdatum"
+              label="Startdatum *"
               value={startDate}
               onChange={(date) => setStartDate(date)}
+              format="DD/MM/YYYY"
               slotProps={{
                 textField: {
                   error: !!errors?.startDate,
@@ -92,9 +92,10 @@ const CourseForm = ({ onCancel, course, errors }: ICourseFormProps): ReactElemen
               }}
             />
             <DatePicker
-              label="Slutdatum"
+              label="Slutdatum *"
               value={endDate}
               onChange={(date) => setEndDate(date)}
+              format="DD/MM/YYYY"
               slotProps={{
                 textField: {
                   error: !!errors?.endDate,
