@@ -9,4 +9,6 @@ public interface ICourseRepository : IRepositoryBase<Course>
     public Task<Course?> GetUserCourseWithModulesAsync(string userId, Guid courseId);
     public Task<List<ApplicationUser>> GetUserCourseParticipantsAsync(string userId, Guid courseId, string? role);
     public Task<bool> ExistsByNameAsync(string name);
+    public Task<Course?> GetCourseWithModulesAsync(Guid courseId);
+
 }

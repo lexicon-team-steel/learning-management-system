@@ -3,10 +3,10 @@ import { BASE_URL } from '../constants';
 import { requireTeacherRole } from '../helpers';
 import { IAdminUsersLoader } from '../types';
 
-export function adminUsersLoader(): IAdminUsersLoader {
+export const adminUsersLoader = async (): Promise<IAdminUsersLoader> => {
   requireTeacherRole();
 
   return {
-    users: fetchWithToken(`${BASE_URL}/admin/users`),
+    users: await fetchWithToken(`${BASE_URL}/admin/users`),
   };
-}
+};
