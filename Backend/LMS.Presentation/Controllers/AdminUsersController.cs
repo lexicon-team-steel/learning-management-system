@@ -41,7 +41,7 @@ public class AdminUsersController(IServiceManager serviceManager) : ControllerBa
                 : BadRequest(new { errors = result.ToErrorDictionary() });
     }
 
-    [HttpPut]
+    [HttpPut("{id}")]
     [SwaggerOperation(
             Summary = "Update user",
             Description = "Updates existing user account")]
@@ -57,7 +57,7 @@ public class AdminUsersController(IServiceManager serviceManager) : ControllerBa
                 : BadRequest(new { errors = result.ToErrorDictionary() });
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     [SwaggerOperation(
             Summary = "Delete user",
             Description = "Deletes existing user account")]
