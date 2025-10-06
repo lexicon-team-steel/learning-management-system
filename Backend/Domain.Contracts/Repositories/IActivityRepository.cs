@@ -6,4 +6,5 @@ public interface IActivityRepository : IRepositoryBase<Activity>
 {
     public Task<IEnumerable<Activity>> GetActivitiesByModuleIdAsync(Guid moduleId, CancellationToken cancellationToken);
     public Task<IEnumerable<Activity>> GetUserActivitiesAsync(string userId, CancellationToken cancellationToken);
+    public Task<Activity?> GetActivityWithTypeAsync(Guid activityId);
 }

@@ -44,7 +44,7 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
 
     public async Task<CourseDto> CreateAsync(CreateCourseDto dto)
     {
-        var userId = currentUser.UserId ?? throw new UnauthorizedException();
+        var userId = GetUserId();
 
         var exists = await uow.Courses.ExistsByNameAsync(dto.Name);
         if (exists)

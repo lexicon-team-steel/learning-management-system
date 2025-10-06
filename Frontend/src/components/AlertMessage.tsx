@@ -1,4 +1,4 @@
-import { Alert, Snackbar } from '@mui/material';
+import { Alert, Snackbar, Typography } from '@mui/material';
 import { ReactElement } from 'react';
 import { Action, Entity, Status } from '../utilities/types';
 import { entityMap } from '../utilities/helpers';
@@ -13,7 +13,8 @@ interface IAlertMessageProps {
 }
 
 const styledCenterIcon = {
-  '& .MuiAlert-icon': { paddingTop: '4px' },
+  display: 'flex',
+  alignItems: 'center',
   '& .MuiAlert-action': { padding: '0 0 0 16px' },
 };
 
@@ -23,10 +24,12 @@ const getAlertMessage = (entity: Entity, action: Action, status: Status, errDeta
   if (status === 'success') {
     if (action === 'create') return `${entitySvenska} har skapats!`;
     if (action === 'update') return `${entitySvenska} har uppdaterats!`;
+    if (action === 'delete') return `${entitySvenska} har tagits bort!`;
   }
 
   if (action === 'create') return `${entitySvenska} kunde inte skapas${errDetails ? `: ${errDetails}` : ''}`;
   if (action === 'update') return `${entitySvenska} kunde inte uppdateras${errDetails ? `: ${errDetails}` : ''}`;
+  if (action === 'delete') return `${entitySvenska} kunde inte tas bort${errDetails ? `: ${errDetails}` : ''}`;
 
   return 'Något gick fel';
 };
@@ -36,13 +39,15 @@ const AlertMessage = ({ entity, action, status, errDetails, open, onClose }: IAl
 
   return (
     <Snackbar
-      open={open}
       autoHideDuration={3000}
+      open={open}
       onClose={onClose}
-      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
     >
       <Alert severity={status} onClose={onClose} sx={styledCenterIcon}>
-        {message}
+        <Typography variant="body1" sx={{ fontWeight: 700 }}>
+          {message}
+        </Typography>
       </Alert>
     </Snackbar>
   );
