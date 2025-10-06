@@ -20,7 +20,7 @@ const ActivityTableRow = ({ activity, onEdit, onDelete }: IActivityItem): ReactE
         <Typography
           variant="body2"
           color={theme.palette.text.secondary}
-        >{`${formatTime(activity.startDate)} -${formatTime(activity.endDate)}`}</Typography>
+        >{`${formatTime(activity.startDate)} — ${formatTime(activity.endDate)}`}</Typography>
       </TableCell>
       <TableCell align="right" sx={{ paddingX: theme.spacing(1) }}>
         <ActionButtons onEdit={onEdit} onDelete={onDelete} />
