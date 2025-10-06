@@ -67,15 +67,6 @@ export interface IActivityType {
   name: string;
 }
 
-export interface IModule {
-  id: string;
-  name: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  activities: IActivity[];
-}
-
 export interface ICourse {
   id: string;
   name: string;
@@ -85,9 +76,8 @@ export interface ICourse {
   modules?: IModule[];
 }
 
-export interface ICourseLoader {
-  course: Promise<ICourse>;
-  participants: Promise<IParticipant[]>;
+export interface IModulesLoader {
+  modules: Promise<IModule[]>;
 }
 
 export interface ICoursesLoader {
