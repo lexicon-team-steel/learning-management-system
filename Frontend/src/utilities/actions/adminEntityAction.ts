@@ -33,6 +33,17 @@ export const adminEntityAction =
         if (errorResult) return { ...response, ...errorResult };
         break;
       }
+      case 'update': {
+        const body = Object.fromEntries(formData.entries());
+        const id = formData.get('id');
+        const errorResult = await safeFetch(`${apiURL}/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+        if (errorResult) return { ...response, ...errorResult };
+        break;
+      }
       default:
         throw new Error(`Unknown action: ${actionType}`);
     }
