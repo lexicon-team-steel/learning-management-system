@@ -1,17 +1,18 @@
 import { ReactElement, useCallback } from 'react';
-import { Form, useLoaderData } from 'react-router';
+import { useLoaderData } from 'react-router';
 import { ICourse, IForm, ITable } from '../utilities/types';
 import CourseTable from '../components/CourseTable';
 import AdminCrudPage from '../components/AdminCrudPage';
 import { EMPTY_COURSE } from '../utilities/constants';
+import CourseForm from '../components/CourseForm';
 
 const AdminCoursesPage = (): ReactElement => {
   const { courses } = useLoaderData();
 
-  /**
-   * Futute Form
-   */
-  const FormComponent = useCallback(({ item }: IForm<ICourse>) => <Form>{item.name}</Form>, []);
+  const FormComponent = useCallback(
+    ({ item, onCancel, errors }: IForm<ICourse>) => <CourseForm course={item} onCancel={onCancel} errors={errors} />,
+    []
+  );
 
   const TableComponent = useCallback(
     ({ items, onEdit, onDelete }: ITable<ICourse>) => (
@@ -20,13 +21,6 @@ const AdminCoursesPage = (): ReactElement => {
     []
   );
 
-  useEffect(() => {
-    setErrors(actionData?.errors || {});
-  }, [actionData, setErrors]);
-
-  useEffect(() => {
-    if (selectedItem) scrollTop();
-  }, [selectedItem]);
   return (
     <AdminCrudPage
       items={courses}
