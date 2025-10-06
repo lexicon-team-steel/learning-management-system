@@ -2,7 +2,7 @@ import { FormErrorType } from '../types';
 import { BASE_URL } from '../constants';
 import { adminEntityAction } from './adminEntityAction';
 
-const validateCourse = (formData: FormData): FormErrorType => {
+const validateModule = (formData: FormData): FormErrorType => {
   const title = formData.get('title') as string;
   const description = formData.get('description') as string;
   const startDate = formData.get('startDate') as string;
@@ -30,9 +30,9 @@ const validateCourse = (formData: FormData): FormErrorType => {
   return errors;
 };
 
-export const adminCoursesAction = adminEntityAction({
-  entity: 'course',
-  validate: validateCourse,
-  apiURL: `${BASE_URL}/admin/courses`,
-  redirectURL: '/admin/courses',
+export const adminModulesAction = adminEntityAction({
+  entity: 'module',
+  validate: validateModule,
+  apiURL: `${BASE_URL}/admin/courses/:courseId/modules`,
+  redirectURL: '/admin/courses/:courseId/modules',
 });

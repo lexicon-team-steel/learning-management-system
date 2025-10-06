@@ -56,7 +56,6 @@ export const router = createBrowserRouter([
         path: 'admin/courses',
         element: <AdminCoursesPage />,
         loader: adminCoursesLoader,
-        action: adminUsersAction,
       },
       /* ---- Add new routes above this comment for a neater structure ---- */
       { path: 'notauthorized', element: <NotAuthorizedPage /> },
