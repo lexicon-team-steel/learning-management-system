@@ -30,9 +30,10 @@ const validateModule = (formData: FormData): FormErrorType => {
   return errors;
 };
 
-export const adminModulesAction = adminEntityAction({
-  entity: 'module',
-  validate: validateModule,
-  apiURL: `${BASE_URL}/admin/courses/:courseId/modules`,
-  redirectURL: '/admin/courses/:courseId/modules',
-});
+export const adminModulesAction = (courseId: string) =>
+  adminEntityAction({
+    entity: 'module',
+    validate: validateModule,
+    apiURL: `${BASE_URL}/admin/courses/${courseId}/modules`,
+    redirectURL: `/admin/courses/${courseId}/modules`,
+  });
