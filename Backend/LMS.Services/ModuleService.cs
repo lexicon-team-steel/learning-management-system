@@ -30,6 +30,15 @@ public class ModuleService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
             throw new BadRequestException("End date cannot be earlier than start date");
         }
 
+        var course = await uow.Courses.GetCourseWithModulesAsync(courseId);
+        if (course == null)
+            throw new NotFoundException("Course not found");
+
+        var overlapping = course.Modules.Any(m =>
+            dto.StartDate < m.EndDate && dto.EndDate > m.StartDate);
+        if (overlapping)
+            throw new ConflictException("Module dates overlap with an existing module in this course");
+
         var module = mapper.Map<CourseModule>(dto);
         module.CourseId = courseId;
 
