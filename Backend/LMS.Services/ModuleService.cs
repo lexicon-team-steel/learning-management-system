@@ -19,12 +19,6 @@ public class ModuleService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
         return mapper.Map<CourseModuleDto>(module);
     }
 
-    public async Task<IEnumerable<CourseModuleDto>> GetAllModulesFromCourseAsync(Guid courseId)
-    {
-        var modules = await uow.Modules.GetModulesAsync(courseId);
-        return mapper.Map<IEnumerable<CourseModuleDto>>(modules);
-    }
-
     public async Task<CourseModuleDto> CreateModuleAsync(Guid courseId, CreateModuleDto dto)
     {
         var exists = await uow.Modules.ExistsByNameAsync(courseId, dto.Name);
@@ -37,6 +31,7 @@ public class ModuleService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
         }
 
         var module = mapper.Map<CourseModule>(dto);
+        module.CourseId = courseId;
 
         uow.Modules.Create(module);
         await uow.CompleteAsync();

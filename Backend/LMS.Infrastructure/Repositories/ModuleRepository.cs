@@ -23,7 +23,4 @@ public class ModuleRepository(ApplicationDbContext context)
     }
     public async Task<bool> ExistsByNameAsync(Guid courseId, string name) =>
         await FindAll().Where(m => m.CourseId == courseId).AnyAsync(m => m.Name.ToLower() == name.ToLower());
-    public async Task<IEnumerable<CourseModule>> GetModulesAsync(Guid courseId) =>
-        await FindAll().Where(m => m.CourseId == courseId).ToListAsync();
-
 }
