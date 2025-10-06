@@ -6,17 +6,21 @@ import { RouterProvider } from 'react-router';
 import { ThemeProvider } from '@emotion/react';
 import theme from './styles/theme';
 import { CssBaseline } from '@mui/material';
-import { AlertProvider } from './utilities/context/alert/AlertProvider';
-import { CoursesProvider } from './utilities/context/course/CoursesProvider';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { AuthProvider } from './utilities/context/auth/AuthProvider';
+import { CoursesProvider } from './utilities/context/course/CoursesProvider';
+import { AlertProvider } from './utilities/context/alert/AlertProvider';
 
 createRoot(document.getElementById('root')!).render(
   <AuthProvider>
     <CoursesProvider>
       <ThemeProvider theme={theme}>
         <AlertProvider>
-          <CssBaseline />
-          <RouterProvider router={router} />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <CssBaseline />
+            <RouterProvider router={router} />
+          </LocalizationProvider>
         </AlertProvider>
       </ThemeProvider>
     </CoursesProvider>
