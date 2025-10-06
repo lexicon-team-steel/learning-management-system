@@ -8,4 +8,5 @@ public interface IUserService
 {
     Task<IEnumerable<UserDto>> GetAllUsersAsync(UserQueryParameters userParams);
     Task<IdentityResult> UpdateUserAsync(string id, UserUpdateDto updateDto);
+    Task<IdentityResult> DeleteUserAsync(string id);
 }

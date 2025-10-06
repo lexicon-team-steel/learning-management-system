@@ -53,4 +53,14 @@ public class UserService(IMapper mapper, IUnitOfWork uow, UserManager<Applicatio
 
         return result;
     }
+
+    public async Task<IdentityResult> DeleteUserAsync(string id)
+    {
+        var user = await userManager.FindByIdAsync(id);
+        if (user == null)
+            throw new NotFoundException("User not found");
+
+        var result = await userManager.DeleteAsync(user);
+        return result;
+    }
 }
