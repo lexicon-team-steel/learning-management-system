@@ -8,6 +8,6 @@ export const adminActivitiesLoader = async ({ params }: LoaderFunctionArgs): Pro
   requireTeacherRole();
   return {
     activityTypes: await fetchWithToken(`${BASE_URL}/admin/activityTypes`),
-    module: await fetchWithToken(`${BASE_URL}/admin/modules/${params.id}`),
+    module: await fetchWithToken(`${BASE_URL}/admin/modules/${params.moduleId}`),
   };
 };

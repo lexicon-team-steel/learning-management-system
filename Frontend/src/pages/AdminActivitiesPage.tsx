@@ -19,13 +19,13 @@ const AdminActivitiesPage = (): ReactElement => {
    */
   const FormComponent = useCallback(({ item }: IForm<IActivity>) => <Form>{item.name}</Form>, []);
 
-  const TableComponent = useCallback(() => <div />, []);
+  const TableComponent = useCallback(() => <div>{module.activities[0].name}</div>, []);
 
   return (
     <AdminCrudPage
       items={module.activities}
       emptyItem={emptyActivity}
-      title={`Module: ${module.name}`}
+      title={module.name}
       buttonLabel="Skapa ny activity"
       FormComponent={FormComponent}
       TableComponent={TableComponent}
