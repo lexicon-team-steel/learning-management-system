@@ -12,6 +12,7 @@ public class ModuleRepository(ApplicationDbContext context)
     {
         return await FindAll()
             .Include(m => m.Activities)
+                .ThenInclude(a => a.ActivityType)
             .FirstOrDefaultAsync(m => m.Id == moduleId);
     }
 
@@ -28,4 +29,6 @@ public class ModuleRepository(ApplicationDbContext context)
                 .ThenInclude(a => a.ActivityType)
             .FirstOrDefaultAsync();
     }
+    public async Task<bool> ExistsByNameAsync(Guid courseId, string name) =>
+        await FindAll().Where(m => m.CourseId == courseId).AnyAsync(m => m.Name.ToLower() == name.ToLower());
 }
