@@ -1,4 +1,4 @@
-import { ComponentType, ReactElement, useEffect, useState } from 'react';
+import { ComponentType, ReactElement, useEffect } from 'react';
 import { useActionData } from 'react-router';
 import { IBasicAction, IForm, ITable } from '../utilities/types';
 import { Stack } from '@mui/material';
@@ -6,7 +6,7 @@ import theme from '../styles/theme';
 import { useCrud } from '../utilities/hooks/useCrud';
 import AdminPageTitle from '../components/AdminPageTitle';
 import { scrollTop } from '../utilities/helpers';
-import AlertMessage from './AlertMessage';
+import { useAlert } from '../utilities/context/alert/AlertContext';
 
 interface IAdminCrudPageProps<T> {
   items: T[];
@@ -28,7 +28,7 @@ const AdminCrudPage = <T,>({
   const { selectedItem, isEditing, formKey, handleChange, handleDelete, handleCancel, errors, setErrors } =
     useCrud<T>();
   const actionData = useActionData<IBasicAction>();
-  const [showAlert, setShowAlert] = useState<boolean>(!!actionData);
+  const { showAlert } = useAlert();
 
   useEffect(() => {
     setErrors(actionData?.errors?.fieldErrors || {});
@@ -43,23 +43,18 @@ const AdminCrudPage = <T,>({
   }, [actionData, handleCancel]);
 
   useEffect(() => {
-    if (actionData) setShowAlert(true);
+    if (actionData)
+      showAlert({
+        entity: actionData.entity,
+        action: actionData.action,
+        status: actionData.success ? 'success' : 'error',
+        errDetails: actionData.errors?.generalError,
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [actionData]);
-
-  const Alert = showAlert && actionData && (
-    <AlertMessage
-      entity={actionData.entity}
-      action={actionData.action}
-      status={actionData.success ? 'success' : 'error'}
-      errDetails={actionData.errors?.generalError}
-      onClose={() => setShowAlert(false)}
-      open={true}
-    />
-  );
 
   return (
     <>
-      {Alert}
       <Stack spacing={theme.layout.gapLarge}>
         {/* Title */}
         <AdminPageTitle
