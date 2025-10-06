@@ -1,7 +1,7 @@
-import { ComponentType, ReactElement, Suspense, useEffect, useState } from 'react';
-import { Await, useActionData } from 'react-router';
+import { ComponentType, ReactElement, useEffect, useState } from 'react';
+import { useActionData } from 'react-router';
 import { IBasicAction, IForm, ITable } from '../utilities/types';
-import { Skeleton, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import theme from '../styles/theme';
 import { useCrud } from '../utilities/hooks/useCrud';
 import AdminPageTitle from '../components/AdminPageTitle';
@@ -40,7 +40,7 @@ const AdminCrudPage = <T,>({
 
   useEffect(() => {
     if (actionData?.success) handleCancel();
-  }, [actionData]);
+  }, [actionData, handleCancel]);
 
   useEffect(() => {
     if (actionData) setShowAlert(true);

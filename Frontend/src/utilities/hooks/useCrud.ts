@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { FormErrorType } from '../types';
 
 export const useCrud = <T>() => {
@@ -12,11 +12,11 @@ export const useCrud = <T>() => {
     setFormKey(crypto.randomUUID());
   };
 
-  const handleCancel = () => {
+  const handleCancel = useCallback(() => {
     setSelectedItem(null);
     setErrors({});
     setFormKey(crypto.randomUUID());
-  };
+  }, []);
 
   const handleSave = (item: T) => {
     setSelectedItem(null);
