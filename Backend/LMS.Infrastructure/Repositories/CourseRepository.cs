@@ -37,4 +37,11 @@ public class CourseRepository(ApplicationDbContext context)
 
     public async Task<bool> ExistsByNameAsync(string name) =>
         await FindAll().AnyAsync(c => c.Name.ToLower() == name.ToLower());
+
+    public async Task<Course?> GetCourseWithModulesAsync(Guid courseId)
+    {
+        return await FindAll()
+            .Include(c => c.Modules)
+            .FirstOrDefaultAsync(c => c.Id == courseId);
+    }
 }

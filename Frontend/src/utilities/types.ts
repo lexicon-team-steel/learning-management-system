@@ -123,11 +123,34 @@ export interface ICoursesContext {
 }
 
 export interface IAdminUsersLoader {
-  users: Promise<IParticipant[]>;
+  users: IParticipant[];
+}
+export interface IAdminCoursesLoader {
+  courses: ICourse[];
 }
 
 export type FormErrorType = Record<string, string>;
 
+export type ApiErrorType = {
+  fieldErrors?: FormErrorType;
+  generalError?: string;
+};
+
 export interface IBasicAction {
-  errors?: FormErrorType;
+  errors?: ApiErrorType;
+  success?: boolean;
+  entity: Entity;
+  action: Action;
+}
+
+export interface IForm<T> {
+  item: T;
+  onCancel: () => void;
+  errors: FormErrorType;
+}
+
+export interface ITable<T> {
+  items: T[];
+  onEdit: (item: T) => void;
+  onDelete: (item: T) => void;
 }
