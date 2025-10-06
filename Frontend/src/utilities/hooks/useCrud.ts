@@ -1,10 +1,12 @@
 import { useCallback, useState } from 'react';
 import { FormErrorType } from '../types';
+import { useFetcher } from 'react-router';
 
-export const useCrud = <T>() => {
+export const useCrud = <T extends { id: string }>() => {
   const [selectedItem, setSelectedItem] = useState<T | null>(null);
   const [errors, setErrors] = useState<FormErrorType>({});
   const [formKey, setFormKey] = useState<string>(crypto.randomUUID());
+  const fetcher = useFetcher();
 
   const handleChange = (item: T) => {
     setSelectedItem(item);
@@ -23,7 +25,9 @@ export const useCrud = <T>() => {
     /* API call */
   };
   const handleDelete = (item: T) => {
-    setSelectedItem(null);
+    if (confirm(`Vill du verkligen ta bort det?`)) {
+      fetcher.submit({ id: item.id, _action: 'delete' }, { method: 'post' });
+    }
     /* API call*/
   };
 

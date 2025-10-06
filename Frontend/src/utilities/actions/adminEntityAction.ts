@@ -15,11 +15,14 @@ export const adminEntityAction =
     const formData = await request.formData();
     const actionType = formData.get('_action') as Action;
 
-    const errors = validate(formData);
     const response: IBasicAction = { entity, action: actionType };
 
-    if (Object.keys(errors).length > 0) {
-      return { ...response, errors: { fieldErrors: errors } };
+    if (actionType !== 'delete') {
+      const errors = validate(formData);
+
+      if (Object.keys(errors).length > 0) {
+        return { ...response, errors: { fieldErrors: errors } };
+      }
     }
 
     switch (actionType) {
@@ -40,6 +43,15 @@ export const adminEntityAction =
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
+        });
+        if (errorResult) return { ...response, ...errorResult };
+        break;
+      }
+      case 'delete': {
+        const id = formData.get('id');
+        const errorResult = await safeFetch(`${apiURL}/${id}`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
         });
         if (errorResult) return { ...response, ...errorResult };
         break;
