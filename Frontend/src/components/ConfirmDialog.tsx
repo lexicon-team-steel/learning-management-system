@@ -12,7 +12,7 @@ interface IConfirmDialog {
 
 const ConfirmDialog = ({ open, entity, onClose, onConfirm }: IConfirmDialog): ReactElement => {
   const entitySvenska = entityMap[entity] || entity;
-
+  // handle Delete TODO
   return (
     <>
       <Dialog

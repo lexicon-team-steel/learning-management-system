@@ -1,10 +1,9 @@
-import { Alert, AlertColor, Snackbar } from '@mui/material';
+import { Alert, Snackbar } from '@mui/material';
 import { ReactElement } from 'react';
 import { Action, Entity, Status } from '../utilities/types';
 import { entityMap } from '../utilities/helpers';
 
 interface IAlertMessageProps {
-  severity?: AlertColor;
   entity: Entity;
   action: Action;
   status: Status;
@@ -24,25 +23,15 @@ const getAlertMessage = (entity: Entity, action: Action, status: Status, errDeta
   if (status === 'success') {
     if (action === 'create') return `${entitySvenska} har skapats!`;
     if (action === 'update') return `${entitySvenska} har uppdaterats!`;
-    if (action === 'delete') return `${entitySvenska} har tagits bort!`;
   }
 
   if (action === 'create') return `${entitySvenska} kunde inte skapas${errDetails ? `: ${errDetails}` : ''}`;
   if (action === 'update') return `${entitySvenska} kunde inte uppdateras${errDetails ? `: ${errDetails}` : ''}`;
-  if (action === 'delete') return `${entitySvenska} kunde inte tas bort${errDetails ? `: ${errDetails}` : ''}`;
 
   return 'Något gick fel';
 };
 
-const AlertMessage = ({
-  entity,
-  action,
-  status,
-  errDetails,
-  open,
-  onClose,
-  severity,
-}: IAlertMessageProps): ReactElement => {
+const AlertMessage = ({ entity, action, status, errDetails, open, onClose }: IAlertMessageProps): ReactElement => {
   const message = getAlertMessage(entity, action, status, errDetails);
 
   return (
@@ -52,7 +41,7 @@ const AlertMessage = ({
       onClose={onClose}
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
     >
-      <Alert severity={severity || status} onClose={onClose} sx={styledCenterIcon}>
+      <Alert severity={status} onClose={onClose} sx={styledCenterIcon}>
         {message}
       </Alert>
     </Snackbar>

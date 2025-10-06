@@ -14,7 +14,6 @@ interface IUserItem {
 }
 const UserTableRow = ({ user, onEdit }: IUserItem): ReactElement => {
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const [alertOpen, setAlertOpen] = useState(false);
   const { handleDelete } = useCrud<IParticipant>();
 
   const userName = `${user.firstName} ${user.lastName}`;
@@ -24,7 +23,6 @@ const UserTableRow = ({ user, onEdit }: IUserItem): ReactElement => {
   const handleConfirmDelete = () => {
     handleDelete(user);
     setConfirmOpen(false);
-    setAlertOpen(true);
   };
 
   return (
@@ -44,16 +42,6 @@ const UserTableRow = ({ user, onEdit }: IUserItem): ReactElement => {
           onClose={() => setConfirmOpen(false)}
           onConfirm={handleConfirmDelete}
         />
-        {alertOpen && (
-          <AlertMessage
-            severity={status}
-            entity="user"
-            action="delete"
-            status={status}
-            open={alertOpen}
-            onClose={() => setAlertOpen(false)}
-          />
-        )}
       </TableCell>
     </TableRow>
   );
