@@ -25,11 +25,19 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
         return mapper.Map<IEnumerable<CourseDto>>(courses);
     }
 
-    public async Task<CourseDto> GetCourseWithModulesAsync(Guid courseId)
+    public async Task<CourseDto> GetUserCourseWithModulesAsync(Guid courseId)
     {
         var userId = GetUserId();
         var course = await uow.Courses.GetUserCourseWithModulesAsync(userId, courseId);
         if (course == null) throw new NotFoundException("Course not found or you don't have access");
+
+        return mapper.Map<CourseDto>(course);
+    }
+
+    public async Task<CourseDto> GetCourseWithModulesAsync(Guid courseId)
+    {
+        var course = await uow.Courses.GetCourseWithModulesAsync(courseId);
+        if (course == null) throw new NotFoundException("Course not found");
 
         return mapper.Map<CourseDto>(course);
     }

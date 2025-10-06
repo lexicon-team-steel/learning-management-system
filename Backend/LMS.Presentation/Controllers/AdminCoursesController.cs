@@ -13,48 +13,58 @@ namespace LMS.Presentation.Controllers;
 [Authorize(Roles = "Teacher")]
 public class AdminCoursesController(IServiceManager serviceManager) : ControllerBase
 {
-        private readonly ICourseService courseService = serviceManager.CourseService;
-        private readonly IModuleService moduleService = serviceManager.ModuleService;
+    private readonly ICourseService courseService = serviceManager.CourseService;
+    private readonly IModuleService moduleService = serviceManager.ModuleService;
 
 
-        [HttpGet]
-        [SwaggerOperation(
-                Summary = "Get all courses",
-                Description = "Returns courses for admin.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "List of courses", typeof(IEnumerable<CourseDto>))]
-        [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
-        [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - You do not have permission to access this resource.")]
-        public async Task<ActionResult<IEnumerable<CourseDto>>> GetAllCourses() =>
-            Ok(await courseService.GetAllCoursesAsync());
+    [HttpGet]
+    [SwaggerOperation(
+            Summary = "Get all courses",
+            Description = "Returns courses for admin.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "List of courses", typeof(IEnumerable<CourseDto>))]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+    [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - You do not have permission to access this resource.")]
+    public async Task<ActionResult<IEnumerable<CourseDto>>> GetAllCourses() =>
+        Ok(await courseService.GetAllCoursesAsync());
 
-        [HttpPost]
-        [SwaggerOperation(
-                Summary = "Create a new course",
-                Description = "Creates a new course. Only teachers are allowed.")]
-        [SwaggerResponse(StatusCodes.Status201Created, "Course created", typeof(CourseDto))]
-        [SwaggerResponse(StatusCodes.Status400BadRequest, "Validation failed (e.g. endDate < startDate)")]
-        [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
-        [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - only teachers can create courses")]
-        public async Task<ActionResult<CourseDto>> CreateCourse([FromBody] CreateCourseDto dto)
-        {
-                var course = await courseService.CreateAsync(dto);
+    [HttpGet("{courseId}")]
+    [SwaggerOperation(
+    Summary = "Get course with modules",
+    Description = "Returns course with its modules for admin")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Course with modules", typeof(CourseDto))]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "Course not found")]
+    public async Task<ActionResult<CourseDto>> GetCourseWithModules(Guid courseId) =>
+    Ok(await courseService.GetCourseWithModulesAsync(courseId));
 
-                return CreatedAtAction(nameof(CreateCourse), new { status = "ok" }, course);
-        }
+    [HttpPost]
+    [SwaggerOperation(
+            Summary = "Create a new course",
+            Description = "Creates a new course. Only teachers are allowed.")]
+    [SwaggerResponse(StatusCodes.Status201Created, "Course created", typeof(CourseDto))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "Validation failed (e.g. endDate < startDate)")]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+    [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - only teachers can create courses")]
+    public async Task<ActionResult<CourseDto>> CreateCourse([FromBody] CreateCourseDto dto)
+    {
+        var course = await courseService.CreateAsync(dto);
 
-        [HttpPost("{courseId}/modules")]
-        [SwaggerOperation(
-                Summary = "Create a new module",
-                Description = "Creates a new module in a course. Only teachers are allowed.")]
-        [SwaggerResponse(StatusCodes.Status201Created, "Module created", typeof(CourseModuleDto))]
-        [SwaggerResponse(StatusCodes.Status400BadRequest, "Validation failed (e.g. endDate < startDate)")]
-        [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
-        [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - only teachers can create courses")]
-        public async Task<ActionResult<CourseModuleDto>> CreateModule(Guid courseId, [FromBody] CreateModuleDto dto)
-        {
-                var module = await moduleService.CreateModuleAsync(courseId, dto);
+        return CreatedAtAction(nameof(CreateCourse), new { status = "ok" }, course);
+    }
 
-                return CreatedAtAction(nameof(CreateModule), new { status = "ok" }, module);
-        }
+    [HttpPost("{courseId}/modules")]
+    [SwaggerOperation(
+            Summary = "Create a new module",
+            Description = "Creates a new module in a course. Only teachers are allowed.")]
+    [SwaggerResponse(StatusCodes.Status201Created, "Module created", typeof(CourseModuleDto))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "Validation failed (e.g. endDate < startDate)")]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+    [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - only teachers can create courses")]
+    public async Task<ActionResult<CourseModuleDto>> CreateModule(Guid courseId, [FromBody] CreateModuleDto dto)
+    {
+        var module = await moduleService.CreateModuleAsync(courseId, dto);
+
+        return CreatedAtAction(nameof(CreateModule), new { status = "ok" }, module);
+    }
 
 }
