@@ -1,7 +1,8 @@
-import { ActionFunctionArgs } from 'react-router';
-import { FormErrorType, IBasicAction } from '../types';
+import { FormErrorType } from '../types';
+import { adminEntityAction } from './adminEntityAction';
+import { BASE_URL } from '../constants';
 
-const validateCourse = (formData: FormData): IBasicAction => {
+const validateCourse = (formData: FormData): FormErrorType => {
   const name = formData.get('name') as string;
   const description = formData.get('description') as string;
   const startDateStr = formData.get('startDate') as string;
@@ -17,9 +18,7 @@ const validateCourse = (formData: FormData): IBasicAction => {
   if (startDateStr && endDateStr) {
     const startDate = new Date(startDateStr);
     const endDate = new Date(endDateStr);
-    const today = new Date();
 
-    today.setHours(0, 0, 0, 0);
     startDate.setHours(0, 0, 0, 0);
     endDate.setHours(0, 0, 0, 0);
 
@@ -31,14 +30,9 @@ const validateCourse = (formData: FormData): IBasicAction => {
   return errors;
 };
 
-export const adminCoursesAction = async ({ request }: ActionFunctionArgs) => {
-  const formData = await request.formData();
-
-  const errors = validateCourse(formData);
-
-  if (Object.keys(errors).length > 0) {
-    return { errors };
-  }
-
-  /* api call */
-};
+export const adminCoursesAction = adminEntityAction({
+  entity: 'user',
+  validate: validateCourse,
+  apiURL: `${BASE_URL}/admin/users`,
+  redirectURL: '/admin/users',
+});
