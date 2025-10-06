@@ -11,7 +11,7 @@ interface IModuleTableProps {
 
 const ModuleTable = ({ modules, onEdit, onDelete }: IModuleTableProps): ReactElement => (
   <Table
-    headers={['Namn', 'Period', 'Moduler', 'Åtgärder']}
+    headers={['Namn', 'Period', 'Aktiviteter', 'Åtgärder']}
     keyField="id"
     rows={modules}
     renderItem={(module: IModule) => (
