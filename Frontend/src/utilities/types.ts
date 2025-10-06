@@ -2,7 +2,7 @@
 
 export type UserRole = 'Teacher' | 'Student' | 'Guest';
 export type Entity = 'activity' | 'module' | 'course' | 'user';
-export type Action = 'create' | 'update';
+export type Action = 'create' | 'update' | 'delete';
 export type Status = 'success' | 'error';
 
 /* === interface === */
@@ -18,6 +18,17 @@ export interface IAuthContext {
   isLoggedIn: boolean;
   login: (username: string, password: string) => Promise<{ success: boolean; message?: string }>;
   logout: () => void;
+}
+
+export interface IAlertContext {
+  showAlert: (options: IAlertOptions) => void;
+}
+
+export interface IAlertOptions {
+  entity: Entity;
+  action: Action;
+  status: Status;
+  errDetails?: string;
 }
 
 export interface ITokens {
@@ -112,11 +123,34 @@ export interface ICoursesContext {
 }
 
 export interface IAdminUsersLoader {
-  users: Promise<IParticipant[]>;
+  users: IParticipant[];
+}
+export interface IAdminCoursesLoader {
+  courses: ICourse[];
 }
 
 export type FormErrorType = Record<string, string>;
 
+export type ApiErrorType = {
+  fieldErrors?: FormErrorType;
+  generalError?: string;
+};
+
 export interface IBasicAction {
-  errors?: FormErrorType;
+  errors?: ApiErrorType;
+  success?: boolean;
+  entity: Entity;
+  action: Action;
+}
+
+export interface IForm<T> {
+  item: T;
+  onCancel: () => void;
+  errors: FormErrorType;
+}
+
+export interface ITable<T> {
+  items: T[];
+  onEdit: (item: T) => void;
+  onDelete: (item: T) => void;
 }

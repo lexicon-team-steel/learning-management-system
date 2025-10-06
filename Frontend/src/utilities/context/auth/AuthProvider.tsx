@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
-import { AuthContext } from './authContext';
+import { AuthContext } from './AuthContext';
 import { loginReq } from '../../api/api';
 import { GUEST_USER, TOKENS } from '../../constants';
 import { ITokens, IAuthContext, IUser } from '../../types';

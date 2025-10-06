@@ -8,6 +8,13 @@ namespace LMS.Infrastructure.Repositories;
 public class ModuleRepository(ApplicationDbContext context)
     : RepositoryBase<CourseModule>(context), IModuleRepository
 {
+    public async Task<CourseModule?> GetModuleWithActivitiesAsync(Guid moduleId)
+    {
+        return await FindAll()
+            .Include(m => m.Activities)
+            .FirstOrDefaultAsync(m => m.Id == moduleId);
+    }
+
     public Task<CourseModule?> GetModuleAsync(string userId, Guid moduleId) =>
         FindAll()
             .Where(m => m.Course.Users.Any(u => u.Id == userId))
@@ -21,4 +28,6 @@ public class ModuleRepository(ApplicationDbContext context)
                 .ThenInclude(a => a.ActivityType)
             .FirstOrDefaultAsync();
     }
+    public async Task<bool> ExistsByNameAsync(Guid courseId, string name) =>
+        await FindAll().Where(m => m.CourseId == courseId).AnyAsync(m => m.Name.ToLower() == name.ToLower());
 }

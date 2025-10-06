@@ -1,11 +1,11 @@
 import { fetchWithToken } from '../api/fetchWithToken';
 import { BASE_URL } from '../constants';
-import { ICoursesLoader } from '../types';
+import { IAdminCoursesLoader } from '../types';
 import { requireTeacherRole } from '../helpers';
 
-export const adminCoursesLoader = (): ICoursesLoader => {
+export const adminCoursesLoader = async (): Promise<IAdminCoursesLoader> => {
   requireTeacherRole();
   return {
-    courses: fetchWithToken(`${BASE_URL}/admin/courses`),
+    courses: await fetchWithToken(`${BASE_URL}/admin/courses`),
   };
 };
