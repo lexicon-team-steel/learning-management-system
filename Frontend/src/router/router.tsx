@@ -60,7 +60,7 @@ export const router = createBrowserRouter([
         loader: adminCoursesLoader,
       },
       {
-        path: 'admin/courses/:courseId/modules',
+        path: 'admin/courses/:courseId',
         element: <AdminModulesPage />,
         loader: async (args) => {
           const courseId = args.params.courseId ?? '';
