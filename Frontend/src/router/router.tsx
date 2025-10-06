@@ -70,7 +70,7 @@ export const router = createBrowserRouter([
         },
       },
       {
-        path: 'admin/modules/:moduleId',
+        path: 'admin/courses/:courseId/modules/:moduleId',
         element: <AdminActivitiesPage />,
         loader: adminActivitiesLoader,
       },
