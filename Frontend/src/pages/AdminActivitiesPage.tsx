@@ -2,6 +2,7 @@ import { ReactElement, useCallback } from 'react';
 import { IActivity, IAdminActivitiesLoader, IForm, ITable } from '../utilities/types';
 import { Form, useLoaderData } from 'react-router';
 import AdminCrudPage from '../components/AdminCrudPage';
+import ActivityTable from '../components/ActivityTable';
 
 const AdminActivitiesPage = (): ReactElement => {
   const { module, activityTypes } = useLoaderData<IAdminActivitiesLoader>();
@@ -19,7 +20,12 @@ const AdminActivitiesPage = (): ReactElement => {
    */
   const FormComponent = useCallback(({ item }: IForm<IActivity>) => <Form>{item.name}</Form>, []);
 
-  const TableComponent = useCallback(() => <div>{module.activities[0].name}</div>, []);
+  const TableComponent = useCallback(
+    ({ items, onEdit, onDelete }: ITable<IActivity>) => (
+      <ActivityTable activities={items} onEdit={onEdit} onDelete={onDelete} />
+    ),
+    []
+  );
 
   return (
     <AdminCrudPage
