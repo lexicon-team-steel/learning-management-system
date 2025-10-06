@@ -111,6 +111,7 @@ public static class ServiceExtensions
         services.AddLazyService<ICourseService, CourseService>();
         services.AddLazyService<IModuleService, ModuleService>();
         services.AddLazyService<IActivityService, ActivityService>();
+        services.AddLazyService<IActivityTypeService, ActivityTypeService>();
         services.AddLazyService<IUserService, UserService>();
     }
 
