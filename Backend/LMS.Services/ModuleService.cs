@@ -30,14 +30,7 @@ public class ModuleService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
 
     public async Task<CourseModuleDto> CreateModuleAsync(Guid courseId, CreateModuleDto dto)
     {
-        var exists = await uow.Modules.ExistsByNameAsync(courseId, dto.Name);
-        if (exists)
-            throw new ConflictException($"A module with the name '{dto.Name}' already exists on this course.");
-
-        if (dto.EndDate < dto.StartDate)
-        {
-            throw new BadRequestException("End date cannot be earlier than start date");
-        }
+        await ValidateModuleAsync(courseId, dto.Name, dto.StartDate, dto.EndDate);
 
         var course = await uow.Courses.GetCourseWithModulesAsync(courseId);
         if (course == null)
@@ -56,5 +49,15 @@ public class ModuleService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
 
         return mapper.Map<CourseModuleDto>(module);
 
+    }
+
+    private async Task ValidateModuleAsync(Guid courseId, string name, DateTime startDate, DateTime endDate, Guid? existingModuleId = null)
+    {
+        if (endDate < startDate)
+            throw new BadRequestException("End date cannot be earlier than start date");
+
+        var exists = await uow.Modules.ExistsByNameAsync(courseId, name, existingModuleId);
+        if (exists)
+            throw new ConflictException($"A module with the name '{name}' already exists.");
     }
 }
