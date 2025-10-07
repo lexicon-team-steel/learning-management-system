@@ -7,13 +7,15 @@ import theme from '../styles/theme';
 import { IActivity, IModule } from '../utilities/types';
 import { formatDate, sortByDate } from '../utilities/helpers';
 import Date from '../components/Date';
+import SkeletonList from '../components/skelotons/SkeletonList';
+import SkeletonOneCol from '../components/skelotons/SkeltonOneCol';
 
 const ModulePage = (): ReactElement => {
   const { module, activities } = useLoaderData();
 
   return (
     <Stack spacing={theme.layout.gapLarge}>
-      <Suspense>
+      <Suspense fallback={<SkeletonOneCol width={'100%'} />}>
         <Await resolve={module}>
           {(module: IModule) => (
             <Card title={module.name} titleVariant="h1">
@@ -31,7 +33,7 @@ const ModulePage = (): ReactElement => {
           )}
         </Await>
       </Suspense>
-      <Suspense>
+      <Suspense fallback={<SkeletonList />}>
         <Await resolve={activities}>
           {(activities: IActivity[]) => {
             const sortedActivites = sortByDate(activities, 'startDate');

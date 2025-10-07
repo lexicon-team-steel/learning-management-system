@@ -10,6 +10,8 @@ import { IActivity, ICourse } from '../utilities/types';
 import { formatDate, sortByDate } from '../utilities/helpers';
 import theme from '../styles/theme';
 import LinkCard from '../components/LinkCard';
+import SkeletonTwoCols from '../components/skelotons/SkeletonTwoCols';
+import SkeletonOneCol from '../components/skelotons/SkeltonOneCol';
 
 const DashboardGrid = styled(Box)(({ theme }) => ({
   display: 'grid',
@@ -35,6 +37,7 @@ const DashboardPage = () => {
   const { courses, activities } = useLoaderData();
 
   const title = isTeacher ? 'Mina kurser' : 'Min kurs';
+  const skeleton = isTeacher ? <SkeletonTwoCols /> : <SkeletonOneCol width={300} />;
 
   return (
     <>
@@ -44,7 +47,7 @@ const DashboardPage = () => {
       <DashboardGrid>
         <Card title={title}>
           <CardGrid>
-            <Suspense>
+            <Suspense fallback={skeleton}>
               <Await resolve={courses}>
                 {(courses: ICourse[]) =>
                   courses.map((course) => (
@@ -63,7 +66,7 @@ const DashboardPage = () => {
         </Card>
         <Grid>
           <Stack gap={2}>
-            <Suspense>
+            <Suspense fallback={<SkeletonOneCol height={200} />}>
               <Await resolve={activities}>
                 {(activities: IActivity[]) => {
                   if (!activities || activities.length === 0) {
