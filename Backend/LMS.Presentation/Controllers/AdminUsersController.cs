@@ -1,3 +1,4 @@
+using LMS.Shared.Common;
 using LMS.Shared.DTOs.AuthDtos;
 using LMS.Shared.DTOs.UserDtos;
 using LMS.Shared.Parameters;
@@ -15,63 +16,63 @@ namespace LMS.Presentation.Controllers;
 [Authorize(Roles = "Teacher")]
 public class AdminUsersController(IServiceManager serviceManager) : ControllerBase
 {
-    [HttpGet]
-    [SwaggerOperation(
-            Summary = "Get all users",
-            Description = "Returns users for admin. Can be filtered by name or role")]
-    [SwaggerResponse(StatusCodes.Status200OK, "List of user", typeof(IEnumerable<UserDto>))]
-    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
-    [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - You do not have permission to access this resource.")]
-    public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers([FromQuery] UserQueryParameters userParams) =>
-        Ok(await serviceManager.UserService.GetAllUsersAsync(userParams));
+        [HttpGet]
+        [SwaggerOperation(
+                Summary = "Get all users",
+                Description = "Returns users for admin. Can be filtered by name or role")]
+        [SwaggerResponse(StatusCodes.Status200OK, "List of user", typeof(PagedResult<UserDto>))]
+        [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+        [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - You do not have permission to access this resource.")]
+        public async Task<ActionResult<PagedResult<UserDto>>> GetAllUsers([FromQuery] UserQueryParameters userParams) =>
+            Ok(await serviceManager.UserService.GetAllUsersAsync(userParams));
 
-    [HttpPost]
-    [SwaggerOperation(
-            Summary = "Create user",
-            Description = "Creates a new user account with the provided registration details")]
-    [SwaggerResponse(StatusCodes.Status201Created, "User successfully created")]
-    [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input or registration failed")]
-    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
-    [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - You do not have permission to access this resource.")]
-    public async Task<ActionResult> CreateUser(UserRegistrationDto userRegistrationDto)
-    {
-        IdentityResult result = await serviceManager.AuthService.RegisterUserAsync(userRegistrationDto);
-        return result.Succeeded
-                ? CreatedAtAction(nameof(CreateUser), new { status = "ok" })
-                : BadRequest(new { errors = result.ToErrorDictionary() });
-    }
+        [HttpPost]
+        [SwaggerOperation(
+                Summary = "Create user",
+                Description = "Creates a new user account with the provided registration details")]
+        [SwaggerResponse(StatusCodes.Status201Created, "User successfully created")]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input or registration failed")]
+        [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+        [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - You do not have permission to access this resource.")]
+        public async Task<ActionResult> CreateUser(UserRegistrationDto userRegistrationDto)
+        {
+                IdentityResult result = await serviceManager.AuthService.RegisterUserAsync(userRegistrationDto);
+                return result.Succeeded
+                        ? CreatedAtAction(nameof(CreateUser), new { status = "ok" })
+                        : BadRequest(new { errors = result.ToErrorDictionary() });
+        }
 
-    [HttpPut("{id}")]
-    [SwaggerOperation(
-            Summary = "Update user",
-            Description = "Updates existing user account")]
-    [SwaggerResponse(StatusCodes.Status200OK, "User successfully updated")]
-    [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input")]
-    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
-    [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - You do not have permission to access this resource.")]
-    [SwaggerResponse(StatusCodes.Status404NotFound, "User was not found")]
-    public async Task<ActionResult> UpdateUser(string id, UserUpdateDto userUpdateDto)
-    {
-        IdentityResult result = await serviceManager.UserService.UpdateUserAsync(id, userUpdateDto);
-        return result.Succeeded
-                ? Ok(new { success = true })
-                : BadRequest(new { errors = result.ToErrorDictionary() });
-    }
+        [HttpPut("{id}")]
+        [SwaggerOperation(
+                Summary = "Update user",
+                Description = "Updates existing user account")]
+        [SwaggerResponse(StatusCodes.Status200OK, "User successfully updated")]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input")]
+        [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+        [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - You do not have permission to access this resource.")]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "User was not found")]
+        public async Task<ActionResult> UpdateUser(string id, UserUpdateDto userUpdateDto)
+        {
+                IdentityResult result = await serviceManager.UserService.UpdateUserAsync(id, userUpdateDto);
+                return result.Succeeded
+                        ? Ok(new { success = true })
+                        : BadRequest(new { errors = result.ToErrorDictionary() });
+        }
 
-    [HttpDelete("{id}")]
-    [SwaggerOperation(
-            Summary = "Delete user",
-            Description = "Deletes existing user account")]
-    [SwaggerResponse(StatusCodes.Status200OK, "User successfully deleted")]
-    [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input")]
-    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
-    [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - You do not have permission to access this resource.")]
-    [SwaggerResponse(StatusCodes.Status404NotFound, "User was not found")]
-    public async Task<ActionResult> DeleteUser(string id)
-    {
-        IdentityResult result = await serviceManager.UserService.DeleteUserAsync(id);
-        return result.Succeeded
-                ? Ok(new { success = true })
-                : BadRequest(new { errors = result.ToErrorDictionary() });
-    }
+        [HttpDelete("{id}")]
+        [SwaggerOperation(
+                Summary = "Delete user",
+                Description = "Deletes existing user account")]
+        [SwaggerResponse(StatusCodes.Status200OK, "User successfully deleted")]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input")]
+        [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+        [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - You do not have permission to access this resource.")]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "User was not found")]
+        public async Task<ActionResult> DeleteUser(string id)
+        {
+                IdentityResult result = await serviceManager.UserService.DeleteUserAsync(id);
+                return result.Succeeded
+                        ? Ok(new { success = true })
+                        : BadRequest(new { errors = result.ToErrorDictionary() });
+        }
 }
