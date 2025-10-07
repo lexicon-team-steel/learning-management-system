@@ -24,5 +24,7 @@ public class MapperProfile : Profile
         CreateMap<ActivityTypeDto, ActivityType>();
         CreateMap<CreateActivityDto, Activity>();
         CreateMap<CreateModuleDto, CourseModule>();
+        CreateMap<UserUpdateDto, ApplicationUser>()
+            .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email)); ;
     }
 }
