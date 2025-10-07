@@ -45,6 +45,7 @@ public class AdminCoursesController(IServiceManager serviceManager) : Controller
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Validation failed (e.g. endDate < startDate)")]
     [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
     [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - only teachers can create courses")]
+    [SwaggerResponse(StatusCodes.Status409Conflict, "A course with the same name already exists")]
     public async Task<ActionResult<CourseDto>> CreateCourse([FromBody] CreateCourseDto dto)
     {
         var course = await courseService.CreateAsync(dto);
