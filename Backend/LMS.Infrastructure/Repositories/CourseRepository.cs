@@ -35,8 +35,14 @@ public class CourseRepository(ApplicationDbContext context)
             .ToListAsync();
     }
 
-    public async Task<bool> ExistsByNameAsync(string name) =>
-        await FindAll().AnyAsync(c => c.Name.ToLower() == name.ToLower());
+    public async Task<bool> ExistsByNameAsync(string name, Guid? excludeCourseId = null)
+    {
+        var query = FindAll().Where(c => c.Name.ToLower() == name.ToLower());
+        if (excludeCourseId.HasValue)
+            query = query.Where(c => c.Id != excludeCourseId.Value);
+
+        return await query.AnyAsync();
+    }
 
     public async Task<Course?> GetCourseWithModulesAsync(Guid courseId)
     {

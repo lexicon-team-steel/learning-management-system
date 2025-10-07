@@ -11,4 +11,6 @@ public interface ICourseService
     public Task<CourseDto> GetCourseWithModulesAsync(Guid courseId);
     public Task<IEnumerable<UserDto>> GetCourseParticipantsAsync(Guid courseId, string? role);
     public Task<CourseDto> CreateAsync(CreateCourseDto dto);
+    public Task<CourseDto> UpdateAsync(Guid courseId, UpdateCourseDto dto);
+    public Task DeleteAsync(Guid courseId);
 }
