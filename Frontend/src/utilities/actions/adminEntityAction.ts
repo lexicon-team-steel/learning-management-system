@@ -24,7 +24,6 @@ export const adminEntityAction =
   async ({ request }: ActionFunctionArgs): Promise<IBasicAction> => {
     const formData = await request.formData();
     const actionType = formData.get('_action') as Action;
-
     const response: IBasicAction = { entity, action: actionType };
 
     if (actionType !== 'delete') {
@@ -54,7 +53,6 @@ export const adminEntityAction =
       case 'delete': {
         if (!id) throw new Error('Missing id for delete action');
         const errorResult = await makeRequest(`${apiURL}/${id}`, 'DELETE');
-
         if (errorResult) return { ...response, ...errorResult };
         break;
       }

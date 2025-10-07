@@ -1,12 +1,12 @@
 import { useCallback, useState } from 'react';
 import { FormErrorType } from '../types';
-import { useFetcher } from 'react-router';
+import { useSubmit } from 'react-router';
 
 export const useCrud = <T extends { id: string }>() => {
   const [selectedItem, setSelectedItem] = useState<T | null>(null);
   const [errors, setErrors] = useState<FormErrorType>({});
   const [formKey, setFormKey] = useState<string>(crypto.randomUUID());
-  const fetcher = useFetcher();
+  const submit = useSubmit();
 
   const handleChange = (item: T) => {
     setSelectedItem(item);
@@ -21,9 +21,11 @@ export const useCrud = <T extends { id: string }>() => {
   }, []);
 
   const handleDelete = (item: T) => {
-    if (confirm(`Vill du verkligen ta bort det?`)) {
-      fetcher.submit({ id: item.id, _action: 'delete' }, { method: 'post' });
-    }
+    setSelectedItem(null);
+    const confirmed = window.confirm('Är du säker på att du vill ta bort detta?');
+    if (!confirmed) return;
+
+    submit({ id: String(item.id), _action: 'delete' }, { method: 'post' });
   };
 
   return {
