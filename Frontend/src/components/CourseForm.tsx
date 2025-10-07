@@ -47,6 +47,7 @@ const CourseForm = ({ onCancel, course, errors }: ICourseFormProps): ReactElemen
               value={startDate}
               onChange={(date) => setStartDate(date)}
               format="DD/MM/YYYY"
+              disablePast
               slotProps={{
                 textField: {
                   error: !!errors?.startDate,
@@ -59,6 +60,7 @@ const CourseForm = ({ onCancel, course, errors }: ICourseFormProps): ReactElemen
               value={endDate}
               onChange={(date) => setEndDate(date)}
               format="DD/MM/YYYY"
+              disablePast
               slotProps={{
                 textField: {
                   error: !!errors?.endDate,
