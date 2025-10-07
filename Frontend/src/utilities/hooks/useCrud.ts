@@ -1,10 +1,12 @@
 import { useCallback, useState } from 'react';
 import { FormErrorType } from '../types';
+import { useSubmit } from 'react-router';
 
-export const useCrud = <T>() => {
+export const useCrud = <T extends { id: string }>() => {
   const [selectedItem, setSelectedItem] = useState<T | null>(null);
   const [errors, setErrors] = useState<FormErrorType>({});
   const [formKey, setFormKey] = useState<string>(crypto.randomUUID());
+  const submit = useSubmit();
 
   const handleChange = (item: T) => {
     setSelectedItem(item);
@@ -18,13 +20,12 @@ export const useCrud = <T>() => {
     setFormKey(crypto.randomUUID());
   }, []);
 
-  const handleSave = (item: T) => {
-    setSelectedItem(null);
-    /* API call */
-  };
   const handleDelete = (item: T) => {
     setSelectedItem(null);
-    /* API call*/
+    const confirmed = window.confirm('Är du säker på att du vill ta bort detta?');
+    if (!confirmed) return;
+
+    submit({ id: String(item.id), _action: 'delete' }, { method: 'post' });
   };
 
   return {
@@ -35,7 +36,6 @@ export const useCrud = <T>() => {
     setErrors,
     handleChange,
     handleCancel,
-    handleSave,
     handleDelete,
   };
 };
