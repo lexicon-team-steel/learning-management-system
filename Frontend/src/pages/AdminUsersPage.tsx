@@ -39,7 +39,7 @@ const AdminUsersPage = (): ReactElement => {
       <Pagination
         sx={{ marginX: 'auto' }}
         count={details.totalPages}
-        defaultPage={currentPage}
+        page={currentPage}
         onChange={(_, index) => setPage(index)}
         variant="outlined"
         color="primary"
