@@ -83,6 +83,21 @@ public class AdminCoursesController(IServiceManager serviceManager) : Controller
         return Ok(updatedCourse);
     }
 
+    [HttpPut("{courseId}/modules/{moduleId}")]
+    [SwaggerOperation(
+        Summary = "Update an existing module",
+        Description = "Allows teachers to update module details.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Module updated successfully", typeof(CourseModuleDto))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "Validation failed")]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized")]
+    [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - only teachers can edit modules")]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "Module not found")]
+    public async Task<ActionResult<CourseModuleDto>> UpdateModule(Guid courseId, Guid moduleId, [FromBody] UpdateModuleDto dto)
+    {
+        var updatedModule = await moduleService.UpdateAsync(courseId, moduleId, dto);
+        return Ok(updatedModule);
+    }
+
 
     [HttpDelete("{courseId}")]
     [SwaggerOperation(
