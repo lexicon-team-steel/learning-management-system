@@ -1,33 +1,10 @@
 import { ReactElement } from 'react';
 import { FormErrorType, IParticipant } from '../utilities/types';
-import { FormControlLabel, Grid, Radio, RadioGroup, TextField } from '@mui/material';
+import { FormControlLabel, Grid, Radio, RadioGroup } from '@mui/material';
 import theme from '../styles/theme';
 
 import AdminPageForm from './AdminPageForm';
-
-interface IStyledTextfield {
-  type?: string;
-  label: string;
-  name: string;
-  value: string;
-  error?: string;
-  required?: boolean;
-}
-
-const StyledTextField = ({ type = 'text', label, name, value, required = true, error }: IStyledTextfield) => (
-  <TextField
-    type={type}
-    label={label}
-    name={name}
-    variant="outlined"
-    defaultValue={value}
-    fullWidth
-    required={required}
-    error={!!error}
-    helperText={error}
-  />
-);
-
+import TextInput from './TextInput';
 interface IUserFormProps {
   onCancel: () => void;
   user: IParticipant;
@@ -51,16 +28,16 @@ const UserForm = ({ onCancel, user, errors }: IUserFormProps): ReactElement => {
           </RadioGroup>
         </Grid>
         <Grid size={6}>
-          <StyledTextField label="Förnamn" name="firstName" value={user.firstName} error={errors?.firstName} />
+          <TextInput label="Förnamn" name="firstName" value={user.firstName} error={errors?.firstName} />
         </Grid>
         <Grid size={6}>
-          <StyledTextField label="Efternamn" name="lastName" value={user.lastName} error={errors?.lastName} />
+          <TextInput label="Efternamn" name="lastName" value={user.lastName} error={errors?.lastName} />
         </Grid>
         <Grid size={6}>
-          <StyledTextField type="email" label="E-post" name="email" value={user.email} error={errors?.email} />
+          <TextInput type="email" label="E-post" name="email" value={user.email} error={errors?.email} />
         </Grid>
         <Grid size={6}>
-          <StyledTextField
+          <TextInput
             type="password"
             label="Lösenord"
             name="password"

@@ -1,42 +1,43 @@
 import { ReactElement, useState } from 'react';
-import { FormErrorType, ICourse } from '../utilities/types';
+import { FormErrorType, IModule } from '../utilities/types';
 import { Box, Grid } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
-import dayjs, { Dayjs } from 'dayjs';
 import theme from '../styles/theme';
 import AdminPageForm from './AdminPageForm';
+import dayjs, { Dayjs } from 'dayjs';
 import TextInput from './TextInput';
 
-interface ICourseFormProps {
+interface IModuleFormProps {
   onCancel: () => void;
-  course: ICourse;
-  errors: FormErrorType;
+  module: IModule;
+  errors?: FormErrorType;
 }
 
-const CourseForm = ({ onCancel, course, errors }: ICourseFormProps): ReactElement => {
-  const action = course.id ? 'edit' : 'create';
-  const title = action === 'create' ? 'Ny kurs' : 'Redigera kurs';
+const ModuleForm = ({ onCancel, module, errors }: IModuleFormProps): ReactElement => {
+  const action = module.id ? 'edit' : 'create';
+  const title = action === 'create' ? 'Ny modul' : 'Redigera modul';
   const submitLabel = action === 'create' ? 'Skapa' : 'Spara';
 
-  const [startDate, setStartDate] = useState<Dayjs | null>(dayjs(course.startDate));
-  const [endDate, setEndDate] = useState<Dayjs | null>(dayjs(course.endDate));
+  const [startDate, setStartDate] = useState<Dayjs | null>(dayjs(module.startDate));
+  const [endDate, setEndDate] = useState<Dayjs | null>(dayjs(module.endDate));
 
   return (
     <AdminPageForm title={title} submitLabel={submitLabel} onCancel={onCancel}>
-      <input type="hidden" name="_action" value={action} /> {/* Not used now but my be of use in api call later? */}
-      <input type="hidden" name="id" value={course.id} /> {/* Not used now but my be of use in api call later? */}
+      <input type="hidden" name="_action" value={action} />
+      <input type="hidden" name="id" value={module.id} />
       <input type="hidden" name="startDate" value={startDate?.isValid() ? startDate.format('YYYY-MM-DD') : ''} />
       <input type="hidden" name="endDate" value={endDate?.isValid() ? endDate.format('YYYY-MM-DD') : ''} />
       <Grid container spacing={theme.layout.gap}>
         <Grid size={12}>
-          <TextInput label="Titel" name="name" value={course.name} error={errors?.name} />
+          <TextInput label="Titel" name="name" value={module.name} error={errors?.name} />
         </Grid>
         <Grid size={12}>
           <TextInput
+            type="text"
             label="Beskrivning"
             name="description"
             minRows={3}
-            value={course.description}
+            value={module.description}
             error={errors?.description}
           />
         </Grid>
@@ -53,6 +54,7 @@ const CourseForm = ({ onCancel, course, errors }: ICourseFormProps): ReactElemen
                   helperText: errors?.startDate,
                 },
               }}
+              disablePast
             />
             <DatePicker
               label="Slutdatum *"
@@ -65,6 +67,7 @@ const CourseForm = ({ onCancel, course, errors }: ICourseFormProps): ReactElemen
                   helperText: errors?.endDate,
                 },
               }}
+              disablePast
             />
           </Box>
         </Grid>
@@ -73,4 +76,4 @@ const CourseForm = ({ onCancel, course, errors }: ICourseFormProps): ReactElemen
   );
 };
 
-export default CourseForm;
+export default ModuleForm;
