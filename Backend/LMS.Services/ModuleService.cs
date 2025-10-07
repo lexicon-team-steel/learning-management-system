@@ -12,7 +12,7 @@ public class ModuleService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
     public async Task<CourseModuleDto> GetUserModuleAsync(Guid moduleId)
     {
         var userId = currentUser.UserId ?? throw new UnauthorizedException();
-        var module = await uow.Modules.GetModuleAsync(userId, moduleId);
+        var module = await uow.Modules.GetUserModuleAsync(userId, moduleId);
 
         if (module == null) throw new NotFoundException("Module not found or you don't have access");
 

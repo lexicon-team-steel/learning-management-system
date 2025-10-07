@@ -16,7 +16,7 @@ public class ModuleRepository(ApplicationDbContext context)
             .FirstOrDefaultAsync(m => m.Id == moduleId);
     }
 
-    public Task<CourseModule?> GetModuleAsync(string userId, Guid moduleId) =>
+    public Task<CourseModule?> GetUserModuleAsync(string userId, Guid moduleId) =>
         FindAll()
             .Where(m => m.Course.Users.Any(u => u.Id == userId))
             .Include(m => m.Course)
