@@ -8,18 +8,11 @@ import AdminCrudPage from '../components/AdminCrudPage';
 import { EMPTY_PARTICIPANT } from '../utilities/constants';
 import { Pagination, Stack } from '@mui/material';
 import theme from '../styles/theme';
+import { usePagination } from '../utilities/hooks/usePagination';
 
 const AdminUsersPage = (): ReactElement => {
   const { items, details } = useLoaderData<IPagedLoader<IParticipant>>();
-
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-
-  const currentPage = Number(searchParams.get('page')) || 1;
-
-  const handlePageChange = (_: React.ChangeEvent<unknown>, newPage: number) => {
-    navigate(`?pageIndex=${newPage}`);
-  };
+  const { currentPage, setPage } = usePagination();
 
   const FormComponent = useCallback(
     ({ item, onCancel, errors }: IForm<IParticipant>) => <UserForm user={item} onCancel={onCancel} errors={errors} />,
@@ -44,9 +37,10 @@ const AdminUsersPage = (): ReactElement => {
         TableComponent={TableComponent}
       />
       <Pagination
+        sx={{ marginLeft: 'auto' }}
         count={details.totalPages}
-        defaultPage={details.pageIndex}
-        onChange={handlePageChange}
+        defaultPage={currentPage}
+        onChange={(_, index) => setPage(index)}
         variant="outlined"
         color="primary"
         size="small"
