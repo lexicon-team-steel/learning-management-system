@@ -37,4 +37,9 @@ public class ModuleRepository(ApplicationDbContext context)
 
         return await query.AnyAsync();
     }
+
+    public async Task<CourseModule?> GetModuleAsync(Guid moduleId) =>
+        await FindAll()
+            .Where(m => m.Id == moduleId)
+            .FirstOrDefaultAsync();
 }
