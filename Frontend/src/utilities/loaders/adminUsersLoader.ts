@@ -1,12 +1,11 @@
 import { fetchWithToken } from '../api/fetchWithToken';
 import { BASE_URL } from '../constants';
 import { requireTeacherRole } from '../helpers';
-import { IAdminUsersLoader } from '../types';
+import { IPagedLoader, IParticipant } from '../types';
 
-export const adminUsersLoader = async (): Promise<IAdminUsersLoader> => {
+export const adminUsersLoader = async (): Promise<IPagedLoader<IParticipant>> => {
   requireTeacherRole();
 
-  return {
-    users: await fetchWithToken(`${BASE_URL}/admin/users`),
-  };
+  const response = (await fetchWithToken(`${BASE_URL}/admin/users`)) as IPagedLoader<IParticipant>;
+  return { ...response };
 };

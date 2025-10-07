@@ -112,10 +112,6 @@ export interface ICoursesContext {
   refetch: () => Promise<void>;
 }
 
-export interface IAdminUsersLoader {
-  users: IParticipant[];
-}
-
 export interface IAdminCoursesLoader {
   courses: ICourse[];
 }
@@ -127,6 +123,16 @@ export interface IAdminActivitiesLoader {
 
 export interface IAdminModulesLoader {
   courseWithModules: ICourse;
+}
+
+export interface IPagedLoader<T> {
+  items: T[];
+  details: {
+    pageIndex: number;
+    pageSize: number;
+    totalCount: number;
+    totalPages: number;
+  };
 }
 
 export type FormErrorType = Record<string, string>;
