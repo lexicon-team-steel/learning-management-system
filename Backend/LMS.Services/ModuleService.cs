@@ -46,7 +46,7 @@ public class ModuleService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
     {
         var module = await uow.Modules.GetModuleAsync(moduleId);
         if (module == null)
-            throw new NotFoundException("Course not found");
+            throw new NotFoundException("Module not found");
 
         await ValidateModuleAsync(courseId, dto.Name, dto.StartDate, dto.EndDate, moduleId);
 
@@ -56,6 +56,16 @@ public class ModuleService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
         await uow.CompleteAsync();
 
         return mapper.Map<CourseModuleDto>(module);
+    }
+
+    public async Task DeleteAsync(Guid courseId, Guid moduleId)
+    {
+        var module = await uow.Modules.GetModuleAsync(moduleId);
+        if (module == null)
+            throw new NotFoundException("Module not found");
+
+        uow.Modules.Delete(module);
+        await uow.CompleteAsync();
     }
 
     private async Task ValidateModuleAsync(Guid courseId, string name, DateTime startDate, DateTime endDate, Guid? existingModuleId = null)
