@@ -19,6 +19,15 @@ public class ModuleService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
         return mapper.Map<CourseModuleDto>(module);
     }
 
+    public async Task<CourseModuleDto> GetModuleWithActivitiesAsync(Guid moduleId)
+    {
+        var module = await uow.Modules.GetModuleWithActivitiesAsync(moduleId);
+
+        if (module == null) throw new NotFoundException("Module not found or you don't have access");
+
+        return mapper.Map<CourseModuleDto>(module);
+    }
+
     public async Task<CourseModuleDto> CreateModuleAsync(Guid courseId, CreateModuleDto dto)
     {
         var exists = await uow.Modules.ExistsByNameAsync(courseId, dto.Name);

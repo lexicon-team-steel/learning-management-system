@@ -100,6 +100,7 @@ public static class ServiceExtensions
         services.AddLazyService<ICourseRepository, CourseRepository>();
         services.AddLazyService<IModuleRepository, ModuleRepository>();
         services.AddLazyService<IActivityRepository, ActivityRepository>();
+        services.AddLazyService<IActivityTypeRepository, ActivityTypeRepository>();
     }
 
     public static void AddServiceLayer(this IServiceCollection services)
@@ -110,6 +111,7 @@ public static class ServiceExtensions
         services.AddLazyService<ICourseService, CourseService>();
         services.AddLazyService<IModuleService, ModuleService>();
         services.AddLazyService<IActivityService, ActivityService>();
+        services.AddLazyService<IActivityTypeService, ActivityTypeService>();
         services.AddLazyService<IUserService, UserService>();
     }
 

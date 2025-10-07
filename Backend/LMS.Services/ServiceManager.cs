@@ -7,11 +7,13 @@ public class ServiceManager(
     Lazy<ICourseService> courseService,
     Lazy<IModuleService> moduleService,
     Lazy<IActivityService> activityService,
+    Lazy<IActivityTypeService> activityTypeService,
     Lazy<IUserService> userService) : IServiceManager
 {
     public IAuthService AuthService => authService.Value;
     public ICourseService CourseService => courseService.Value;
     public IModuleService ModuleService => moduleService.Value;
     public IActivityService ActivityService => activityService.Value;
+    public IActivityTypeService ActivityTypeService => activityTypeService.Value;
     public IUserService UserService => userService.Value;
 }

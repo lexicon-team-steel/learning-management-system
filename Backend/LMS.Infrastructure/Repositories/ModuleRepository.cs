@@ -12,6 +12,7 @@ public class ModuleRepository(ApplicationDbContext context)
     {
         return await FindAll()
             .Include(m => m.Activities)
+                .ThenInclude(a => a.ActivityType)
             .FirstOrDefaultAsync(m => m.Id == moduleId);
     }
 

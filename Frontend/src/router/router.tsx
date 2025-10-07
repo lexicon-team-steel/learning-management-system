@@ -14,8 +14,14 @@ import AdminCoursesPage from '../pages/AdminCoursesPage';
 import { adminCoursesLoader } from '../utilities/loaders/adminCoursesLoader';
 import { adminUsersLoader } from '../utilities/loaders/adminUsersLoader';
 import AdminUsersPage from '../pages/AdminUsersPage';
+import { adminCoursesAction } from '../utilities/actions/adminCoursesAction';
 import { adminUsersAction } from '../utilities/actions/adminUsersAction';
 import NotFoundPage from '../pages/NotFoundPage';
+import { adminActivitiesLoader } from '../utilities/loaders/adminActivitiesLoader';
+import AdminActivitiesPage from '../pages/AdminActivitiesPage';
+import AdminModulesPage from '../pages/AdminModulesPage';
+import { adminModulesLoader } from '../utilities/loaders/adminModulesLoader';
+import { adminModulesAction } from '../utilities/actions/adminModulesAction';
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +62,18 @@ export const router = createBrowserRouter([
         path: 'admin/courses',
         element: <AdminCoursesPage />,
         loader: adminCoursesLoader,
+        action: adminCoursesAction,
+      },
+      {
+        path: 'admin/courses/:courseId',
+        element: <AdminModulesPage />,
+        loader: adminModulesLoader,
+        action: adminModulesAction,
+      },
+      {
+        path: 'admin/courses/:courseId/modules/:moduleId',
+        element: <AdminActivitiesPage />,
+        loader: adminActivitiesLoader,
       },
       /* ---- Add new routes above this comment for a neater structure ---- */
       { path: 'notauthorized', element: <NotAuthorizedPage /> },

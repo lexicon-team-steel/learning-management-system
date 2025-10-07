@@ -58,7 +58,7 @@ public static class AuthServiceExtension
             opt.Password.RequireLowercase = false;
             opt.Password.RequireUppercase = false;
             opt.Password.RequireNonAlphanumeric = false;
-            opt.Password.RequiredLength = 3;
+            opt.Password.RequiredLength = 6;
 
             opt.User.RequireUniqueEmail = true;
         })

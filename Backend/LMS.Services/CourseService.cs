@@ -25,11 +25,19 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
         return mapper.Map<IEnumerable<CourseDto>>(courses);
     }
 
-    public async Task<CourseDto> GetCourseWithModulesAsync(Guid courseId)
+    public async Task<CourseDto> GetUserCourseWithModulesAsync(Guid courseId)
     {
         var userId = GetUserId();
         var course = await uow.Courses.GetUserCourseWithModulesAsync(userId, courseId);
         if (course == null) throw new NotFoundException("Course not found or you don't have access");
+
+        return mapper.Map<CourseDto>(course);
+    }
+
+    public async Task<CourseDto> GetCourseWithModulesAsync(Guid courseId)
+    {
+        var course = await uow.Courses.GetCourseWithModulesAsync(courseId);
+        if (course == null) throw new NotFoundException("Course not found");
 
         return mapper.Map<CourseDto>(course);
     }
@@ -46,14 +54,7 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
     {
         var userId = GetUserId();
 
-        var exists = await uow.Courses.ExistsByNameAsync(dto.Name);
-        if (exists)
-            throw new ConflictException($"A course with the name '{dto.Name}' already exists.");
-
-        if (dto.EndDate < dto.StartDate)
-        {
-            throw new BadRequestException("End date cannot be earlier than start date");
-        }
+        await ValidateCourseAsync(dto.Name, dto.StartDate, dto.EndDate);
 
         var course = mapper.Map<Course>(dto);
 
@@ -61,6 +62,45 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
         await uow.CompleteAsync();
 
         return mapper.Map<CourseDto>(course);
+    }
+
+    public async Task<CourseDto> UpdateAsync(Guid courseId, UpdateCourseDto dto)
+    {
+        var userId = GetUserId();
+
+        var course = await uow.Courses.GetCourseWithModulesAsync(courseId);
+        if (course == null)
+            throw new NotFoundException("Course not found");
+
+        await ValidateCourseAsync(dto.Name, dto.StartDate, dto.EndDate, courseId);
+
+        mapper.Map(dto, course);
+
+        uow.Courses.Update(course);
+        await uow.CompleteAsync();
+
+        return mapper.Map<CourseDto>(course);
+    }
+
+    public async Task DeleteAsync(Guid courseId)
+    {
+        var course = await uow.Courses.GetCourseWithModulesAsync(courseId);
+        if (course == null)
+            throw new NotFoundException("Course not found");
+
+        uow.Courses.Delete(course);
+        await uow.CompleteAsync();
+    }
+
+
+    private async Task ValidateCourseAsync(string name, DateTime startDate, DateTime endDate, Guid? existingCourseId = null)
+    {
+        if (endDate < startDate)
+            throw new BadRequestException("End date cannot be earlier than start date");
+
+        var exists = await uow.Courses.ExistsByNameAsync(name, existingCourseId);
+        if (exists)
+            throw new ConflictException($"A course with the name '{name}' already exists.");
     }
 
     private string GetUserId() =>

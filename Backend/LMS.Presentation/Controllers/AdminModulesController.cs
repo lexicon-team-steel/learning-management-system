@@ -1,4 +1,5 @@
 using LMS.Shared.DTOs.ActivityDtos;
+using LMS.Shared.DTOs.CourseModuleDtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ namespace LMS.Presentation.Controllers;
 public class AdminModulesController(IServiceManager serviceManager) : ControllerBase
 {
     private readonly IActivityService activityService = serviceManager.ActivityService;
+    private readonly IModuleService moduleService = serviceManager.ModuleService;
 
     [HttpPost("{moduleId}/activities")]
     [SwaggerOperation(
@@ -34,4 +36,14 @@ public class AdminModulesController(IServiceManager serviceManager) : Controller
             activity
         );
     }
+
+    [HttpGet("{moduleId}")]
+    [SwaggerOperation(
+        Summary = "Get module with activities",
+        Description = "Returns module with its activities for admin")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Module with activities", typeof(CourseModuleDto))]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "Module not found")]
+    public async Task<ActionResult<CourseModuleDto>> GetCourseWithModules(Guid moduleId) =>
+        Ok(await moduleService.GetModuleWithActivitiesAsync(moduleId));
 }

@@ -6,5 +6,6 @@ public interface IUnitOfWork
     public ICourseRepository Courses { get; }
     public IModuleRepository Modules { get; }
     public IActivityRepository Activities { get; }
+    public IActivityTypeRepository ActivityTypes { get; }
     Task CompleteAsync();
 }
