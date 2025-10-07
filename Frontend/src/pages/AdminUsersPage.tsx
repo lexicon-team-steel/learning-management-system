@@ -1,5 +1,5 @@
 import { ReactElement, useCallback } from 'react';
-import { useLoaderData, useNavigate, useSearchParams } from 'react-router';
+import { useLoaderData } from 'react-router';
 import { IForm, IPagedLoader, IParticipant, ITable } from '../utilities/types';
 
 import UserTable from '../components/UserTable';
@@ -37,7 +37,7 @@ const AdminUsersPage = (): ReactElement => {
         TableComponent={TableComponent}
       />
       <Pagination
-        sx={{ marginLeft: 'auto' }}
+        sx={{ marginX: 'auto' }}
         count={details.totalPages}
         defaultPage={currentPage}
         onChange={(_, index) => setPage(index)}
