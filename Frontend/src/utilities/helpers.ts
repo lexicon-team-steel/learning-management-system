@@ -51,10 +51,10 @@ export const scrollTop = () =>
   });
 
 export const translateEntity: Record<Entity, string> = {
-  activity: 'Aktiviteten',
-  user: 'Användaren',
-  course: 'Kursen',
-  module: 'Modulen',
+  activity: 'aktiviteten',
+  user: 'användaren',
+  course: 'kursen',
+  module: 'modulen',
 };
 export const capitalize = (word: string): string => {
   return word.charAt(0).toUpperCase() + word.slice(1);
