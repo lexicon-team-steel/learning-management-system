@@ -50,9 +50,12 @@ export const scrollTop = () =>
     behavior: 'smooth',
   });
 
-export const entityMap: Record<Entity, string> = {
+export const translateEntity: Record<Entity, string> = {
   activity: 'Aktiviteten',
   user: 'Användaren',
   course: 'Kursen',
   module: 'Modulen',
+};
+export const capitalize = (word: string): string => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
 };

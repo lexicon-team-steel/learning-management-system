@@ -1,7 +1,17 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Typography,
+} from '@mui/material';
 import { ReactElement } from 'react';
 import { Entity } from '../utilities/types';
-import { entityMap } from '../utilities/helpers';
+import { capitalize, translateEntity } from '../utilities/helpers';
+import theme from '../styles/theme';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 interface IConfirmDialog {
   open: boolean;
@@ -11,7 +21,7 @@ interface IConfirmDialog {
 }
 
 const ConfirmDialog = ({ open, entity, onClose, onConfirm }: IConfirmDialog): ReactElement => {
-  const entitySvenska = entityMap[entity] || entity;
+  const entitySv = capitalize(translateEntity[entity]) || entity;
   // handle Delete TODO
   return (
     <>
@@ -20,14 +30,38 @@ const ConfirmDialog = ({ open, entity, onClose, onConfirm }: IConfirmDialog): Re
         onClose={onClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        sx={{ '& .MuiPaper-root': { width: '350px' } }}
       >
-        <DialogTitle id="alert-dialog-title">Är du säker på att du vill ta bort {entitySvenska}?</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">Detta kommer att ta bort {entitySvenska}.</DialogContentText>
+        <HighlightOffIcon
+          sx={{
+            fontSize: '4rem',
+            color: theme.palette.error.main,
+            alignSelf: 'center',
+            pt: 2,
+          }}
+        />
+        <DialogTitle id="alert-dialog-title" sx={{ textAlign: 'center' }}>
+          Ta bort {entitySv}?
+        </DialogTitle>
+        <DialogContent sx={{ textAlign: 'center' }}>
+          <DialogContentText id="alert-dialog-description">
+            <Typography fontSize={'0.9rem'}>Bekräfta för att ta bort {entitySv}.</Typography>
+          </DialogContentText>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={onClose}>Nej</Button>
-          <Button onClick={onConfirm}>Ja</Button>
+        <DialogActions sx={{ justifyContent: 'center', pb: 2 }}>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: theme.palette.grey[500],
+              '&:hover': { backgroundColor: theme.palette.grey[600] },
+            }}
+            onClick={onClose}
+          >
+            Avbryt
+          </Button>
+          <Button variant="contained" color="error" onClick={onConfirm}>
+            Bekräfta
+          </Button>
         </DialogActions>
       </Dialog>
     </>

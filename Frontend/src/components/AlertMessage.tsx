@@ -1,7 +1,7 @@
 import { Alert, Snackbar, Typography } from '@mui/material';
 import { ReactElement } from 'react';
 import { Action, Entity, Status } from '../utilities/types';
-import { entityMap } from '../utilities/helpers';
+import { capitalize, translateEntity } from '../utilities/helpers';
 
 interface IAlertMessageProps {
   entity: Entity;
@@ -19,17 +19,17 @@ const styledCenterIcon = {
 };
 
 const getAlertMessage = (entity: Entity, action: Action, status: Status, errDetails?: string): string => {
-  const entitySvenska = entityMap[entity] || entity;
+  const entitySv = capitalize(translateEntity[entity]) || entity;
 
   if (status === 'success') {
-    if (action === 'create') return `${entitySvenska} har skapats!`;
-    if (action === 'update') return `${entitySvenska} har uppdaterats!`;
-    if (action === 'delete') return `${entitySvenska} har tagits bort!`;
+    if (action === 'create') return `${entitySv} har skapats!`;
+    if (action === 'update') return `${entitySv} har uppdaterats!`;
+    if (action === 'delete') return `${entitySv} har tagits bort!`;
   }
 
-  if (action === 'create') return `${entitySvenska} kunde inte skapas${errDetails ? `: ${errDetails}` : ''}`;
-  if (action === 'update') return `${entitySvenska} kunde inte uppdateras${errDetails ? `: ${errDetails}` : ''}`;
-  if (action === 'delete') return `${entitySvenska} kunde inte tas bort${errDetails ? `: ${errDetails}` : ''}`;
+  if (action === 'create') return `${entitySv} kunde inte skapas${errDetails ? `: ${errDetails}` : ''}`;
+  if (action === 'update') return `${entitySv} kunde inte uppdateras${errDetails ? `: ${errDetails}` : ''}`;
+  if (action === 'delete') return `${entitySv} kunde inte tas bort${errDetails ? `: ${errDetails}` : ''}`;
 
   return 'Något gick fel';
 };
