@@ -32,15 +32,6 @@ public class ModuleService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
     {
         await ValidateModuleAsync(courseId, dto.Name, dto.StartDate, dto.EndDate);
 
-        var course = await uow.Courses.GetCourseWithModulesAsync(courseId);
-        if (course == null)
-            throw new NotFoundException("Course not found");
-
-        var overlapping = course.Modules.Any(m =>
-            dto.StartDate < m.EndDate && dto.EndDate > m.StartDate);
-        if (overlapping)
-            throw new ConflictException("Module dates overlap with an existing module in this course");
-
         var module = mapper.Map<CourseModule>(dto);
         module.CourseId = courseId;
 
@@ -59,5 +50,13 @@ public class ModuleService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
         var exists = await uow.Modules.ExistsByNameAsync(courseId, name, existingModuleId);
         if (exists)
             throw new ConflictException($"A module with the name '{name}' already exists.");
+
+        var course = await uow.Courses.GetCourseWithModulesAsync(courseId);
+        if (course == null)
+            throw new NotFoundException("Course not found");
+
+        var overlapping = course.Modules.Any(m => startDate < m.EndDate && endDate > m.StartDate);
+        if (overlapping)
+            throw new ConflictException("Module dates overlap with an existing module in this course");
     }
 }
