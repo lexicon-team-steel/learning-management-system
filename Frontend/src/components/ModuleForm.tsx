@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react';
 import { FormErrorType, IModule } from '../utilities/types';
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import theme from '../styles/theme';
 import AdminPageForm from './AdminPageForm';
@@ -28,7 +28,7 @@ const ModuleForm = ({ onCancel, module, errors }: IModuleFormProps): ReactElemen
       <input type="hidden" name="startDate" value={startDate?.isValid() ? startDate.format('YYYY-MM-DD') : ''} />
       <input type="hidden" name="endDate" value={endDate?.isValid() ? endDate.format('YYYY-MM-DD') : ''} />
       <Grid container spacing={theme.layout.gap}>
-        <Grid size={6}>
+        <Grid size={12}>
           <TextInput label="Titel" name="name" value={module.name} error={errors?.name} />
         </Grid>
         <Grid size={12}>
@@ -41,35 +41,35 @@ const ModuleForm = ({ onCancel, module, errors }: IModuleFormProps): ReactElemen
             error={errors?.description}
           />
         </Grid>
-        <Grid size={3}>
-          <DatePicker
-            label="Startdatum *"
-            value={startDate}
-            onChange={(date) => setStartDate(date)}
-            format="DD/MM/YYYY"
-            slotProps={{
-              textField: {
-                error: !!errors?.startDate,
-                helperText: errors?.startDate,
-              },
-            }}
-            disablePast
-          />
-        </Grid>
-        <Grid size={3}>
-          <DatePicker
-            label="Slutdatum *"
-            value={endDate}
-            onChange={(date) => setEndDate(date)}
-            format="DD/MM/YYYY"
-            slotProps={{
-              textField: {
-                error: !!errors?.endDate,
-                helperText: errors?.endDate,
-              },
-            }}
-            disablePast
-          />
+        <Grid size={12}>
+          <Box display={'flex'} gap={theme.layout.gap}>
+            <DatePicker
+              label="Startdatum *"
+              value={startDate}
+              onChange={(date) => setStartDate(date)}
+              format="DD/MM/YYYY"
+              slotProps={{
+                textField: {
+                  error: !!errors?.startDate,
+                  helperText: errors?.startDate,
+                },
+              }}
+              disablePast
+            />
+            <DatePicker
+              label="Slutdatum *"
+              value={endDate}
+              onChange={(date) => setEndDate(date)}
+              format="DD/MM/YYYY"
+              slotProps={{
+                textField: {
+                  error: !!errors?.endDate,
+                  helperText: errors?.endDate,
+                },
+              }}
+              disablePast
+            />
+          </Box>
         </Grid>
       </Grid>
     </AdminPageForm>
