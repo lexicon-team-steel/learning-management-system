@@ -113,4 +113,18 @@ public class AdminCoursesController(IServiceManager serviceManager) : Controller
         return Ok(new { success = true });
     }
 
+    [HttpDelete("{courseId}/modules/{moduleId}")]
+    [SwaggerOperation(
+        Summary = "Delete a module",
+        Description = "Deletes a module. Only teachers can perform this action.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Module deleted successfully")]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized")]
+    [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - only teachers can delete modules")]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "Module not found")]
+    public async Task<IActionResult> DeleteModule(Guid courseId, Guid moduleId)
+    {
+        await moduleService.DeleteAsync(courseId, moduleId);
+        return Ok(new { success = true });
+    }
+
 }
