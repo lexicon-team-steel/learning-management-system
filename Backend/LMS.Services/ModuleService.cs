@@ -42,6 +42,22 @@ public class ModuleService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
 
     }
 
+    public async Task<CourseModuleDto> UpdateAsync(Guid courseId, Guid moduleId, UpdateModuleDto dto)
+    {
+        var module = await uow.Modules.GetModuleAsync(moduleId);
+        if (module == null)
+            throw new NotFoundException("Course not found");
+
+        await ValidateModuleAsync(courseId, dto.Name, dto.StartDate, dto.EndDate, moduleId);
+
+        mapper.Map(dto, module);
+
+        uow.Modules.Update(module);
+        await uow.CompleteAsync();
+
+        return mapper.Map<CourseModuleDto>(module);
+    }
+
     private async Task ValidateModuleAsync(Guid courseId, string name, DateTime startDate, DateTime endDate, Guid? existingModuleId = null)
     {
         if (endDate < startDate)
