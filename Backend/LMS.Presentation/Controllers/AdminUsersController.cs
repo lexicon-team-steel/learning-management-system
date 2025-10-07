@@ -41,7 +41,7 @@ public class AdminUsersController(IServiceManager serviceManager) : ControllerBa
                 : BadRequest(new { errors = result.ToErrorDictionary() });
     }
 
-    [HttpPut]
+    [HttpPut("{id}")]
     [SwaggerOperation(
             Summary = "Update user",
             Description = "Updates existing user account")]
@@ -49,6 +49,7 @@ public class AdminUsersController(IServiceManager serviceManager) : ControllerBa
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input")]
     [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
     [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - You do not have permission to access this resource.")]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "User was not found")]
     public async Task<ActionResult> UpdateUser(string id, UserUpdateDto userUpdateDto)
     {
         IdentityResult result = await serviceManager.UserService.UpdateUserAsync(id, userUpdateDto);
@@ -57,7 +58,7 @@ public class AdminUsersController(IServiceManager serviceManager) : ControllerBa
                 : BadRequest(new { errors = result.ToErrorDictionary() });
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     [SwaggerOperation(
             Summary = "Delete user",
             Description = "Deletes existing user account")]
@@ -65,6 +66,7 @@ public class AdminUsersController(IServiceManager serviceManager) : ControllerBa
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input")]
     [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
     [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - You do not have permission to access this resource.")]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "User was not found")]
     public async Task<ActionResult> DeleteUser(string id)
     {
         IdentityResult result = await serviceManager.UserService.DeleteUserAsync(id);
