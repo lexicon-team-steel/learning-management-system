@@ -12,6 +12,7 @@ interface IAdminCrudPageProps<T> {
   items: T[];
   emptyItem: T;
   title: string;
+  subTitle?: string;
   buttonLabel: string;
   FormComponent: ComponentType<IForm<T>>;
   TableComponent: ComponentType<ITable<T>>;
@@ -21,6 +22,7 @@ const AdminCrudPage = <T,>({
   items,
   emptyItem,
   title,
+  subTitle,
   buttonLabel,
   FormComponent,
   TableComponent,
@@ -59,6 +61,7 @@ const AdminCrudPage = <T,>({
         {/* Title */}
         <AdminPageTitle
           pageTitle={title}
+          subTitle={subTitle}
           buttonLabel={buttonLabel}
           buttonDisabled={isEditing}
           onButtonClick={() => handleChange(emptyItem)}

@@ -12,7 +12,7 @@ import {
   styled,
 } from '@mui/material';
 import colors from '../styles/colors';
-import { adminItems, baseMainItems, NavItem, studentCourseItem } from '../utilities/navigationConstants';
+import { adminItems, baseMainItems, NavItem } from '../utilities/navigationConstants';
 import { useAuthContext } from '../utilities/hooks/useAuthContext';
 import { useCoursesContext } from '../utilities/hooks/useCoursesContext';
 import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
