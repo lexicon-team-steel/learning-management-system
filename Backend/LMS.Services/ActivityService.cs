@@ -32,20 +32,12 @@ public class ActivityService(IMapper mapper, IUnitOfWork uow, ICurrentUserServic
 
     public async Task<ActivityDto> CreateActivityAsync(Guid moduleId, CreateActivityDto dto)
     {
-        if (dto.EndDate <= dto.StartDate)
-            throw new BadRequestException("End date must be after start date");
+        ValidateActivityDates(dto.StartDate, dto.EndDate);
 
-        if (!(currentUser.Role?.Contains("Teacher") ?? false))
-            throw new ForbiddenException("Only teachers can create activities");
+        var module = await uow.Modules.GetModuleWithActivitiesAsync(moduleId)
+            ?? throw new NotFoundException("Module not found");
 
-        var module = await uow.Modules.GetModuleWithActivitiesAsync(moduleId);
-        if (module == null)
-            throw new NotFoundException("Module not found");
-
-        var overlapping = module.Activities.Any(a =>
-            dto.StartDate < a.EndDate && dto.EndDate > a.StartDate);
-        if (overlapping)
-            throw new ConflictException("Activity dates overlap with an existing activity in this module");
+        ValidateNoOverlap(module.Activities, dto.StartDate, dto.EndDate);
 
         var activity = mapper.Map<Activity>(dto);
         activity.CourseModuleId = moduleId;
@@ -54,8 +46,53 @@ public class ActivityService(IMapper mapper, IUnitOfWork uow, ICurrentUserServic
         await uow.CompleteAsync();
 
         var created = await uow.Activities.GetActivityWithTypeAsync(activity.Id);
-
         return mapper.Map<ActivityDto>(created);
+    }
+
+    public async Task<ActivityDto> UpdateActivityAsync(Guid activityId, UpdateActivityDto dto)
+    {
+        var activity = await uow.Activities.GetActivityWithTypeAsync(activityId)
+            ?? throw new NotFoundException("Activity not found");
+
+        ValidateActivityDates(dto.StartDate, dto.EndDate);
+
+        var module = await uow.Modules.GetModuleWithActivitiesAsync(activity.CourseModuleId)
+            ?? throw new NotFoundException("Parent module not found");
+
+        ValidateNoOverlap(module.Activities, dto.StartDate, dto.EndDate, activity.Id);
+
+        mapper.Map(dto, activity);
+
+        uow.Activities.Update(activity);
+        await uow.CompleteAsync();
+
+        var updated = await uow.Activities.GetActivityWithTypeAsync(activity.Id);
+        return mapper.Map<ActivityDto>(updated);
+    }
+
+    public async Task DeleteActivityAsync(Guid activityId)
+    {
+        var activity = await uow.Activities.GetActivityWithTypeAsync(activityId)
+            ?? throw new NotFoundException("Activity not found");
+
+        uow.Activities.Delete(activity);
+        await uow.CompleteAsync();
+    }
+
+    private static void ValidateActivityDates(DateTime startDate, DateTime endDate)
+    {
+        if (endDate <= startDate)
+            throw new BadRequestException("End date must be after start date");
+    }
+
+    private static void ValidateNoOverlap(IEnumerable<Activity> existingActivities, DateTime startDate, DateTime endDate, Guid? currentActivityId = null)
+    {
+        var overlapping = existingActivities.Any(a =>
+            (!currentActivityId.HasValue || a.Id != currentActivityId.Value) &&
+            startDate < a.EndDate && endDate > a.StartDate);
+
+        if (overlapping)
+            throw new ConflictException("Activity dates overlap with an existing activity in this module");
     }
 
     private string GetUserId() =>
