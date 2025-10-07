@@ -88,14 +88,14 @@ public class AdminCoursesController(IServiceManager serviceManager) : Controller
     [SwaggerOperation(
         Summary = "Delete a course",
         Description = "Deletes a course. Only teachers can perform this action.")]
-    [SwaggerResponse(StatusCodes.Status204NoContent, "Course deleted successfully")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Course deleted successfully")]
     [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized")]
     [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - only teachers can delete courses")]
     [SwaggerResponse(StatusCodes.Status404NotFound, "Course not found")]
     public async Task<IActionResult> DeleteCourse(Guid courseId)
     {
         await courseService.DeleteAsync(courseId);
-        return NoContent();
+        return Ok(new { success = true });
     }
 
 }
