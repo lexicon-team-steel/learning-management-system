@@ -65,7 +65,7 @@ export const router = createBrowserRouter([
         action: adminCoursesAction,
       },
       {
-        path: 'admin/courses/:courseId',
+        path: 'admin/courses/:courseId/modules',
         element: <AdminModulesPage />,
         loader: adminModulesLoader,
         action: adminModulesAction,

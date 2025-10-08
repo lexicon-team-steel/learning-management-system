@@ -20,7 +20,12 @@ const CourseTableRow = ({ course, onEdit, onDelete }: ICourseTableRowProps): Rea
         <Date start={formatDate(course.startDate)} end={formatDate(course.endDate)} />
       </TableCell>
       <TableCell>
-        <Link component={NavLink} to={`/admin/courses/${course.id}`} underline="hover">
+        <Link component={NavLink} to={`/admin/courses/${course.id}/participants`} underline="hover">
+          Hantera
+        </Link>
+      </TableCell>
+      <TableCell>
+        <Link component={NavLink} to={`/admin/courses/${course.id}/modules`} underline="hover">
           Hantera
         </Link>
       </TableCell>
