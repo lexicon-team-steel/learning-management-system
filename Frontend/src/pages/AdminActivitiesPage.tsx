@@ -4,6 +4,9 @@ import { useLoaderData } from 'react-router';
 import AdminCrudPage from '../components/AdminCrudPage';
 import ActivityTable from '../components/ActivityTable';
 import ActivityForm from '../components/ActivityForm';
+import { Stack } from '@mui/material';
+import BackLink from '../components/BackLink';
+import theme from '../styles/theme';
 
 const AdminActivitiesPage = (): ReactElement => {
   const { module, activityTypes } = useLoaderData<IAdminActivitiesLoader>();
@@ -32,15 +35,18 @@ const AdminActivitiesPage = (): ReactElement => {
   );
 
   return (
-    <AdminCrudPage
-      items={module.activities}
-      emptyItem={emptyActivity}
-      title={module.name}
-      subTitle="Hantera aktiviteter"
-      buttonLabel="Skapa ny aktivitet"
-      FormComponent={FormComponent}
-      TableComponent={TableComponent}
-    />
+    <Stack spacing={theme.layout.gapLarge}>
+      <BackLink name="Hantera moduler" />
+      <AdminCrudPage
+        items={module.activities}
+        emptyItem={emptyActivity}
+        title={module.name}
+        subTitle="Hantera aktiviteter"
+        buttonLabel="Skapa ny aktivitet"
+        FormComponent={FormComponent}
+        TableComponent={TableComponent}
+      />
+    </Stack>
   );
 };
 
