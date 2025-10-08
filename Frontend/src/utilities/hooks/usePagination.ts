@@ -1,12 +1,17 @@
-import { useNavigate, useSearchParams } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
-export const usePagination = (defaultPage = 1) => {
+export const usePagination = (defaultPageIndex = 1, pageParamName = 'pageIndex') => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const currentPage = Number(searchParams.get('pageIndex')) || defaultPage;
+  const location = useLocation();
+
+  const searchParams = new URLSearchParams(location.search);
+  const currentPage = Number(searchParams.get(pageParamName) || defaultPageIndex);
 
   const setPage = (index: number) => {
-    navigate(`?pageIndex=${index}`);
+    const params = new URLSearchParams(location.search);
+    params.set(pageParamName, String(index));
+
+    navigate({ pathname: location.pathname, search: params.toString() });
   };
 
   return { currentPage, setPage };

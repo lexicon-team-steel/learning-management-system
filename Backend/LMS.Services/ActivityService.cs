@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using AutoMapper;
 using Domain.Contracts.Repositories;
 using Domain.Models.Entities;
@@ -32,10 +31,10 @@ public class ActivityService(IMapper mapper, IUnitOfWork uow, ICurrentUserServic
 
     public async Task<ActivityDto> CreateActivityAsync(Guid moduleId, CreateActivityDto dto)
     {
-        ValidateActivityDates(dto.StartDate, dto.EndDate);
-
         var module = await uow.Modules.GetModuleWithActivitiesAsync(moduleId)
             ?? throw new NotFoundException("Module not found");
+
+        ValidateActivityDates(dto.StartDate, dto.EndDate, module);
 
         ValidateNoOverlap(module.Activities, dto.StartDate, dto.EndDate);
 
@@ -54,10 +53,10 @@ public class ActivityService(IMapper mapper, IUnitOfWork uow, ICurrentUserServic
         var activity = await uow.Activities.GetActivityWithTypeAsync(activityId)
             ?? throw new NotFoundException("Activity not found");
 
-        ValidateActivityDates(dto.StartDate, dto.EndDate);
-
         var module = await uow.Modules.GetModuleWithActivitiesAsync(activity.CourseModuleId)
             ?? throw new NotFoundException("Parent module not found");
+
+        ValidateActivityDates(dto.StartDate, dto.EndDate, module);
 
         ValidateNoOverlap(module.Activities, dto.StartDate, dto.EndDate, activity.Id);
 
@@ -79,10 +78,13 @@ public class ActivityService(IMapper mapper, IUnitOfWork uow, ICurrentUserServic
         await uow.CompleteAsync();
     }
 
-    private static void ValidateActivityDates(DateTime startDate, DateTime endDate)
+    private static void ValidateActivityDates(DateTime startDate, DateTime endDate, CourseModule parentModule)
     {
         if (endDate <= startDate)
             throw new BadRequestException("End date must be after start date");
+
+        if (startDate < parentModule.StartDate || endDate > parentModule.EndDate)
+            throw new BadRequestException("Activity dates must be set within module dates.");
     }
 
     private static void ValidateNoOverlap(IEnumerable<Activity> existingActivities, DateTime startDate, DateTime endDate, Guid? currentActivityId = null)
