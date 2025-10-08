@@ -15,7 +15,7 @@ interface IActivityFormProps {
 }
 
 const ActivityForm = ({ onCancel, activity, activityTypes, errors = {} }: IActivityFormProps): ReactElement => {
-  const action = activity.id ? 'edit' : 'create';
+  const action = activity.id ? 'update' : 'create';
   const title = action === 'create' ? 'Ny aktivitet' : 'Redigera aktivitet';
   const submitLabel = action === 'create' ? 'Skapa' : 'Spara';
 
