@@ -9,6 +9,6 @@ export const adminParticipantsLoader = async ({ params }: LoaderFunctionArgs): P
 
   return {
     courseWithParticipants: await fetchWithToken(`${BASE_URL}/admin/courses/${params.courseId}/participants`),
-    pagedResult: await fetchWithToken(`${BASE_URL}/admin/users/?notcourseid=${params.courseId}&pageSize=100`),
+    pagedResult: await fetchWithToken(`${BASE_URL}/admin/users/?availableForCourse=true&pageSize=100`),
   };
 };
