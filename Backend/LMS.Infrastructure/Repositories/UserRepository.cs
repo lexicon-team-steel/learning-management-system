@@ -31,8 +31,11 @@ public class UserRepository(ApplicationDbContext context) : RepositoryBase<Appli
         if (userParams.NotCourseId.HasValue)
             users = users.Where(u => !u.Courses.Any(c => c.Id == userParams.NotCourseId));
 
-        if (userParams.AvailableForCourse == true)
-            users = users.Where(u => u.UserRoles.Any(ur => ur.Role.Name == "Teacher") || !u.Courses.Any());
+        if (userParams.AvailableForCourse.HasValue)
+            users = users.Where(u =>
+                (u.UserRoles.Any(r => r.Role.Name == "Teacher") && !u.Courses.Any(c => c.Id == userParams.AvailableForCourse)) ||
+                (u.UserRoles.Any(r => r.Role.Name == "Student") && !u.Courses.Any())
+            );
 
         users = users.Include(u => u.UserRoles).ThenInclude(ur => ur.Role);
         return await users.ToPagedResultAsync(userParams.PageSize, userParams.PageIndex);

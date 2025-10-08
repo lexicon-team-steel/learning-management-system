@@ -6,5 +6,5 @@ public class UserQueryParameters : PageParameters
     public string? Role { get; set; }
     public Guid? CourseId { get; set; }
     public Guid? NotCourseId { get; set; }
-    public bool? AvailableForCourse { get; set; }
+    public Guid? AvailableForCourse { get; set; }
 }
