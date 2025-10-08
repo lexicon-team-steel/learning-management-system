@@ -16,7 +16,7 @@ const ModulePage = (): ReactElement => {
 
   return (
     <Stack spacing={theme.layout.gapLarge}>
-      <Suspense fallback={<SkeletonOneCol width={'100%'} />}>
+      <Suspense fallback={<SkeletonOneCol />}>
         <Await resolve={module}>
           {(module: IModule) => (
             <>
