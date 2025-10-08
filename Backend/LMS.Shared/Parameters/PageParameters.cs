@@ -3,7 +3,7 @@ namespace LMS.Shared.Parameters;
 public class PageParameters
 {
     private const int PageSizeMax = 100;
-    private const int PageSizeDefault = 5;
+    private const int PageSizeDefault = 10;
 
     private int _pageSize = PageSizeDefault;
     public int PageSize
