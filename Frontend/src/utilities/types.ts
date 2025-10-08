@@ -88,6 +88,16 @@ export interface ICourse {
   participants?: IParticipant[];
 }
 
+export interface IPagedResult<T> {
+  items: T[];
+  details: {
+    pageIndex: number;
+    pageSize: number;
+    totalCount: number;
+    totalPages: number;
+  };
+}
+
 export interface IModulesLoader {
   modules: Promise<IModule[]>;
 }
@@ -128,17 +138,10 @@ export interface IAdminModulesLoader {
 
 export interface IAdminParticipantsLoader {
   courseWithParticipants: ICourse;
+  pagedResult: IPagedResult<IParticipant>;
 }
 
-export interface IPagedLoader<T> {
-  items: T[];
-  details: {
-    pageIndex: number;
-    pageSize: number;
-    totalCount: number;
-    totalPages: number;
-  };
-}
+export type IPagedLoader<T> = IPagedResult<T>;
 
 export type FormErrorType = Record<string, string>;
 
