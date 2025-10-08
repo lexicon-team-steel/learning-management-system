@@ -4,6 +4,7 @@ import { Form } from 'react-router';
 import theme from '../styles/theme';
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 import { ICourse } from '../utilities/types';
+import { translateRole } from '../utilities/helpers';
 
 interface IUserFilterProps {
   initName: string;
@@ -49,7 +50,7 @@ const UserFilter = ({ initName, initRole, initCourseId, courses, onSubmit }: IUs
               >
                 <MenuItem value="">- Välj -</MenuItem>
                 <MenuItem value="student">Student</MenuItem>
-                <MenuItem value="teacher">Teacher</MenuItem>
+                <MenuItem value="teacher">{translateRole('Teacher')}</MenuItem>
               </Select>
             </FormControl>
           </Grid>

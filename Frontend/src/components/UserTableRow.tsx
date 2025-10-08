@@ -4,7 +4,7 @@ import { IParticipant } from '../utilities/types';
 import EmailLink from './EmailLink';
 import theme from '../styles/theme';
 import ActionButtons from './ActionButtons';
-import { userChipColor, userFullName } from '../utilities/helpers';
+import { userChipColor, userFullName, translateRole } from '../utilities/helpers';
 
 interface IUserItem {
   user: IParticipant;
@@ -19,7 +19,7 @@ const UserTableRow = ({ user, onEdit, onDelete }: IUserItem): ReactElement => {
         <EmailLink email={user.email} />
       </TableCell>
       <TableCell>
-        <Chip label={user.roles[0]} color={userChipColor(user)} />
+        <Chip label={translateRole(user.roles[0])} color={userChipColor(user)} />
       </TableCell>
       <TableCell align="right" sx={{ paddingX: theme.spacing(1) }}>
         <ActionButtons onEdit={onEdit} onDelete={onDelete} />

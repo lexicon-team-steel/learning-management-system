@@ -58,5 +58,9 @@ export const translateEntity: Record<Entity, string> = {
   participant: 'deltagaren',
 };
 export const capitalize = (s?: string): string => (s ? s.charAt(0).toUpperCase() + s.slice(1) : '');
+
 export const userChipColor = (user: IParticipant) => (user.roles[0] === 'Student' ? 'primary' : 'secondary');
+
 export const userFullName = (user: IParticipant) => `${user.firstName} ${user.lastName}`;
+
+export const translateRole = (role: string) => ({ Teacher: 'Lärare' })[role] ?? role;
