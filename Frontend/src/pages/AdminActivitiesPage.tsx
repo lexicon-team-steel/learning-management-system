@@ -7,6 +7,7 @@ import ActivityForm from '../components/ActivityForm';
 
 const AdminActivitiesPage = (): ReactElement => {
   const { module, activityTypes } = useLoaderData<IAdminActivitiesLoader>();
+
   const emptyActivity: IActivity = {
     id: '',
     name: '',
@@ -16,12 +17,9 @@ const AdminActivitiesPage = (): ReactElement => {
     activityType: activityTypes[0],
   };
 
-  /**
-   * Futute Form
-   */
   const FormComponent = useCallback(
     ({ item, onCancel, errors }: IForm<IActivity>) => (
-      <ActivityForm activity={item} onCancel={onCancel} errors={errors} />
+      <ActivityForm activity={item} onCancel={onCancel} activityTypes={activityTypes} errors={errors} />
     ),
     []
   );
