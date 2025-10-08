@@ -19,6 +19,23 @@ const makeRequest = async (url: string, method: string, body?: object) => {
   return await safeFetch(url, init);
 };
 
+const formatActivityFormData = (formData: FormData) => {
+  const date = formData.get('date') as string | null;
+  const startTime = formData.get('startTime') as string | null;
+  const endTime = formData.get('endTime') as string | null;
+
+  if (date && startTime && endTime) {
+    const startDate = `${date}T${startTime}`;
+    const endDate = `${date}T${endTime}`;
+    formData.set('startDate', startDate);
+    formData.set('endDate', endDate);
+    formData.delete('startTime');
+    formData.delete('endTime');
+    formData.delete('date');
+  }
+  return formData;
+};
+
 export const adminEntityAction =
   ({ entity, validate, apiURL, redirectURL }: IAdminEntityAction) =>
   async ({ request }: ActionFunctionArgs): Promise<IBasicAction> => {
@@ -34,6 +51,7 @@ export const adminEntityAction =
       }
     }
 
+    formatActivityFormData(formData);
     const body = Object.fromEntries(formData.entries());
     const id = formData.get('id');
 
