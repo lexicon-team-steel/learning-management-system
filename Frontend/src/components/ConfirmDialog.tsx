@@ -1,12 +1,4 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Typography,
-} from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { ReactElement } from 'react';
 import { Entity } from '../utilities/types';
 import { capitalize, translateEntity } from '../utilities/helpers';
@@ -44,8 +36,8 @@ const ConfirmDialog = ({ open, entity, onClose, onConfirm }: IConfirmDialog): Re
           Ta bort {entitySv}?
         </DialogTitle>
         <DialogContent sx={{ textAlign: 'center' }}>
-          <DialogContentText id="alert-dialog-description">
-            <Typography fontSize={'0.9rem'}>Bekräfta för att ta bort {entitySv}.</Typography>
+          <DialogContentText id="alert-dialog-description" fontSize={'0.9rem'}>
+            Bekräfta för att ta bort {entitySv}.
           </DialogContentText>
         </DialogContent>
         <DialogActions sx={{ justifyContent: 'center', pb: 2 }}>

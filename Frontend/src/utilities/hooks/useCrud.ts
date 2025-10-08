@@ -27,9 +27,7 @@ export const useCrud = <T extends { id: string }>() => {
     confirm({
       entity,
       onConfirm: () => {
-        console.log('delete item' + item);
-
-        //submit({ id: String(item.id), _action: 'delete' }, { method: 'post' });
+        submit({ id: String(item.id), _action: 'delete' }, { method: 'post' });
       },
     });
   };

@@ -1,6 +1,7 @@
 import { ReactElement, ReactNode, useCallback, useState } from 'react';
-import { ConfirmContext, ConfirmOptions } from './ConfirmContext';
+import { ConfirmContext } from './ConfirmContext';
 import ConfirmDialog from '../../../components/ConfirmDialog';
+import { ConfirmOptions } from '../../types';
 
 const ConfirmProvider = ({ children }: { children: ReactNode }): ReactElement => {
   const [open, setOpen] = useState(false);

@@ -1,12 +1,7 @@
 import { createContext, useContext } from 'react';
-import { Entity } from '../../types';
+import { ConfirmOptions } from '../../types';
 
-export type ConfirmOptions = {
-  entity: Entity;
-  onConfirm: () => void;
-};
-
-export interface ConfirmContextType {
+interface ConfirmContextType {
   confirm: (options: ConfirmOptions) => void;
 }
 export const ConfirmContext = createContext<ConfirmContextType | undefined>(undefined);
