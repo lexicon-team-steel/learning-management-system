@@ -3,6 +3,7 @@ import Card from './Card';
 import { Form } from 'react-router';
 import theme from '../styles/theme';
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
+import { translateRole } from '../utilities/helpers';
 
 interface IUserFilterProps {
   initName: string;
@@ -43,7 +44,7 @@ const UserFilter = ({ initName, initRole, onSubmit }: IUserFilterProps): ReactEl
               >
                 <MenuItem value="">- Välj -</MenuItem>
                 <MenuItem value="student">Student</MenuItem>
-                <MenuItem value="teacher">Teacher</MenuItem>
+                <MenuItem value="teacher">{translateRole('Teacher')}</MenuItem>
               </Select>
             </FormControl>
           </Grid>
