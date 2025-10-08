@@ -14,7 +14,7 @@ import { useUserFilter } from '../utilities/hooks/useUserFilter';
 const AdminUsersPage = (): ReactElement => {
   const { items, details, courses } = useLoaderData<IAdminUsersLoader>();
   const { currentPage, setPage } = usePagination();
-  const { name, role, courseId, applyFilter } = useUserFilter();
+  const { name, role, courseId, applyFilter, resetFilter } = useUserFilter();
 
   const FormComponent = useCallback(
     ({ item, onCancel, errors }: IForm<IParticipant>) => <UserForm user={item} onCancel={onCancel} errors={errors} />,
@@ -24,11 +24,18 @@ const AdminUsersPage = (): ReactElement => {
   const TableComponent = useCallback(
     ({ items, onEdit, onDelete }: ITable<IParticipant>) => (
       <>
-        <UserFilter initName={name} initRole={role} initCourseId={courseId} onSubmit={applyFilter} courses={courses} />
+        <UserFilter
+          initName={name}
+          initRole={role}
+          initCourseId={courseId}
+          onSubmit={applyFilter}
+          onReset={resetFilter}
+          courses={courses}
+        />
         <UserTable users={items} onEdit={onEdit} onDelete={onDelete} />
       </>
     ),
-    [name, role, courseId, courses, applyFilter]
+    [name, role, courseId, courses, applyFilter, resetFilter]
   );
 
   return (

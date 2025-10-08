@@ -2,9 +2,20 @@ import { ChangeEvent, FormEvent, ReactElement, useState } from 'react';
 import Card from './Card';
 import { Form } from 'react-router';
 import theme from '../styles/theme';
-import { Button, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
+import {
+  Button,
+  FormControl,
+  Grid,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+} from '@mui/material';
 import { ICourse } from '../utilities/types';
 import { translateRole } from '../utilities/helpers';
+import ClearIcon from '@mui/icons-material/FilterAltOff';
 
 interface IUserFilterProps {
   initName: string;
@@ -12,8 +23,17 @@ interface IUserFilterProps {
   initCourseId: string;
   courses: ICourse[];
   onSubmit: (name?: string, role?: string, courseId?: string) => void;
+  onReset: () => void;
 }
-const UserFilter = ({ initName, initRole, initCourseId, courses, onSubmit }: IUserFilterProps): ReactElement => {
+
+const UserFilter = ({
+  initName,
+  initRole,
+  initCourseId,
+  courses,
+  onSubmit,
+  onReset,
+}: IUserFilterProps): ReactElement => {
   const [name, setName] = useState<string>(initName);
   const [role, setRole] = useState<string>(initRole);
   const [courseId, setCourseId] = useState<string>(initCourseId);
@@ -74,9 +94,15 @@ const UserFilter = ({ initName, initRole, initCourseId, courses, onSubmit }: IUs
               </Select>
             </FormControl>
           </Grid>
-          <Grid size={3}>
-            <Button type="submit" variant="outlined" fullWidth size="small" sx={{ height: '100%' }}>
+          <Grid size={2}>
+            <Button type="submit" variant="contained" fullWidth size="small" sx={{ height: '100%' }}>
               Filtrera
+            </Button>
+          </Grid>
+          <Grid size={1}>
+            <Button type="reset" variant="outlined" fullWidth size="small" sx={{ height: '100%' }} onClick={onReset}>
+              {' '}
+              <ClearIcon />
             </Button>
           </Grid>
         </Grid>

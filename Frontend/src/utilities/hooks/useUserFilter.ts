@@ -18,10 +18,15 @@ export const useUserFilter = () => {
     navigate({ pathname: location.pathname, search: `?${params.toString()}` });
   };
 
+  const resetFilter = () => {
+    navigate({ pathname: location.pathname });
+  };
+
   return {
     name,
     role,
     courseId,
     applyFilter,
+    resetFilter,
   };
 };
