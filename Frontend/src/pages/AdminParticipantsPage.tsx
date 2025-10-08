@@ -1,12 +1,16 @@
 import { useCallback } from 'react';
 import AdminCrudPage from '../components/AdminCrudPage';
 import { EMPTY_PARTICIPANT } from '../utilities/constants';
-import { IParticipant } from '../utilities/types';
+import { IParticipant, ITable } from '../utilities/types';
+import ParticipantsTable from '../components/ParticipantTable';
 
 const AdminParticipantsPage = () => {
   const FormComponent = useCallback(() => <div></div>, []);
 
-  const TableComponent = useCallback(() => <div></div>, []);
+  const TableComponent = useCallback(
+    ({ items, onDelete }: ITable<IParticipant>) => <ParticipantsTable participants={items} onDelete={onDelete} />,
+    []
+  );
 
   return (
     <AdminCrudPage<IParticipant>
