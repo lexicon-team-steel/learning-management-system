@@ -1,3 +1,4 @@
+using LMS.Shared.Common;
 using LMS.Shared.DTOs.AuthDtos;
 using LMS.Shared.DTOs.UserDtos;
 using LMS.Shared.Parameters;
@@ -19,10 +20,10 @@ public class AdminUsersController(IServiceManager serviceManager) : ControllerBa
     [SwaggerOperation(
             Summary = "Get all users",
             Description = "Returns users for admin. Can be filtered by name or role")]
-    [SwaggerResponse(StatusCodes.Status200OK, "List of user", typeof(IEnumerable<UserDto>))]
+    [SwaggerResponse(StatusCodes.Status200OK, "List of user", typeof(PagedResult<UserDto>))]
     [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
     [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - You do not have permission to access this resource.")]
-    public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers([FromQuery] UserQueryParameters userParams) =>
+    public async Task<ActionResult<PagedResult<UserDto>>> GetAllUsers([FromQuery] UserQueryParameters userParams) =>
         Ok(await serviceManager.UserService.GetAllUsersAsync(userParams));
 
     [HttpPost]

@@ -14,6 +14,7 @@ const ActivityTable = ({ activities, onEdit, onDelete }: IActivityTableProps): R
     headers={['Aktivitet', 'Aktivitetstyp', 'Datum & Tid', 'Åtgärder']}
     keyField="id"
     rows={activities}
+    sortableField="startDate"
     renderItem={(activity: IActivity) => (
       <ActivityTableRow activity={activity} onEdit={() => onEdit(activity)} onDelete={() => onDelete(activity)} />
     )}

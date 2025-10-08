@@ -14,7 +14,7 @@ interface IModuleFormProps {
 }
 
 const ModuleForm = ({ onCancel, module, errors }: IModuleFormProps): ReactElement => {
-  const action = module.id ? 'edit' : 'create';
+  const action = module.id ? 'update' : 'create';
   const title = action === 'create' ? 'Ny modul' : 'Redigera modul';
   const submitLabel = action === 'create' ? 'Skapa' : 'Spara';
 

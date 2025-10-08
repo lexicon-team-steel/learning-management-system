@@ -14,7 +14,7 @@ interface ICourseFormProps {
 }
 
 const CourseForm = ({ onCancel, course, errors }: ICourseFormProps): ReactElement => {
-  const action = course.id ? 'edit' : 'create';
+  const action = course.id ? 'update' : 'create';
   const title = action === 'create' ? 'Ny kurs' : 'Redigera kurs';
   const submitLabel = action === 'create' ? 'Skapa' : 'Spara';
 

@@ -12,7 +12,7 @@ interface IUserFormProps {
 }
 
 const UserForm = ({ onCancel, user, errors }: IUserFormProps): ReactElement => {
-  const action = user.id ? 'edit' : 'create';
+  const action = user.id ? 'update' : 'create';
   const title = action === 'create' ? 'Ny användare' : 'Redigera användare';
   const submitLabel = action === 'create' ? 'Skapa' : 'Spara';
 

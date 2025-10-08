@@ -1,6 +1,8 @@
 using Domain.Contracts.Repositories;
 using Domain.Models.Entities;
 using LMS.Infrastructure.Data;
+using LMS.Infrastructure.Extensions;
+using LMS.Shared.Common;
 using LMS.Shared.Parameters;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +10,7 @@ namespace LMS.Infrastructure.Repositories;
 
 public class UserRepository(ApplicationDbContext context) : RepositoryBase<ApplicationUser>(context), IUserRepository
 {
-    public Task<List<ApplicationUser>> GetAllUsersAsync(UserQueryParameters userParams)
+    public async Task<PagedResult<ApplicationUser>> GetAllUsersAsync(UserQueryParameters userParams)
     {
         var users = FindAll();
         if (!string.IsNullOrWhiteSpace(userParams.Name))
@@ -20,7 +22,9 @@ public class UserRepository(ApplicationDbContext context) : RepositoryBase<Appli
         }
         if (!string.IsNullOrWhiteSpace(userParams.Role))
             users = users.Where(u => u.UserRoles.Any(u => EF.Functions.Like(u.Role.Name, userParams.Role)));
-        return users.Include(u => u.UserRoles).ThenInclude(ur => ur.Role).ToListAsync();
+
+        users = users.Include(u => u.UserRoles).ThenInclude(ur => ur.Role);
+        return await users.ToPagedResultAsync(userParams.PageSize, userParams.PageIndex);
     }
 
     public Task<ApplicationUser?> GetUserAsync(string id) =>

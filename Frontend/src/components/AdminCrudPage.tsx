@@ -18,7 +18,7 @@ interface IAdminCrudPageProps<T> {
   TableComponent: ComponentType<ITable<T>>;
 }
 
-const AdminCrudPage = <T,>({
+const AdminCrudPage = <T extends { id: string }>({
   items,
   emptyItem,
   title,
