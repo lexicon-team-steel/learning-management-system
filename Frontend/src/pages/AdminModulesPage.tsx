@@ -5,6 +5,9 @@ import { IForm, IModule, ITable } from '../utilities/types';
 import AdminCrudPage from '../components/AdminCrudPage';
 import { EMPTY_MODULE } from '../utilities/constants';
 import ModuleForm from '../components/ModuleForm';
+import BackLink from '../components/BackLink';
+import { Stack } from '@mui/material';
+import theme from '../styles/theme';
 
 const AdminModulesPage = () => {
   const { courseWithModules } = useLoaderData();
@@ -24,15 +27,18 @@ const AdminModulesPage = () => {
   );
 
   return (
-    <AdminCrudPage<IModule>
-      items={modules}
-      emptyItem={EMPTY_MODULE}
-      title={courseName}
-      subTitle="Hantera moduler"
-      buttonLabel="Skapa ny modul"
-      FormComponent={FormComponent}
-      TableComponent={TableComponent}
-    />
+    <Stack spacing={theme.layout.gapLarge}>
+      <BackLink name="Hantera kurser" />
+      <AdminCrudPage<IModule>
+        items={modules}
+        emptyItem={EMPTY_MODULE}
+        title={courseName}
+        subTitle="Hantera moduler"
+        buttonLabel="Skapa ny modul"
+        FormComponent={FormComponent}
+        TableComponent={TableComponent}
+      />
+    </Stack>
   );
 };
 export default AdminModulesPage;

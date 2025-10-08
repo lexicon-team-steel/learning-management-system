@@ -2,7 +2,6 @@ import { createBrowserRouter, Navigate } from 'react-router';
 import Layout from '../pages/Layout';
 import { requireAuthLoader } from '../utilities/loaders/requireAuthLoader';
 import DashboardPage from '../pages/DashboardPage';
-import Sandbox from '../pages/Sandbox';
 import LoginPage from '../pages/LoginPage';
 import { dashboardLoader } from '../utilities/loaders/dashboardLoader';
 import CoursePage from '../pages/CoursePage';
@@ -21,6 +20,7 @@ import { adminActivitiesLoader } from '../utilities/loaders/adminActivitiesLoade
 import AdminActivitiesPage from '../pages/AdminActivitiesPage';
 import AdminModulesPage from '../pages/AdminModulesPage';
 import { adminModulesLoader } from '../utilities/loaders/adminModulesLoader';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { adminModulesAction } from '../utilities/actions/adminModulesAction';
 import AdminParticipantsPage from '../pages/AdminParticipantsPage';
 import { adminParticipantsLoader } from '../utilities/loaders/adminParticipantsLoader';
@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     loader: requireAuthLoader,
-    hydrateFallbackElement: <Sandbox />,
+    hydrateFallbackElement: <LoadingSpinner />,
     children: [
       {
         index: true,
@@ -47,13 +47,13 @@ export const router = createBrowserRouter([
         element: <CoursePage />,
         loader: courseLoader,
         children: [],
-        errorElement: <NotFoundPage />, //Remove when ErrorPage is implemented
+        errorElement: <NotFoundPage />,
       },
       {
         path: 'courses/:courseId/modules/:moduleId',
         element: <ModulePage />,
         loader: moduleLoader,
-        errorElement: <NotFoundPage />, //Remove when ErrorPage is implemented
+        errorElement: <NotFoundPage />,
       },
       {
         path: 'admin/users',
@@ -78,11 +78,13 @@ export const router = createBrowserRouter([
         element: <AdminModulesPage />,
         loader: adminModulesLoader,
         action: adminModulesAction,
+        errorElement: <NotFoundPage />,
       },
       {
         path: 'admin/courses/:courseId/modules/:moduleId',
         element: <AdminActivitiesPage />,
         loader: adminActivitiesLoader,
+        errorElement: <NotFoundPage />,
       },
       /* ---- Add new routes above this comment for a neater structure ---- */
       { path: 'notauthorized', element: <NotAuthorizedPage /> },
