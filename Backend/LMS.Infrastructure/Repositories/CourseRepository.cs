@@ -54,5 +54,7 @@ public class CourseRepository(ApplicationDbContext context)
     public async Task<Course?> GetCourseWithParticipantsAsync(Guid courseId) =>
         await FindAll()
             .Include(c => c.Users)
+                .ThenInclude(u => u.UserRoles)
+                    .ThenInclude(ur => ur.Role)
             .FirstOrDefaultAsync(c => c.Id == courseId);
 }
