@@ -3,7 +3,7 @@ import { Chip, FormControl, Grid, InputLabel, MenuItem, Select, Stack, Typograph
 import theme from '../styles/theme';
 import AdminPageForm from './AdminPageForm';
 import { IParticipant } from '../utilities/types';
-import { userChipColor, userFullName } from '../utilities/helpers';
+import { translateRole, userChipColor, userFullName } from '../utilities/helpers';
 
 interface IParticipantFormProps {
   onCancel: () => void;
@@ -29,7 +29,12 @@ const ParticipantForm = ({ onCancel, users }: IParticipantFormProps): ReactEleme
               {users.map((user) => (
                 <MenuItem key={user.id} value={user.id}>
                   <Stack gap={theme.layout.gap} direction={'row'} alignItems={'center'}>
-                    <Chip label={user.roles[0][0]} color={userChipColor(user)} variant="outlined" size="small" />
+                    <Chip
+                      label={translateRole(user.roles[0])[0]}
+                      color={userChipColor(user)}
+                      variant="outlined"
+                      size="small"
+                    />
                     {userFullName(user)}
                     <Typography color="text.secondary" fontSize="10px" textTransform="lowercase">
                       {user.email}

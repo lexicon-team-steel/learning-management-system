@@ -4,7 +4,7 @@ import { IParticipant } from '../utilities/types';
 import EmailLink from './EmailLink';
 import theme from '../styles/theme';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import { userChipColor, userFullName } from '../utilities/helpers';
+import { translateRole, userChipColor, userFullName } from '../utilities/helpers';
 
 interface IParticipantItem {
   participant: IParticipant;
@@ -18,7 +18,7 @@ const ParticipantTableRow = ({ participant, onDelete }: IParticipantItem): React
         <EmailLink email={participant.email} />
       </TableCell>
       <TableCell>
-        <Chip label={participant.roles[0]} color={userChipColor(participant)} />
+        <Chip label={translateRole(participant.roles[0])} color={userChipColor(participant)} />
       </TableCell>
       <TableCell align="right" sx={{ paddingX: theme.spacing(1) }}>
         <IconButton onClick={onDelete} aria-label="delete">
