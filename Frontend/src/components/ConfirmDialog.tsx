@@ -1,9 +1,9 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { ReactElement } from 'react';
 import { Entity } from '../utilities/types';
-import { capitalize, translateEntity } from '../utilities/helpers';
 import theme from '../styles/theme';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { translateEntity } from '../utilities/helpers';
 
 interface IConfirmDialog {
   open: boolean;
@@ -13,7 +13,7 @@ interface IConfirmDialog {
 }
 
 const ConfirmDialog = ({ open, entity, onClose, onConfirm }: IConfirmDialog): ReactElement => {
-  const entitySv = capitalize(translateEntity[entity]) || entity;
+  const entitySv = translateEntity[entity] || entity;
 
   return (
     <>
