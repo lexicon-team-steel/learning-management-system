@@ -47,6 +47,20 @@ public class AdminCoursesController(IServiceManager serviceManager) : Controller
     public async Task<ActionResult<CourseDto>> GetCourseWithParticipants(Guid courseId) =>
     Ok(await courseService.GetCourseWithParticipantsAsync(courseId));
 
+    [HttpDelete("{courseId}/participants/{participantId}")]
+    [SwaggerOperation(
+        Summary = "Delete participant from a  course",
+        Description = "Deletes participant from a course. Only teachers can perform this action.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Participant deleted successfully")]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized")]
+    [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - only teachers can delete participants")]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "Course not found")]
+    public async Task<IActionResult> DeleteCourseParticipant(Guid courseId, string participantId)
+    {
+        await courseService.DeleteParticipantAsync(courseId, participantId);
+        return Ok(new { success = true });
+    }
+
     [HttpPost]
     [SwaggerOperation(
             Summary = "Create a new course",
@@ -107,7 +121,6 @@ public class AdminCoursesController(IServiceManager serviceManager) : Controller
         var updatedModule = await moduleService.UpdateAsync(courseId, moduleId, dto);
         return Ok(updatedModule);
     }
-
 
     [HttpDelete("{courseId}")]
     [SwaggerOperation(
