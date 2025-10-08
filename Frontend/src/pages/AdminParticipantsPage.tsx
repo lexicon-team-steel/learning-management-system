@@ -5,6 +5,9 @@ import { IAdminParticipantsLoader, IForm, IParticipant, ITable } from '../utilit
 import ParticipantsTable from '../components/ParticipantTable';
 import { useLoaderData } from 'react-router';
 import ParticipantForm from '../components/ParticipantForm';
+import { Stack } from '@mui/material';
+import theme from '../styles/theme';
+import BackLink from '../components/BackLink';
 
 const AdminParticipantsPage = () => {
   const { courseWithParticipants, pagedResult } = useLoaderData<IAdminParticipantsLoader>();
@@ -22,15 +25,18 @@ const AdminParticipantsPage = () => {
   );
 
   return (
-    <AdminCrudPage<IParticipant>
-      items={participants}
-      emptyItem={EMPTY_PARTICIPANT}
-      title={courseName}
-      subTitle="Hantera deltagare"
-      buttonLabel="Lägg till"
-      FormComponent={FormComponent}
-      TableComponent={TableComponent}
-    />
+    <Stack spacing={theme.layout.gapLarge}>
+      <BackLink name="Hantera kurser" />
+      <AdminCrudPage<IParticipant>
+        items={participants}
+        emptyItem={EMPTY_PARTICIPANT}
+        title={courseName}
+        subTitle="Hantera deltagare"
+        buttonLabel="Lägg till"
+        FormComponent={FormComponent}
+        TableComponent={TableComponent}
+      />
+    </Stack>
   );
 };
 export default AdminParticipantsPage;
