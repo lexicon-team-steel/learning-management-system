@@ -16,42 +16,50 @@ public class ActivitySeeder(ApplicationDbContext context)
 
         var modules = await context.CourseModules.ToListAsync(cancellationToken);
         var types = await context.ActivityTypes.ToListAsync(cancellationToken);
-
-        var faker = new Faker();
+        var faker = new Faker("sv");
 
         var activities = new List<Activity>();
 
         foreach (var module in modules)
         {
-            var moduleStart = module.StartDate;
-            var moduleEnd = module.EndDate;
+            var moduleStartDate = module.StartDate.Date;
+            var moduleEndDate = module.EndDate.Date;
 
-            var currentStart = moduleStart;
+            var currentDate = moduleStartDate;
 
-            for (int i = 0; i < countPerModule; i++)
+            while (currentDate <= moduleEndDate)
             {
-                var duration = TimeSpan.FromHours(faker.Random.Int(1, 3));
-                var activityEnd = currentStart + duration;
+                var activitiesToday = faker.Random.Int(0, 1);
+                var currentTime = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, 8, 0, 0);
 
-                if (activityEnd > moduleEnd)
-                    break;
-
-                var activity = new Activity
+                for (int i = 0; i < activitiesToday; i++)
                 {
-                    Name = faker.Commerce.ProductName(),
-                    Description = faker.Lorem.Sentence(),
-                    StartDate = currentStart,
-                    EndDate = activityEnd,
-                    CourseModuleId = module.Id,
-                    ActivityType = faker.PickRandom(types)
-                };
+                    var duration = TimeSpan.FromHours(faker.Random.Int(1, 3));
+                    var endTime = currentTime.Add(duration);
 
-                activities.Add(activity);
+                    if (endTime.Hour >= 17)
+                        break;
 
-                currentStart = activityEnd.AddHours(faker.Random.Int(0, 2));
+                    var activity = new Activity
+                    {
+                        Name = faker.Commerce.ProductName(),
+                        Description = faker.Lorem.Sentence(),
+                        StartDate = currentTime,
+                        EndDate = endTime,
+                        CourseModuleId = module.Id,
+                        ActivityType = faker.PickRandom(types)
+                    };
 
-                if (currentStart >= moduleEnd)
-                    break;
+                    activities.Add(activity);
+
+                    // Nästa aktivitet börjar efter 15–60 minuters paus
+                    currentTime = endTime.AddMinutes(faker.Random.Int(15, 60));
+
+                    if (currentTime.Hour >= 17)
+                        break;
+                }
+
+                currentDate = currentDate.AddDays(1);
             }
         }
 
