@@ -4,6 +4,7 @@ import { IParticipant } from '../utilities/types';
 import EmailLink from './EmailLink';
 import theme from '../styles/theme';
 import ActionButtons from './ActionButtons';
+import { translateRole } from '../utilities/helpers';
 
 interface IUserItem {
   user: IParticipant;
@@ -22,7 +23,7 @@ const UserTableRow = ({ user, onEdit, onDelete }: IUserItem): ReactElement => {
         <EmailLink email={user.email} />
       </TableCell>
       <TableCell>
-        <Chip label={userRole} color={chipColor} />
+        <Chip label={translateRole(userRole)} color={chipColor} />
       </TableCell>
       <TableCell align="right" sx={{ paddingX: theme.spacing(1) }}>
         <ActionButtons onEdit={onEdit} onDelete={onDelete} />

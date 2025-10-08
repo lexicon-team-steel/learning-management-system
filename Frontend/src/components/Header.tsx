@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { AppBar, Box, Button, Chip, Container, Toolbar, Typography, styled } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import colors from '../styles/colors';
+import { translateRole } from '../utilities/helpers';
 
 const HeaderBox = styled(Box)(() => ({
   flexGrow: 1,
@@ -39,7 +40,7 @@ const Header = (): ReactElement => {
         <Toolbar disableGutters>
           <HeaderBox>
             <StyledTypography>{user.fullName}</StyledTypography>
-            <StyledChip label={user.role} />
+            <StyledChip label={translateRole(user.role)} />
             <StyledButton onClick={handleOnLogout} startIcon={<LogoutIcon />}>
               Logga ut
             </StyledButton>
