@@ -8,11 +8,17 @@ export const adminUsersLoader = async ({ request }: LoaderFunctionArgs): Promise
   requireTeacherRole();
 
   const url = new URL(request.url);
-  const pageIndex = Number(url.searchParams.get('pageIndex')) || 1;
-  const pageSize = Number(url.searchParams.get('pageSize')) || 5;
+  const name = url.searchParams.get('name') ?? '';
+  const role = url.searchParams.get('role') ?? '';
+  const pageIndex = url.searchParams.get('pageIndex') ?? '';
+  const pageSize = url.searchParams.get('pageSize') ?? '';
 
-  const response = (await fetchWithToken(
-    `${BASE_URL}/admin/users?pageIndex=${pageIndex}&pageSize=${pageSize}`
-  )) as IPagedLoader<IParticipant>;
+  const query = new URLSearchParams();
+  if (name) query.append('name', name);
+  if (role) query.append('role', role);
+  if (pageIndex) query.append('pageIndex', pageIndex);
+  if (pageSize) query.append('pageSize', pageSize);
+
+  const response = (await fetchWithToken(`${BASE_URL}/admin/users?${query.toString()}`)) as IPagedLoader<IParticipant>;
   return { ...response };
 };
