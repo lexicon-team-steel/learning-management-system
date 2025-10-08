@@ -1,10 +1,10 @@
 import { adminEntityAction } from './adminEntityAction';
 import { BASE_URL } from '../constants';
-import { validateFields } from './helpers/validationHelpers';
+import { validateNameDescriptionAndDates } from './helpers/validationHelpers';
 
 export const adminCoursesAction = adminEntityAction({
   entity: 'course',
-  validate: validateFields,
+  validate: validateNameDescriptionAndDates,
   apiURL: `${BASE_URL}/admin/courses`,
   redirectURL: '/admin/courses',
 });
