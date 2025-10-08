@@ -1,12 +1,18 @@
+import { LoaderFunctionArgs } from 'react-router';
 import { fetchWithToken } from '../api/fetchWithToken';
 import { BASE_URL } from '../constants';
 import { requireTeacherRole } from '../helpers';
-import { IAdminUsersLoader } from '../types';
+import { IPagedLoader, IParticipant } from '../types';
 
-export const adminUsersLoader = async (): Promise<IAdminUsersLoader> => {
+export const adminUsersLoader = async ({ request }: LoaderFunctionArgs): Promise<IPagedLoader<IParticipant>> => {
   requireTeacherRole();
 
-  return {
-    users: await fetchWithToken(`${BASE_URL}/admin/users`),
-  };
+  const url = new URL(request.url);
+  const pageIndex = Number(url.searchParams.get('pageIndex')) || 1;
+  const pageSize = Number(url.searchParams.get('pageSize')) || 5;
+
+  const response = (await fetchWithToken(
+    `${BASE_URL}/admin/users?pageIndex=${pageIndex}&pageSize=${pageSize}`
+  )) as IPagedLoader<IParticipant>;
+  return { ...response };
 };
