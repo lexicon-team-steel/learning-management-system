@@ -82,6 +82,10 @@ public class ModuleService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
             throw new NotFoundException("Course not found");
 
         var overlapping = course.Modules.Any(m => startDate < m.EndDate && endDate > m.StartDate);
+
+        if (existingModuleId.HasValue)
+            overlapping = course.Modules.Where(m => m.Id != existingModuleId.Value).Any(m => startDate < m.EndDate && endDate > m.StartDate);
+
         if (overlapping)
             throw new ConflictException("Module dates overlap with an existing module in this course");
     }
