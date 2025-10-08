@@ -85,6 +85,7 @@ export interface ICourse {
   startDate: string;
   endDate: string;
   modules?: IModule[];
+  participants?: IParticipant[];
 }
 
 export interface IModulesLoader {
@@ -123,6 +124,10 @@ export interface IAdminActivitiesLoader {
 
 export interface IAdminModulesLoader {
   courseWithModules: ICourse;
+}
+
+export interface IAdminParticipantsLoader {
+  courseWithParticipants: ICourse;
 }
 
 export interface IPagedLoader<T> {

@@ -23,6 +23,7 @@ import AdminModulesPage from '../pages/AdminModulesPage';
 import { adminModulesLoader } from '../utilities/loaders/adminModulesLoader';
 import { adminModulesAction } from '../utilities/actions/adminModulesAction';
 import AdminParticipantsPage from '../pages/AdminParticipantsPage';
+import { adminParticipantsLoader } from '../utilities/loaders/adminParticipantsLoader';
 
 export const router = createBrowserRouter([
   {
@@ -68,7 +69,7 @@ export const router = createBrowserRouter([
       {
         path: 'admin/courses/:courseId/participants',
         element: <AdminParticipantsPage />,
-        // loader: adminModulesLoader,
+        loader: adminParticipantsLoader,
         // action: adminModulesAction,
       },
       {
