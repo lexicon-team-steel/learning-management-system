@@ -1,7 +1,7 @@
 /* === type === */
 
 export type UserRole = 'Teacher' | 'Student' | 'Guest';
-export type Entity = 'activity' | 'module' | 'course' | 'user';
+export type Entity = 'activity' | 'module' | 'course' | 'user' | 'participant';
 export type Action = 'create' | 'update' | 'delete';
 export type Status = 'success' | 'error';
 

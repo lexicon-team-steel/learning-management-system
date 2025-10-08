@@ -24,6 +24,7 @@ import { adminModulesLoader } from '../utilities/loaders/adminModulesLoader';
 import { adminModulesAction } from '../utilities/actions/adminModulesAction';
 import AdminParticipantsPage from '../pages/AdminParticipantsPage';
 import { adminParticipantsLoader } from '../utilities/loaders/adminParticipantsLoader';
+import { adminParticipantsAction } from '../utilities/actions/adminParticipantsAction';
 
 export const router = createBrowserRouter([
   {
@@ -70,7 +71,7 @@ export const router = createBrowserRouter([
         path: 'admin/courses/:courseId/participants',
         element: <AdminParticipantsPage />,
         loader: adminParticipantsLoader,
-        // action: adminModulesAction,
+        action: adminParticipantsAction,
       },
       {
         path: 'admin/courses/:courseId/modules',
