@@ -42,6 +42,14 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
         return mapper.Map<CourseDto>(course);
     }
 
+    public async Task<CourseDto> GetCourseWithParticipantsAsync(Guid courseId)
+    {
+        var course = await uow.Courses.GetCourseWithParticipantsAsync(courseId);
+        if (course == null) throw new NotFoundException("Course not found");
+
+        return mapper.Map<CourseDto>(course);
+    }
+
     public async Task<IEnumerable<UserDto>> GetCourseParticipantsAsync(Guid courseId, string? role)
     {
         var userId = GetUserId();
