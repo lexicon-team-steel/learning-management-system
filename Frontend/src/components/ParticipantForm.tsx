@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Chip, FormControl, Grid, InputLabel, MenuItem, Select, Stack } from '@mui/material';
+import { Chip, FormControl, Grid, InputLabel, MenuItem, Select, Stack, Typography } from '@mui/material';
 import theme from '../styles/theme';
 import AdminPageForm from './AdminPageForm';
 import { IParticipant, UserRole } from '../utilities/types';
@@ -31,6 +31,9 @@ const ParticipantForm = ({ onCancel, users }: IParticipantFormProps): ReactEleme
                   <Stack gap={theme.layout.gap} direction={'row'} alignItems={'center'}>
                     <Chip label={user.roles[0][0]} color={userChipColor(user)} variant="outlined" size="small" />
                     {userFullName(user)}
+                    <Typography color="text.secondary" fontSize="10px" textTransform="lowercase">
+                      {user.email}
+                    </Typography>
                   </Stack>
                 </MenuItem>
               ))}
