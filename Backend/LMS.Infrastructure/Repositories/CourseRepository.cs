@@ -31,7 +31,7 @@ public class CourseRepository(ApplicationDbContext context)
 
         return users
             .Include(u => u.UserRoles)
-            .ThenInclude(ur => ur.Role)
+                .ThenInclude(ur => ur.Role)
             .ToListAsync();
     }
 
@@ -51,10 +51,21 @@ public class CourseRepository(ApplicationDbContext context)
             .FirstOrDefaultAsync(c => c.Id == courseId);
     }
 
-    public async Task<Course?> GetCourseWithParticipantsAsync(Guid courseId, bool trackChanges = false) =>
-        await FindAll(trackChanges)
+    public async Task<Course?> GetCourseWithParticipantsAsync(Guid courseId, bool trackChanges = false)
+    {
+        var course = await FindAll(trackChanges)
             .Include(c => c.Users)
                 .ThenInclude(u => u.UserRoles)
                     .ThenInclude(ur => ur.Role)
             .FirstOrDefaultAsync(c => c.Id == courseId);
+
+        if (course != null)
+        {
+            course.Users = course.Users
+                .OrderBy(u => u.FirstName)
+                    .ThenBy(u => u.LastName)
+                .ToList();
+        }
+        return course;
+    }
 }

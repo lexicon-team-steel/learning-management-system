@@ -37,7 +37,12 @@ public class UserRepository(ApplicationDbContext context) : RepositoryBase<Appli
                 (u.UserRoles.Any(r => r.Role.Name == "Student") && !u.Courses.Any())
             );
 
-        users = users.Include(u => u.UserRoles).ThenInclude(ur => ur.Role);
+        users = users
+            .Include(u => u.UserRoles)
+                .ThenInclude(ur => ur.Role)
+            .OrderBy(u => u.FirstName)
+                .ThenBy(u => u.LastName);
+
         return await users.ToPagedResultAsync(userParams.PageSize, userParams.PageIndex);
     }
 
