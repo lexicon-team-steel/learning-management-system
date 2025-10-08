@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { Chip, FormControl, Grid, InputLabel, MenuItem, Select, Stack, Typography } from '@mui/material';
 import theme from '../styles/theme';
 import AdminPageForm from './AdminPageForm';
-import { IParticipant, UserRole } from '../utilities/types';
+import { IParticipant } from '../utilities/types';
 import { userChipColor, userFullName } from '../utilities/helpers';
 
 interface IParticipantFormProps {
