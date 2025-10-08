@@ -4,11 +4,12 @@ using Domain.Models.Entities;
 using Domain.Models.Exceptions;
 using LMS.Shared.DTOs.CourseDtos;
 using LMS.Shared.DTOs.UserDtos;
+using Microsoft.AspNetCore.Identity;
 using Service.Contracts;
 
 namespace LMS.Services;
 
-public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService currentUser) : ICourseService
+public class CourseService(IMapper mapper, IUnitOfWork uow, UserManager<ApplicationUser> userManager, ICurrentUserService currentUser) : ICourseService
 {
     public async Task<IEnumerable<CourseDto>> GetAllCoursesAsync()
     {
@@ -109,6 +110,21 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
             ?? throw new NotFoundException("User not found");
 
         course.Users.Remove(userInCourse);
+        await uow.CompleteAsync();
+    }
+
+    public async Task AddParticipantToCourseAsync(Guid courseId, CreateCourseParticipantDto dto)
+    {
+        var user = await userManager.FindByIdAsync(dto.ParticipantId)
+            ?? throw new NotFoundException("User not found");
+
+        var course = await uow.Courses.GetCourseWithParticipantsAsync(courseId, true)
+            ?? throw new NotFoundException("Course not found");
+
+        if (course.Users.Any(u => u.Id == dto.ParticipantId))
+            throw new ConflictException("User already in the course");
+
+        course.Users.Add(user);
         await uow.CompleteAsync();
     }
 

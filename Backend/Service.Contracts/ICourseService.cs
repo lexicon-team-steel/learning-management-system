@@ -15,4 +15,5 @@ public interface ICourseService
     public Task<CourseDto> UpdateAsync(Guid courseId, UpdateCourseDto dto);
     public Task DeleteAsync(Guid courseId);
     public Task DeleteParticipantAsync(Guid courseId, string participantId);
+    public Task AddParticipantToCourseAsync(Guid courseId, CreateCourseParticipantDto dto);
 }
