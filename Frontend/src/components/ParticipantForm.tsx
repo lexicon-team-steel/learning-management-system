@@ -18,8 +18,13 @@ const ParticipantForm = ({ onCancel, users }: IParticipantFormProps): ReactEleme
         <Grid size={12}>
           <FormControl fullWidth size="small">
             <InputLabel id="participant-label">Användare</InputLabel>
-            <Select labelId="role-label" id="role-select" label="Deltagare" name="participantId" defaultValue="">
-              <MenuItem value="">- Välj -</MenuItem>
+            <Select
+              labelId="role-label"
+              id="role-select"
+              label="Deltagare"
+              name="participantId"
+              defaultValue={users[0]?.id}
+            >
               {users.map((user) => (
                 <MenuItem key={user.id} value={user.id}>{`${user.firstName} ${user.lastName}`}</MenuItem>
               ))}
