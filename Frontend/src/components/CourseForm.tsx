@@ -58,6 +58,7 @@ const CourseForm = ({ onCancel, course, errors }: ICourseFormProps): ReactElemen
             <DatePicker
               label="Slutdatum *"
               value={endDate}
+              minDate={startDate || undefined}
               onChange={(date) => setEndDate(date)}
               format="DD/MM/YYYY"
               disablePast

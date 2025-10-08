@@ -59,6 +59,7 @@ const ModuleForm = ({ onCancel, module, errors }: IModuleFormProps): ReactElemen
             <DatePicker
               label="Slutdatum *"
               value={endDate}
+              minDate={startDate || undefined}
               onChange={(date) => setEndDate(date)}
               format="DD/MM/YYYY"
               slotProps={{
