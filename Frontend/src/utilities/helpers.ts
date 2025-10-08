@@ -1,6 +1,7 @@
 import { redirect } from 'react-router';
 import { getTokens } from './token';
 import decodeToken from './token/decodeToken';
+import { Entity } from './types';
 
 export const formatDate = (date: string) => {
   const dateFromString = new Date(date);
@@ -48,3 +49,13 @@ export const scrollTop = () =>
     top: 0,
     behavior: 'smooth',
   });
+
+export const translateEntity: Record<Entity, string> = {
+  activity: 'aktiviteten',
+  user: 'användaren',
+  course: 'kursen',
+  module: 'modulen',
+};
+export const capitalize = (word: string): string => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+};

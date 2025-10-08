@@ -45,6 +45,7 @@ public class AdminCoursesController(IServiceManager serviceManager) : Controller
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Validation failed (e.g. endDate < startDate)")]
     [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
     [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - only teachers can create courses")]
+    [SwaggerResponse(StatusCodes.Status409Conflict, "A course with the same name already exists")]
     public async Task<ActionResult<CourseDto>> CreateCourse([FromBody] CreateCourseDto dto)
     {
         var course = await courseService.CreateAsync(dto);
@@ -65,6 +66,65 @@ public class AdminCoursesController(IServiceManager serviceManager) : Controller
         var module = await moduleService.CreateModuleAsync(courseId, dto);
 
         return CreatedAtAction(nameof(CreateModule), new { status = "ok" }, module);
+    }
+
+    [HttpPut("{courseId}")]
+    [SwaggerOperation(
+        Summary = "Update an existing course",
+        Description = "Allows teachers to update course details.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Course updated successfully", typeof(CourseDto))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "Validation failed")]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized")]
+    [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - only teachers can edit courses")]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "Course not found")]
+    public async Task<ActionResult<CourseDto>> UpdateCourse(Guid courseId, [FromBody] UpdateCourseDto dto)
+    {
+        var updatedCourse = await courseService.UpdateAsync(courseId, dto);
+        return Ok(updatedCourse);
+    }
+
+    [HttpPut("{courseId}/modules/{moduleId}")]
+    [SwaggerOperation(
+        Summary = "Update an existing module",
+        Description = "Allows teachers to update module details.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Module updated successfully", typeof(CourseModuleDto))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "Validation failed")]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized")]
+    [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - only teachers can edit modules")]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "Module not found")]
+    public async Task<ActionResult<CourseModuleDto>> UpdateModule(Guid courseId, Guid moduleId, [FromBody] UpdateModuleDto dto)
+    {
+        var updatedModule = await moduleService.UpdateAsync(courseId, moduleId, dto);
+        return Ok(updatedModule);
+    }
+
+
+    [HttpDelete("{courseId}")]
+    [SwaggerOperation(
+        Summary = "Delete a course",
+        Description = "Deletes a course. Only teachers can perform this action.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Course deleted successfully")]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized")]
+    [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - only teachers can delete courses")]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "Course not found")]
+    public async Task<IActionResult> DeleteCourse(Guid courseId)
+    {
+        await courseService.DeleteAsync(courseId);
+        return Ok(new { success = true });
+    }
+
+    [HttpDelete("{courseId}/modules/{moduleId}")]
+    [SwaggerOperation(
+        Summary = "Delete a module",
+        Description = "Deletes a module. Only teachers can perform this action.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Module deleted successfully")]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized")]
+    [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - only teachers can delete modules")]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "Module not found")]
+    public async Task<IActionResult> DeleteModule(Guid courseId, Guid moduleId)
+    {
+        await moduleService.DeleteAsync(courseId, moduleId);
+        return Ok(new { success = true });
     }
 
 }

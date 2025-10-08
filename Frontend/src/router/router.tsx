@@ -21,6 +21,7 @@ import AdminActivitiesPage from '../pages/AdminActivitiesPage';
 import AdminModulesPage from '../pages/AdminModulesPage';
 import { adminModulesLoader } from '../utilities/loaders/adminModulesLoader';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { adminModulesAction } from '../utilities/actions/adminModulesAction';
 
 export const router = createBrowserRouter([
   {
@@ -66,10 +67,8 @@ export const router = createBrowserRouter([
       {
         path: 'admin/courses/:courseId',
         element: <AdminModulesPage />,
-        loader: async (args) => {
-          const courseId = args.params.courseId ?? '';
-          return adminModulesLoader(courseId);
-        },
+        loader: adminModulesLoader,
+        action: adminModulesAction,
       },
       {
         path: 'admin/courses/:courseId/modules/:moduleId',
