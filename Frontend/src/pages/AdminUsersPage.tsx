@@ -11,7 +11,6 @@ import theme from '../styles/theme';
 import { usePagination } from '../utilities/hooks/usePagination';
 import UserFilter from '../components/UserFilter';
 import { useUserFilter } from '../utilities/hooks/useUserFilter';
-
 const AdminUsersPage = (): ReactElement => {
   const { items, details } = useLoaderData<IPagedLoader<IParticipant>>();
   const { currentPage, setPage } = usePagination();

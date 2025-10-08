@@ -5,6 +5,7 @@ import theme from '../styles/theme';
 
 import AdminPageForm from './AdminPageForm';
 import TextInput from './TextInput';
+import { translateRole } from '../utilities/helpers';
 interface IUserFormProps {
   onCancel: () => void;
   user: IParticipant;
@@ -24,7 +25,7 @@ const UserForm = ({ onCancel, user, errors }: IUserFormProps): ReactElement => {
         <Grid size={12}>
           <RadioGroup row name="role" defaultValue={user.roles[0]}>
             <FormControlLabel value="Student" control={<Radio />} label="Student" />
-            <FormControlLabel value="Teacher" control={<Radio />} label="Teacher" />
+            <FormControlLabel value="Teacher" control={<Radio />} label={translateRole('Teacher')} />
           </RadioGroup>
         </Grid>
         <Grid size={6}>
