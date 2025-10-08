@@ -1,5 +1,5 @@
 import { ReactElement, useCallback } from 'react';
-import { Navigate, useLoaderData, useNavigate } from 'react-router';
+import { useLoaderData } from 'react-router';
 import { IForm, IPagedLoader, IParticipant, ITable } from '../utilities/types';
 
 import UserTable from '../components/UserTable';
@@ -10,27 +10,12 @@ import { Pagination, Stack } from '@mui/material';
 import theme from '../styles/theme';
 import { usePagination } from '../utilities/hooks/usePagination';
 import UserFilter from '../components/UserFilter';
+import { useUserFilter } from '../utilities/hooks/useUserFilter';
 
 const AdminUsersPage = (): ReactElement => {
   const { items, details } = useLoaderData<IPagedLoader<IParticipant>>();
   const { currentPage, setPage } = usePagination();
-  const navigate = useNavigate();
-
-  const url = new URL(window.location.href);
-  const initialName = url.searchParams.get('name') ?? '';
-  const initialRole = url.searchParams.get('role') ?? '';
-
-  const handleFilterSubmit = useCallback(
-    (name?: string, role?: string) => {
-      const params = new URLSearchParams();
-      if (name) params.append('name', name);
-      if (role) params.append('role', role);
-      params.append('page', currentPage.toString());
-
-      navigate({ search: params.toString() });
-    },
-    [currentPage, navigate]
-  );
+  const { name, role, applyFilter } = useUserFilter();
 
   const FormComponent = useCallback(
     ({ item, onCancel, errors }: IForm<IParticipant>) => <UserForm user={item} onCancel={onCancel} errors={errors} />,
@@ -40,11 +25,11 @@ const AdminUsersPage = (): ReactElement => {
   const TableComponent = useCallback(
     ({ items, onEdit, onDelete }: ITable<IParticipant>) => (
       <>
-        <UserFilter initName={initialName} initRole={initialRole} onSubmit={handleFilterSubmit} />
+        <UserFilter initName={name} initRole={role} onSubmit={applyFilter} />
         <UserTable users={items} onEdit={onEdit} onDelete={onDelete} />
       </>
     ),
-    [initialName, initialRole, handleFilterSubmit]
+    [name, role, applyFilter]
   );
 
   return (
@@ -57,14 +42,16 @@ const AdminUsersPage = (): ReactElement => {
         FormComponent={FormComponent}
         TableComponent={TableComponent}
       />
-      <Pagination
-        sx={{ marginX: 'auto' }}
-        count={details.totalPages}
-        page={currentPage}
-        onChange={(_, index) => setPage(index)}
-        color="primary"
-        size="small"
-      />
+      {details.totalPages > 1 && (
+        <Pagination
+          sx={{ marginX: 'auto' }}
+          count={details.totalPages}
+          page={currentPage}
+          onChange={(_, index) => setPage(index)}
+          color="primary"
+          size="small"
+        />
+      )}
     </Stack>
   );
 };
