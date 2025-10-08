@@ -100,6 +100,18 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
         await uow.CompleteAsync();
     }
 
+    public async Task DeleteParticipantAsync(Guid courseId, string participantId)
+    {
+        var course = await uow.Courses.GetCourseWithParticipantsAsync(courseId, true)
+            ?? throw new NotFoundException("Course not found");
+
+        var userInCourse = course.Users.FirstOrDefault(u => u.Id == participantId)
+            ?? throw new NotFoundException("User not found");
+
+        course.Users.Remove(userInCourse);
+        await uow.CompleteAsync();
+    }
+
 
     private async Task ValidateCourseAsync(string name, DateTime startDate, DateTime endDate, Guid? existingCourseId = null)
     {
