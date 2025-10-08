@@ -4,24 +4,21 @@ import { IParticipant } from '../utilities/types';
 import EmailLink from './EmailLink';
 import theme from '../styles/theme';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import { userChipColor, userFullName } from '../utilities/helpers';
 
 interface IParticipantItem {
   participant: IParticipant;
   onDelete: () => void;
 }
 const ParticipantTableRow = ({ participant, onDelete }: IParticipantItem): ReactElement => {
-  const userName = `${participant.firstName} ${participant.lastName}`;
-  const userRole = participant.roles[0];
-  const chipColor = userRole === 'Student' ? 'primary' : 'secondary';
-
   return (
     <TableRow>
-      <TableCell>{userName}</TableCell>
+      <TableCell>{userFullName(participant)}</TableCell>
       <TableCell>
         <EmailLink email={participant.email} />
       </TableCell>
       <TableCell>
-        <Chip label={userRole} color={chipColor} />
+        <Chip label={participant.roles[0]} color={userChipColor(participant)} />
       </TableCell>
       <TableCell align="right" sx={{ paddingX: theme.spacing(1) }}>
         <IconButton onClick={onDelete} aria-label="delete">

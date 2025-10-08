@@ -1,8 +1,9 @@
 import { ReactElement } from 'react';
-import { FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material';
+import { Chip, FormControl, Grid, InputLabel, MenuItem, Select, Stack } from '@mui/material';
 import theme from '../styles/theme';
 import AdminPageForm from './AdminPageForm';
-import { IParticipant } from '../utilities/types';
+import { IParticipant, UserRole } from '../utilities/types';
+import { userChipColor, userFullName } from '../utilities/helpers';
 
 interface IParticipantFormProps {
   onCancel: () => void;
@@ -26,7 +27,12 @@ const ParticipantForm = ({ onCancel, users }: IParticipantFormProps): ReactEleme
               defaultValue={users[0]?.id}
             >
               {users.map((user) => (
-                <MenuItem key={user.id} value={user.id}>{`${user.firstName} ${user.lastName}`}</MenuItem>
+                <MenuItem key={user.id} value={user.id}>
+                  <Stack gap={theme.layout.gap} direction={'row'} alignItems={'center'}>
+                    <Chip label={user.roles[0][0]} color={userChipColor(user)} variant="outlined" size="small" />
+                    {userFullName(user)}
+                  </Stack>
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
