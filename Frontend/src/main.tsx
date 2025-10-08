@@ -1,4 +1,4 @@
-import './styles/index.css';
+import './styles/base.css';
 
 import { createRoot } from 'react-dom/client';
 import { router } from './router';
