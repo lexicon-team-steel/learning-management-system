@@ -1,11 +1,11 @@
 import { ReactElement } from 'react';
 import Table from './Table';
-import { IParticipant } from '../utilities/types';
+import { Entity, IParticipant } from '../utilities/types';
 import ParticipantTableRow from './ParticipantTableRow';
 
 interface IParticipantsTableProps {
   participants: IParticipant[];
-  onDelete: (participant: IParticipant) => void;
+  onDelete: (participant: IParticipant, entity: Entity) => void;
 }
 
 const ParticipantsTable = ({ participants, onDelete }: IParticipantsTableProps): ReactElement => (
@@ -14,7 +14,7 @@ const ParticipantsTable = ({ participants, onDelete }: IParticipantsTableProps):
     keyField="id"
     rows={participants}
     renderItem={(participant: IParticipant) => (
-      <ParticipantTableRow participant={participant} onDelete={() => onDelete(participant)} />
+      <ParticipantTableRow participant={participant} onDelete={() => onDelete(participant, 'participant')} />
     )}
   ></Table>
 );

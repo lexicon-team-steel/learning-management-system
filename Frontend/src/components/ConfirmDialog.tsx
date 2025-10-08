@@ -40,7 +40,7 @@ const ConfirmDialog = ({ open, entity, onClose, onConfirm }: IConfirmDialog): Re
             Bekräfta för att ta bort {entitySv}.
           </DialogContentText>
         </DialogContent>
-        <DialogActions sx={{ justifyContent: 'center', pb: 2 }}>
+        <DialogActions sx={{ justifyContent: 'center', pb: 3 }}>
           <Button
             variant="contained"
             sx={{
