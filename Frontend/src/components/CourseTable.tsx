@@ -16,7 +16,7 @@ const CourseTable = ({ courses, onEdit, onDelete }: ICourseTableProps): ReactEle
     rows={courses}
     sortableField="startDate"
     renderItem={(course: ICourse) => (
-      <CourseTableRow course={course} onEdit={() => onEdit(course)} onDelete={() => onDelete(course, 'module')} />
+      <CourseTableRow course={course} onEdit={() => onEdit(course)} onDelete={() => onDelete(course, 'course')} />
     )}
   ></Table>
 );
