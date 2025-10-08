@@ -1,17 +1,9 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Typography,
-} from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { ReactElement } from 'react';
 import { Entity } from '../utilities/types';
-import { capitalize, translateEntity } from '../utilities/helpers';
 import theme from '../styles/theme';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { translateEntity } from '../utilities/helpers';
 
 interface IConfirmDialog {
   open: boolean;
@@ -21,8 +13,8 @@ interface IConfirmDialog {
 }
 
 const ConfirmDialog = ({ open, entity, onClose, onConfirm }: IConfirmDialog): ReactElement => {
-  const entitySv = capitalize(translateEntity[entity]) || entity;
-  // handle Delete TODO
+  const entitySv = translateEntity[entity] || entity;
+
   return (
     <>
       <Dialog
@@ -44,8 +36,8 @@ const ConfirmDialog = ({ open, entity, onClose, onConfirm }: IConfirmDialog): Re
           Ta bort {entitySv}?
         </DialogTitle>
         <DialogContent sx={{ textAlign: 'center' }}>
-          <DialogContentText id="alert-dialog-description">
-            <Typography fontSize={'0.9rem'}>Bekräfta för att ta bort {entitySv}.</Typography>
+          <DialogContentText id="alert-dialog-description" fontSize={'0.9rem'}>
+            Bekräfta för att ta bort {entitySv}.
           </DialogContentText>
         </DialogContent>
         <DialogActions sx={{ justifyContent: 'center', pb: 2 }}>

@@ -1,12 +1,14 @@
 import { useCallback, useState } from 'react';
-import { FormErrorType } from '../types';
+import { Entity, FormErrorType } from '../types';
 import { useSubmit } from 'react-router';
+import { useConfirm } from '../context/confirm/ConfirmContext';
 
 export const useCrud = <T extends { id: string }>() => {
   const [selectedItem, setSelectedItem] = useState<T | null>(null);
   const [errors, setErrors] = useState<FormErrorType>({});
   const [formKey, setFormKey] = useState<string>(crypto.randomUUID());
   const submit = useSubmit();
+  const { confirm } = useConfirm();
 
   const handleChange = (item: T) => {
     setSelectedItem(item);
@@ -20,12 +22,14 @@ export const useCrud = <T extends { id: string }>() => {
     setFormKey(crypto.randomUUID());
   }, []);
 
-  const handleDelete = (item: T) => {
+  const handleDelete = (item: T, entity: Entity) => {
     setSelectedItem(null);
-    const confirmed = window.confirm('Är du säker på att du vill ta bort detta?');
-    if (!confirmed) return;
-
-    submit({ id: String(item.id), _action: 'delete' }, { method: 'post' });
+    confirm({
+      entity,
+      onConfirm: () => {
+        submit({ id: String(item.id), _action: 'delete' }, { method: 'post' });
+      },
+    });
   };
 
   return {
