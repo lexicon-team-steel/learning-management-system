@@ -9,10 +9,13 @@ import { EMPTY_PARTICIPANT } from '../utilities/constants';
 import { Pagination, Stack } from '@mui/material';
 import theme from '../styles/theme';
 import { usePagination } from '../utilities/hooks/usePagination';
+import UserFilter from '../components/UserFilter';
+import { useUserFilter } from '../utilities/hooks/useUserFilter';
 
 const AdminUsersPage = (): ReactElement => {
   const { items, details } = useLoaderData<IPagedLoader<IParticipant>>();
   const { currentPage, setPage } = usePagination();
+  const { name, role, applyFilter } = useUserFilter();
 
   const FormComponent = useCallback(
     ({ item, onCancel, errors }: IForm<IParticipant>) => <UserForm user={item} onCancel={onCancel} errors={errors} />,
@@ -21,9 +24,12 @@ const AdminUsersPage = (): ReactElement => {
 
   const TableComponent = useCallback(
     ({ items, onEdit, onDelete }: ITable<IParticipant>) => (
-      <UserTable users={items} onEdit={onEdit} onDelete={onDelete} />
+      <>
+        <UserFilter initName={name} initRole={role} onSubmit={applyFilter} />
+        <UserTable users={items} onEdit={onEdit} onDelete={onDelete} />
+      </>
     ),
-    []
+    [name, role, applyFilter]
   );
 
   return (
@@ -36,14 +42,16 @@ const AdminUsersPage = (): ReactElement => {
         FormComponent={FormComponent}
         TableComponent={TableComponent}
       />
-      <Pagination
-        sx={{ marginX: 'auto' }}
-        count={details.totalPages}
-        page={currentPage}
-        onChange={(_, index) => setPage(index)}
-        color="primary"
-        size="small"
-      />
+      {details.totalPages > 1 && (
+        <Pagination
+          sx={{ marginX: 'auto' }}
+          count={details.totalPages}
+          page={currentPage}
+          onChange={(_, index) => setPage(index)}
+          color="primary"
+          size="small"
+        />
+      )}
     </Stack>
   );
 };

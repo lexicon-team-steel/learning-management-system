@@ -14,6 +14,7 @@ const CourseTable = ({ courses, onEdit, onDelete }: ICourseTableProps): ReactEle
     headers={['Namn', 'Period', 'Moduler', 'Åtgärder']}
     keyField="id"
     rows={courses}
+    sortableField="startDate"
     renderItem={(course: ICourse) => (
       <CourseTableRow course={course} onEdit={() => onEdit(course)} onDelete={() => onDelete(course, 'module')} />
     )}

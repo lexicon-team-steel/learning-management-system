@@ -14,6 +14,7 @@ const ModuleTable = ({ modules, onEdit, onDelete }: IModuleTableProps): ReactEle
     headers={['Namn', 'Period', 'Aktiviteter', 'Åtgärder']}
     keyField="id"
     rows={modules}
+    sortableField="startDate"
     renderItem={(module: IModule) => (
       <ModuleTableRow module={module} onEdit={() => onEdit(module)} onDelete={() => onDelete(module)} />
     )}
