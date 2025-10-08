@@ -23,6 +23,16 @@ public class UserRepository(ApplicationDbContext context) : RepositoryBase<Appli
         if (!string.IsNullOrWhiteSpace(userParams.Role))
             users = users.Where(u => u.UserRoles.Any(u => EF.Functions.Like(u.Role.Name, userParams.Role)));
 
+        if (userParams.CourseId.HasValue)
+        {
+            users = users.Where(u => u.Courses.Any(c => c.Id == userParams.CourseId));
+        }
+
+        if (userParams.NotCourseId.HasValue)
+        {
+            users = users.Where(u => !u.Courses.Any(c => c.Id == userParams.NotCourseId));
+        }
+
         users = users.Include(u => u.UserRoles).ThenInclude(ur => ur.Role);
         return await users.ToPagedResultAsync(userParams.PageSize, userParams.PageIndex);
     }
