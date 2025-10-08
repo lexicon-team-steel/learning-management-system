@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
 import Table from './Table';
-import { IActivity } from '../utilities/types';
+import { Entity, IActivity } from '../utilities/types';
 import ActivityTableRow from './ActivityTableRow';
 
 interface IActivityTableProps {
   activities: IActivity[];
   onEdit: (user: IActivity) => void;
-  onDelete: (user: IActivity) => void;
+  onDelete: (user: IActivity, entity: Entity) => void;
 }
 
 const ActivityTable = ({ activities, onEdit, onDelete }: IActivityTableProps): ReactElement => (
@@ -16,7 +16,11 @@ const ActivityTable = ({ activities, onEdit, onDelete }: IActivityTableProps): R
     rows={activities}
     sortableField="startDate"
     renderItem={(activity: IActivity) => (
-      <ActivityTableRow activity={activity} onEdit={() => onEdit(activity)} onDelete={() => onDelete(activity)} />
+      <ActivityTableRow
+        activity={activity}
+        onEdit={() => onEdit(activity)}
+        onDelete={() => onDelete(activity, 'activity')}
+      />
     )}
   ></Table>
 );

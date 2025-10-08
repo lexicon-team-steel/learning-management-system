@@ -1,14 +1,16 @@
 import { ReactElement, useCallback } from 'react';
 import { IActivity, IAdminActivitiesLoader, IForm, ITable } from '../utilities/types';
-import { Form, useLoaderData } from 'react-router';
+import { useLoaderData } from 'react-router';
 import AdminCrudPage from '../components/AdminCrudPage';
 import ActivityTable from '../components/ActivityTable';
+import ActivityForm from '../components/ActivityForm';
 import { Stack } from '@mui/material';
 import BackLink from '../components/BackLink';
 import theme from '../styles/theme';
 
 const AdminActivitiesPage = (): ReactElement => {
   const { module, activityTypes } = useLoaderData<IAdminActivitiesLoader>();
+
   const emptyActivity: IActivity = {
     id: '',
     name: '',
@@ -18,10 +20,12 @@ const AdminActivitiesPage = (): ReactElement => {
     activityType: activityTypes[0],
   };
 
-  /**
-   * Futute Form
-   */
-  const FormComponent = useCallback(({ item }: IForm<IActivity>) => <Form>{item.name}</Form>, []);
+  const FormComponent = useCallback(
+    ({ item, onCancel, errors }: IForm<IActivity>) => (
+      <ActivityForm activity={item} onCancel={onCancel} activityTypes={activityTypes} errors={errors} />
+    ),
+    []
+  );
 
   const TableComponent = useCallback(
     ({ items, onEdit, onDelete }: ITable<IActivity>) => (

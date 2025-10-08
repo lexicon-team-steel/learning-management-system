@@ -1,4 +1,4 @@
-import './styles/index.css';
+import './styles/base.css';
 
 import { createRoot } from 'react-dom/client';
 import { router } from './router';
@@ -11,16 +11,19 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { AuthProvider } from './utilities/context/auth/AuthProvider';
 import { CoursesProvider } from './utilities/context/course/CoursesProvider';
 import { AlertProvider } from './utilities/context/alert/AlertProvider';
+import ConfirmProvider from './utilities/context/confirm/ConfirmProvider';
 
 createRoot(document.getElementById('root')!).render(
   <AuthProvider>
     <CoursesProvider>
       <ThemeProvider theme={theme}>
         <AlertProvider>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <CssBaseline />
-            <RouterProvider router={router} />
-          </LocalizationProvider>
+          <ConfirmProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <CssBaseline />
+              <RouterProvider router={router} />
+            </LocalizationProvider>
+          </ConfirmProvider>
         </AlertProvider>
       </ThemeProvider>
     </CoursesProvider>

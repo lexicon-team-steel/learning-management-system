@@ -5,7 +5,7 @@ import { Box, Grid, Typography } from '@mui/material';
 import CollapsibleList from '../components/CollapsibleList';
 import EntityCard from '../components/EntityCard';
 import ParticipantItem from '../components/ParticipantItem';
-import { formatDate } from '../utilities/helpers';
+import { formatDate, sortByDate } from '../utilities/helpers';
 import Card from '../components/Card';
 import theme from '../styles/theme';
 import LinkCard from '../components/LinkCard';
@@ -40,7 +40,8 @@ const CoursePage = (): ReactElement => {
                   if (!resolvedCourse.modules) {
                     return <Typography>Denna kurs har ännu inga moduler.</Typography>;
                   }
-                  return resolvedCourse.modules.map((module: IModule) => (
+                  const sortedModules = sortByDate(resolvedCourse.modules, 'startDate');
+                  return sortedModules.map((module: IModule) => (
                     <EntityCard
                       key={module.id}
                       title={module.name}

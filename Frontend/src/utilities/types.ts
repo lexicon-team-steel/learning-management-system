@@ -160,3 +160,8 @@ export interface ITable<T> {
   onEdit: (item: T) => void;
   onDelete: (item: T) => void;
 }
+
+export interface ConfirmOptions {
+  entity: Entity;
+  onConfirm: () => void;
+}

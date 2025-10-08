@@ -22,6 +22,7 @@ import AdminModulesPage from '../pages/AdminModulesPage';
 import { adminModulesLoader } from '../utilities/loaders/adminModulesLoader';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { adminModulesAction } from '../utilities/actions/adminModulesAction';
+import { adminActivitiesAction } from '../utilities/actions/adminActivitiesAction';
 
 export const router = createBrowserRouter([
   {
@@ -44,13 +45,13 @@ export const router = createBrowserRouter([
         element: <CoursePage />,
         loader: courseLoader,
         children: [],
-        errorElement: <NotFoundPage />, //Remove when ErrorPage is implemented
+        errorElement: <NotFoundPage />,
       },
       {
         path: 'courses/:courseId/modules/:moduleId',
         element: <ModulePage />,
         loader: moduleLoader,
-        errorElement: <NotFoundPage />, //Remove when ErrorPage is implemented
+        errorElement: <NotFoundPage />,
       },
       {
         path: 'admin/users',
@@ -69,11 +70,14 @@ export const router = createBrowserRouter([
         element: <AdminModulesPage />,
         loader: adminModulesLoader,
         action: adminModulesAction,
+        errorElement: <NotFoundPage />,
       },
       {
         path: 'admin/courses/:courseId/modules/:moduleId',
         element: <AdminActivitiesPage />,
         loader: adminActivitiesLoader,
+        action: adminActivitiesAction,
+        errorElement: <NotFoundPage />,
       },
       /* ---- Add new routes above this comment for a neater structure ---- */
       { path: 'notauthorized', element: <NotAuthorizedPage /> },
