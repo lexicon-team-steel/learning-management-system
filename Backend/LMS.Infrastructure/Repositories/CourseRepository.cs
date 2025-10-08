@@ -50,4 +50,9 @@ public class CourseRepository(ApplicationDbContext context)
             .Include(c => c.Modules)
             .FirstOrDefaultAsync(c => c.Id == courseId);
     }
+
+    public async Task<Course?> GetCourseWithParticipantsAsync(Guid courseId) =>
+        await FindAll()
+            .Include(c => c.Users)
+            .FirstOrDefaultAsync(c => c.Id == courseId);
 }
