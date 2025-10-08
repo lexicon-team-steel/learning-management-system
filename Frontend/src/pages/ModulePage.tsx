@@ -7,6 +7,8 @@ import theme from '../styles/theme';
 import { IActivity, IModule } from '../utilities/types';
 import { formatDate, sortByDate } from '../utilities/helpers';
 import Date from '../components/Date';
+import SkeletonList from '../components/skelotons/SkeletonList';
+import SkeletonOneCol from '../components/skelotons/SkeltonOneCol';
 import BackLink from '../components/BackLink';
 
 const ModulePage = (): ReactElement => {
@@ -14,7 +16,7 @@ const ModulePage = (): ReactElement => {
 
   return (
     <Stack spacing={theme.layout.gapLarge}>
-      <Suspense>
+      <Suspense fallback={<SkeletonOneCol />}>
         <Await resolve={module}>
           {(module: IModule) => (
             <>
@@ -35,7 +37,7 @@ const ModulePage = (): ReactElement => {
           )}
         </Await>
       </Suspense>
-      <Suspense>
+      <Suspense fallback={<SkeletonList />}>
         <Await resolve={activities}>
           {(activities: IActivity[]) => {
             const sortedActivites = sortByDate(activities, 'startDate');

@@ -2,7 +2,6 @@ import { createBrowserRouter, Navigate } from 'react-router';
 import Layout from '../pages/Layout';
 import { requireAuthLoader } from '../utilities/loaders/requireAuthLoader';
 import DashboardPage from '../pages/DashboardPage';
-import Sandbox from '../pages/Sandbox';
 import LoginPage from '../pages/LoginPage';
 import { dashboardLoader } from '../utilities/loaders/dashboardLoader';
 import CoursePage from '../pages/CoursePage';
@@ -21,6 +20,7 @@ import { adminActivitiesLoader } from '../utilities/loaders/adminActivitiesLoade
 import AdminActivitiesPage from '../pages/AdminActivitiesPage';
 import AdminModulesPage from '../pages/AdminModulesPage';
 import { adminModulesLoader } from '../utilities/loaders/adminModulesLoader';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { adminModulesAction } from '../utilities/actions/adminModulesAction';
 
 export const router = createBrowserRouter([
@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     loader: requireAuthLoader,
-    hydrateFallbackElement: <Sandbox />,
+    hydrateFallbackElement: <LoadingSpinner />,
     children: [
       {
         index: true,
