@@ -1,7 +1,7 @@
 /* === type === */
 
 export type UserRole = 'Teacher' | 'Student' | 'Guest';
-export type Entity = 'activity' | 'module' | 'course' | 'user';
+export type Entity = 'activity' | 'module' | 'course' | 'user' | 'participant';
 export type Action = 'create' | 'update' | 'delete';
 export type Status = 'success' | 'error';
 
@@ -85,6 +85,17 @@ export interface ICourse {
   startDate: string;
   endDate: string;
   modules?: IModule[];
+  participants?: IParticipant[];
+}
+
+export interface IPagedResult<T> {
+  items: T[];
+  details: {
+    pageIndex: number;
+    pageSize: number;
+    totalCount: number;
+    totalPages: number;
+  };
 }
 
 export interface IModulesLoader {
@@ -112,6 +123,10 @@ export interface ICoursesContext {
   refetch: () => Promise<void>;
 }
 
+export interface IAdminUsersLoader extends IPagedLoader<IParticipant> {
+  courses: ICourse[];
+}
+
 export interface IAdminCoursesLoader {
   courses: ICourse[];
 }
@@ -125,15 +140,12 @@ export interface IAdminModulesLoader {
   courseWithModules: ICourse;
 }
 
-export interface IPagedLoader<T> {
-  items: T[];
-  details: {
-    pageIndex: number;
-    pageSize: number;
-    totalCount: number;
-    totalPages: number;
-  };
+export interface IAdminParticipantsLoader {
+  courseWithParticipants: ICourse;
+  pagedResult: IPagedResult<IParticipant>;
 }
+
+export type IPagedLoader<T> = IPagedResult<T>;
 
 export type FormErrorType = Record<string, string>;
 

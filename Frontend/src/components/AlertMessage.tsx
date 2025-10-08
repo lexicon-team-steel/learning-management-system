@@ -22,7 +22,8 @@ const getAlertMessage = (entity: Entity, action: Action, status: Status, errDeta
   const entitySv = capitalize(translateEntity[entity]) || entity;
 
   if (status === 'success') {
-    if (action === 'create') return `${entitySv} har skapats!`;
+    // I am sorry for this
+    if (action === 'create') return entity === 'participant' ? `Deltagaren är tillagd!` : `${entitySv} har skapats!`;
     if (action === 'update') return `${entitySv} har uppdaterats!`;
     if (action === 'delete') return `${entitySv} har tagits bort!`;
   }

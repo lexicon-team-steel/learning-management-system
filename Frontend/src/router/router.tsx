@@ -22,6 +22,9 @@ import AdminModulesPage from '../pages/AdminModulesPage';
 import { adminModulesLoader } from '../utilities/loaders/adminModulesLoader';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { adminModulesAction } from '../utilities/actions/adminModulesAction';
+import AdminParticipantsPage from '../pages/AdminParticipantsPage';
+import { adminParticipantsLoader } from '../utilities/loaders/adminParticipantsLoader';
+import { adminParticipantsAction } from '../utilities/actions/adminParticipantsAction';
 import { adminActivitiesAction } from '../utilities/actions/adminActivitiesAction';
 
 export const router = createBrowserRouter([
@@ -66,7 +69,13 @@ export const router = createBrowserRouter([
         action: adminCoursesAction,
       },
       {
-        path: 'admin/courses/:courseId',
+        path: 'admin/courses/:courseId/participants',
+        element: <AdminParticipantsPage />,
+        loader: adminParticipantsLoader,
+        action: adminParticipantsAction,
+      },
+      {
+        path: 'admin/courses/:courseId/modules',
         element: <AdminModulesPage />,
         loader: adminModulesLoader,
         action: adminModulesAction,

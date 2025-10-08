@@ -8,5 +8,5 @@ export const adminModulesAction = (args: ActionFunctionArgs) =>
     entity: 'module',
     validate: validateNameDescriptionAndDates,
     apiURL: `${BASE_URL}/admin/courses/${args.params.courseId}/modules`,
-    redirectURL: `/admin/courses/${args.params.courseId}`,
+    redirectURL: `/admin/courses/${args.params.courseId}/modules`,
   })(args);

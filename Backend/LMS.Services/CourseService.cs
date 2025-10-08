@@ -4,11 +4,12 @@ using Domain.Models.Entities;
 using Domain.Models.Exceptions;
 using LMS.Shared.DTOs.CourseDtos;
 using LMS.Shared.DTOs.UserDtos;
+using Microsoft.AspNetCore.Identity;
 using Service.Contracts;
 
 namespace LMS.Services;
 
-public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService currentUser) : ICourseService
+public class CourseService(IMapper mapper, IUnitOfWork uow, UserManager<ApplicationUser> userManager, ICurrentUserService currentUser) : ICourseService
 {
     public async Task<IEnumerable<CourseDto>> GetAllCoursesAsync()
     {
@@ -37,6 +38,14 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
     public async Task<CourseDto> GetCourseWithModulesAsync(Guid courseId)
     {
         var course = await uow.Courses.GetCourseWithModulesAsync(courseId);
+        if (course == null) throw new NotFoundException("Course not found");
+
+        return mapper.Map<CourseDto>(course);
+    }
+
+    public async Task<CourseDto> GetCourseWithParticipantsAsync(Guid courseId)
+    {
+        var course = await uow.Courses.GetCourseWithParticipantsAsync(courseId);
         if (course == null) throw new NotFoundException("Course not found");
 
         return mapper.Map<CourseDto>(course);
@@ -89,6 +98,33 @@ public class CourseService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
             throw new NotFoundException("Course not found");
 
         uow.Courses.Delete(course);
+        await uow.CompleteAsync();
+    }
+
+    public async Task DeleteParticipantAsync(Guid courseId, string participantId)
+    {
+        var course = await uow.Courses.GetCourseWithParticipantsAsync(courseId, true)
+            ?? throw new NotFoundException("Course not found");
+
+        var userInCourse = course.Users.FirstOrDefault(u => u.Id == participantId)
+            ?? throw new NotFoundException("User not found");
+
+        course.Users.Remove(userInCourse);
+        await uow.CompleteAsync();
+    }
+
+    public async Task AddParticipantToCourseAsync(Guid courseId, CreateCourseParticipantDto dto)
+    {
+        var user = await userManager.FindByIdAsync(dto.ParticipantId)
+            ?? throw new NotFoundException("User not found");
+
+        var course = await uow.Courses.GetCourseWithParticipantsAsync(courseId, true)
+            ?? throw new NotFoundException("Course not found");
+
+        if (course.Users.Any(u => u.Id == dto.ParticipantId))
+            throw new ConflictException("User already in the course");
+
+        course.Users.Add(user);
         await uow.CompleteAsync();
     }
 

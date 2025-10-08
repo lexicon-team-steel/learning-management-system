@@ -21,7 +21,7 @@ const AdminPageForm = ({
 }: IAdminPageFormProps): ReactElement => {
   return (
     <Card>
-      <Typography variant="h2" sx={{ marginBottom: theme.layout.gap }}>
+      <Typography variant="h2" sx={{ marginBottom: theme.layout.gapLarge }}>
         {title}
       </Typography>
       <Form method="post" noValidate>

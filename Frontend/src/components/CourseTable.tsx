@@ -11,7 +11,7 @@ interface ICourseTableProps {
 
 const CourseTable = ({ courses, onEdit, onDelete }: ICourseTableProps): ReactElement => (
   <Table
-    headers={['Namn', 'Period', 'Moduler', 'Åtgärder']}
+    headers={['Namn', 'Period', 'Deltagare', 'Moduler', 'Åtgärder']}
     keyField="id"
     rows={courses}
     sortableField="startDate"

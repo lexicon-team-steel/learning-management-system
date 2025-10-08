@@ -1,6 +1,6 @@
 import { ReactElement, useCallback } from 'react';
 import { useLoaderData } from 'react-router';
-import { IForm, IPagedLoader, IParticipant, ITable } from '../utilities/types';
+import { IAdminUsersLoader, IForm, IPagedLoader, IParticipant, ITable } from '../utilities/types';
 
 import UserTable from '../components/UserTable';
 import UserForm from '../components/UserForm';
@@ -12,9 +12,9 @@ import { usePagination } from '../utilities/hooks/usePagination';
 import UserFilter from '../components/UserFilter';
 import { useUserFilter } from '../utilities/hooks/useUserFilter';
 const AdminUsersPage = (): ReactElement => {
-  const { items, details } = useLoaderData<IPagedLoader<IParticipant>>();
+  const { items, details, courses } = useLoaderData<IAdminUsersLoader>();
   const { currentPage, setPage } = usePagination();
-  const { name, role, applyFilter } = useUserFilter();
+  const { name, role, courseId, applyFilter, resetFilter } = useUserFilter();
 
   const FormComponent = useCallback(
     ({ item, onCancel, errors }: IForm<IParticipant>) => <UserForm user={item} onCancel={onCancel} errors={errors} />,
@@ -24,11 +24,18 @@ const AdminUsersPage = (): ReactElement => {
   const TableComponent = useCallback(
     ({ items, onEdit, onDelete }: ITable<IParticipant>) => (
       <>
-        <UserFilter initName={name} initRole={role} onSubmit={applyFilter} />
+        <UserFilter
+          initName={name}
+          initRole={role}
+          initCourseId={courseId}
+          onSubmit={applyFilter}
+          onReset={resetFilter}
+          courses={courses}
+        />
         <UserTable users={items} onEdit={onEdit} onDelete={onDelete} />
       </>
     ),
-    [name, role, applyFilter]
+    [name, role, courseId, courses, applyFilter, resetFilter]
   );
 
   return (
