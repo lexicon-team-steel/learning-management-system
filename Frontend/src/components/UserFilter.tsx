@@ -41,7 +41,7 @@ const UserFilter = ({ initName, initRole, onSubmit }: IUserFilterProps): ReactEl
                 value={role}
                 onChange={(e: SelectChangeEvent) => setRole(e.target.value)}
               >
-                <MenuItem value=""></MenuItem>
+                <MenuItem value="">- Välj -</MenuItem>
                 <MenuItem value="student">Student</MenuItem>
                 <MenuItem value="teacher">Teacher</MenuItem>
               </Select>
