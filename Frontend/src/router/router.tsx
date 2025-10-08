@@ -25,6 +25,7 @@ import { adminModulesAction } from '../utilities/actions/adminModulesAction';
 import AdminParticipantsPage from '../pages/AdminParticipantsPage';
 import { adminParticipantsLoader } from '../utilities/loaders/adminParticipantsLoader';
 import { adminParticipantsAction } from '../utilities/actions/adminParticipantsAction';
+import { adminActivitiesAction } from '../utilities/actions/adminActivitiesAction';
 
 export const router = createBrowserRouter([
   {
@@ -84,6 +85,7 @@ export const router = createBrowserRouter([
         path: 'admin/courses/:courseId/modules/:moduleId',
         element: <AdminActivitiesPage />,
         loader: adminActivitiesLoader,
+        action: adminActivitiesAction,
         errorElement: <NotFoundPage />,
       },
       /* ---- Add new routes above this comment for a neater structure ---- */

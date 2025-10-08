@@ -57,6 +57,4 @@ export const translateEntity: Record<Entity, string> = {
   module: 'modulen',
   participant: 'deltagaren',
 };
-export const capitalize = (word: string): string => {
-  return word.charAt(0).toUpperCase() + word.slice(1);
-};
+export const capitalize = (s?: string): string => (s ? s.charAt(0).toUpperCase() + s.slice(1) : '');
