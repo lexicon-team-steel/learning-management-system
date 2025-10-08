@@ -88,5 +88,8 @@ public class ModuleService(IMapper mapper, IUnitOfWork uow, ICurrentUserService 
 
         if (overlapping)
             throw new ConflictException("Module dates overlap with an existing module in this course");
+
+        if (startDate < course.StartDate || startDate > course.EndDate || endDate < course.StartDate || endDate > course.EndDate)
+            throw new BadRequestException("Module dates must be set within course dates.");
     }
 }
