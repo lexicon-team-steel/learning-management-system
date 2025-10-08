@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
 import Table from './Table';
-import { ICourse } from '../utilities/types';
+import { Entity, ICourse } from '../utilities/types';
 import CourseTableRow from './CourseTableRow';
 
 interface ICourseTableProps {
   courses: ICourse[];
   onEdit: (course: ICourse) => void;
-  onDelete: (course: ICourse) => void;
+  onDelete: (course: ICourse, entity: Entity) => void;
 }
 
 const CourseTable = ({ courses, onEdit, onDelete }: ICourseTableProps): ReactElement => (
@@ -15,7 +15,7 @@ const CourseTable = ({ courses, onEdit, onDelete }: ICourseTableProps): ReactEle
     keyField="id"
     rows={courses}
     renderItem={(course: ICourse) => (
-      <CourseTableRow course={course} onEdit={() => onEdit(course)} onDelete={() => onDelete(course)} />
+      <CourseTableRow course={course} onEdit={() => onEdit(course)} onDelete={() => onDelete(course, 'module')} />
     )}
   ></Table>
 );
