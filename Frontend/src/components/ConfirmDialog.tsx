@@ -22,7 +22,7 @@ interface IConfirmDialog {
 
 const ConfirmDialog = ({ open, entity, onClose, onConfirm }: IConfirmDialog): ReactElement => {
   const entitySv = capitalize(translateEntity[entity]) || entity;
-  // handle Delete TODO
+
   return (
     <>
       <Dialog
