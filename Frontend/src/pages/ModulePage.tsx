@@ -7,6 +7,7 @@ import theme from '../styles/theme';
 import { IActivity, IModule } from '../utilities/types';
 import { formatDate, sortByDate } from '../utilities/helpers';
 import Date from '../components/Date';
+import BackLink from '../components/BackLink';
 
 const ModulePage = (): ReactElement => {
   const { module, activities } = useLoaderData();
@@ -16,18 +17,21 @@ const ModulePage = (): ReactElement => {
       <Suspense>
         <Await resolve={module}>
           {(module: IModule) => (
-            <Card title={module.name} titleVariant="h1">
-              <Typography mb={theme.layout.gap}>{module.description}</Typography>
-              <Stack direction="row" spacing={theme.spacing(6)} alignItems="center">
-                <Typography variant="body2">
-                  Del av kurs:{' '}
-                  <Typography component="span" fontWeight="bold">
-                    {module.courseName}
+            <>
+              <BackLink name={module.courseName} />
+              <Card title={module.name} titleVariant="h1">
+                <Typography mb={theme.layout.gap}>{module.description}</Typography>
+                <Stack direction="row" spacing={theme.spacing(6)} alignItems="center">
+                  <Typography variant="body2">
+                    Del av kurs:{' '}
+                    <Typography component="span" fontWeight="bold">
+                      {module.courseName}
+                    </Typography>
                   </Typography>
-                </Typography>
-                <Date start={formatDate(module.startDate)} end={formatDate(module.endDate)} />
-              </Stack>
-            </Card>
+                  <Date start={formatDate(module.startDate)} end={formatDate(module.endDate)} />
+                </Stack>
+              </Card>
+            </>
           )}
         </Await>
       </Suspense>
