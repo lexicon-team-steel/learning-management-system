@@ -123,6 +123,10 @@ export interface ICoursesContext {
   refetch: () => Promise<void>;
 }
 
+export interface IAdminUsersLoader extends IPagedLoader<IParticipant> {
+  courses: ICourse[];
+}
+
 export interface IAdminCoursesLoader {
   courses: ICourse[];
 }
