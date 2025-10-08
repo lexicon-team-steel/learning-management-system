@@ -54,11 +54,27 @@ public class AdminCoursesController(IServiceManager serviceManager) : Controller
     [SwaggerResponse(StatusCodes.Status200OK, "Participant deleted successfully")]
     [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized")]
     [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - only teachers can delete participants")]
-    [SwaggerResponse(StatusCodes.Status404NotFound, "Course not found")]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "Course or user not found")]
     public async Task<IActionResult> DeleteCourseParticipant(Guid courseId, string participantId)
     {
         await courseService.DeleteParticipantAsync(courseId, participantId);
         return Ok(new { success = true });
+    }
+
+    [HttpPost("{courseId}/participants")]
+    [SwaggerOperation(
+            Summary = "Add participant to a course",
+            Description = "Adds a new participant. Only teachers are allowed.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Participant added")]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized - JWT token missing or invalid")]
+    [SwaggerResponse(StatusCodes.Status403Forbidden, "Forbidden - only teachers can add participants")]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "Course or user not found")]
+    [SwaggerResponse(StatusCodes.Status409Conflict, "A user is already in this course")]
+
+    public async Task<ActionResult> AddParticipantToCourse(Guid courseId, [FromBody] CreateCourseParticipantDto dto)
+    {
+        await courseService.AddParticipantToCourseAsync(courseId, dto);
+        return CreatedAtAction(nameof(AddParticipantToCourse), new { status = "ok" });
     }
 
     [HttpPost]
