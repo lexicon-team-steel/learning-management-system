@@ -2,6 +2,8 @@ using AutoMapper;
 using Domain.Contracts.Repositories;
 using Domain.Models.Entities;
 using Domain.Models.Exceptions;
+using LMS.Services.Extensions;
+using LMS.Shared.Common;
 using LMS.Shared.DTOs.UserDtos;
 using LMS.Shared.Parameters;
 using Microsoft.AspNetCore.Identity;
@@ -11,11 +13,10 @@ namespace LMS.Services;
 
 public class UserService(IMapper mapper, IUnitOfWork uow, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager) : IUserService
 {
-    public async Task<IEnumerable<UserDto>> GetAllUsersAsync(UserQueryParameters userParams)
+    public async Task<PagedResult<UserDto>> GetAllUsersAsync(UserQueryParameters userParams)
     {
         var users = await uow.Users.GetAllUsersAsync(userParams);
-
-        return mapper.Map<IEnumerable<UserDto>>(users);
+        return users.Map<ApplicationUser, UserDto>(mapper);
     }
 
     public async Task<IdentityResult> UpdateUserAsync(string id, UserUpdateDto updateDto)
