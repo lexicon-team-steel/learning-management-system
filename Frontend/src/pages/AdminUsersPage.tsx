@@ -41,7 +41,6 @@ const AdminUsersPage = (): ReactElement => {
         count={details.totalPages}
         page={currentPage}
         onChange={(_, index) => setPage(index)}
-        variant="outlined"
         color="primary"
         size="small"
       />
