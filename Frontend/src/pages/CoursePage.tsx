@@ -76,13 +76,19 @@ const CoursePage = (): ReactElement => {
             </Suspense>
           </Card>
           {isTeacher && (
-            <LinkCard
-              title="Kursadministration"
-              buttons={[
-                { text: 'Hantera kurser', link: '/admin/courses' },
-                { text: 'Hantera moduler', link: '/admin/modules' },
-              ]}
-            />
+            <Suspense fallback={<SkeletonOneCol height={200} />}>
+              <Await resolve={course}>
+                {(course: ICourse) => (
+                  <LinkCard
+                    title="Kursadministration"
+                    buttons={[
+                      { text: 'Hantera kurser', link: '/admin/courses' },
+                      { text: 'Hantera moduler', link: `/admin/courses/${course.id}/modules` },
+                    ]}
+                  />
+                )}
+              </Await>
+            </Suspense>
           )}
         </Box>
       </Grid>
