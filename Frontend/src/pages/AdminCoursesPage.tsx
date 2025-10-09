@@ -1,33 +1,35 @@
-import { ReactElement } from 'react';
-import { Box, Button, Stack, Typography } from '@mui/material';
-import theme from '../styles/theme';
-import PlusIcon from '@mui/icons-material/Add';
-import CourseListBoard from '../components/CourseListBoard';
+import { ReactElement, useCallback } from 'react';
 import { useLoaderData } from 'react-router';
-
-interface IAdminProps {
-  pageTitle: string;
-  buttonLabel: string;
-  buttonDisabled?: boolean;
-  onButtonClick?: () => void;
-}
-
-const AdminTitle = ({ pageTitle, buttonLabel, buttonDisabled, onButtonClick }: IAdminProps): ReactElement => (
-  <Box display="flex" justifyContent="space-between" alignItems="center" gap={theme.layout.gap}>
-    <Typography variant="h1">{pageTitle}</Typography>
-    <Button startIcon={<PlusIcon />} variant="contained" disabled={buttonDisabled} onClick={onButtonClick}>
-      {buttonLabel}
-    </Button>
-  </Box>
-);
+import { ICourse, IForm, ITable } from '../utilities/types';
+import CourseTable from '../components/CourseTable';
+import AdminCrudPage from '../components/AdminCrudPage';
+import { EMPTY_COURSE } from '../utilities/constants';
+import CourseForm from '../components/CourseForm';
 
 const AdminCoursesPage = (): ReactElement => {
   const { courses } = useLoaderData();
+
+  const FormComponent = useCallback(
+    ({ item, onCancel, errors }: IForm<ICourse>) => <CourseForm course={item} onCancel={onCancel} errors={errors} />,
+    []
+  );
+
+  const TableComponent = useCallback(
+    ({ items, onEdit, onDelete }: ITable<ICourse>) => (
+      <CourseTable courses={items} onEdit={onEdit} onDelete={onDelete} />
+    ),
+    []
+  );
+
   return (
-    <Stack spacing={theme.layout.gapLarge}>
-      <AdminTitle pageTitle="Hantera kurser" buttonLabel="Skapa ny kurs" />
-      <CourseListBoard courses={courses} />
-    </Stack>
+    <AdminCrudPage
+      items={courses}
+      emptyItem={EMPTY_COURSE}
+      title="Hantera kurser"
+      buttonLabel="Skapa ny kurs"
+      FormComponent={FormComponent}
+      TableComponent={TableComponent}
+    />
   );
 };
 

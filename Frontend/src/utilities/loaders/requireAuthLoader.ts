@@ -9,11 +9,6 @@ export async function requireAuthLoader({ request }: LoaderFunctionArgs) {
 
   const next = await validateOrRefreshTokens(tokens);
   if (next) {
-    // Update localStorage if refresh gave new tokens
-    const nextRaw = JSON.stringify(next);
-    if (nextRaw !== raw) {
-      localStorage.setItem(TOKENS, nextRaw);
-    }
     return null; // Let the route through
   }
 

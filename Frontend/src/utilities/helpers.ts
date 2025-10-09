@@ -1,6 +1,7 @@
 import { redirect } from 'react-router';
 import { getTokens } from './token';
 import decodeToken from './token/decodeToken';
+import { Entity, IParticipant } from './types';
 
 export const formatDate = (date: string) => {
   const dateFromString = new Date(date);
@@ -42,3 +43,24 @@ export const requireTeacherRole = () => {
     throw redirect('/notauthorized');
   }
 };
+
+export const scrollTop = () =>
+  scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+
+export const translateEntity: Record<Entity, string> = {
+  activity: 'aktiviteten',
+  user: 'användaren',
+  course: 'kursen',
+  module: 'modulen',
+  participant: 'deltagaren',
+};
+export const capitalize = (s?: string): string => (s ? s.charAt(0).toUpperCase() + s.slice(1) : '');
+
+export const userChipColor = (user: IParticipant) => (user.roles[0] === 'Student' ? 'primary' : 'secondary');
+
+export const userFullName = (user: IParticipant) => `${user.firstName} ${user.lastName}`;
+
+export const translateRole = (role: string) => ({ Teacher: 'Lärare' })[role] ?? role;

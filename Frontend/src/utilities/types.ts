@@ -1,16 +1,34 @@
+/* === type === */
+
+export type UserRole = 'Teacher' | 'Student' | 'Guest';
+export type Entity = 'activity' | 'module' | 'course' | 'user' | 'participant';
+export type Action = 'create' | 'update' | 'delete';
+export type Status = 'success' | 'error';
+
+/* === interface === */
+
 export interface IUser {
   fullName: string;
   id: string;
   role: UserRole;
 }
 
-export type UserRole = 'Teacher' | 'Student' | 'Guest';
-
 export interface IAuthContext {
   user: IUser;
   isLoggedIn: boolean;
   login: (username: string, password: string) => Promise<{ success: boolean; message?: string }>;
   logout: () => void;
+}
+
+export interface IAlertContext {
+  showAlert: (options: IAlertOptions) => void;
+}
+
+export interface IAlertOptions {
+  entity: Entity;
+  action: Action;
+  status: Status;
+  errDetails?: string;
 }
 
 export interface ITokens {
@@ -60,15 +78,6 @@ export interface IActivityType {
   name: string;
 }
 
-export interface IModule {
-  id: string;
-  name: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  activities: IActivity[];
-}
-
 export interface ICourse {
   id: string;
   name: string;
@@ -76,11 +85,21 @@ export interface ICourse {
   startDate: string;
   endDate: string;
   modules?: IModule[];
+  participants?: IParticipant[];
 }
 
-export interface ICourseLoader {
-  course: Promise<ICourse>;
-  participants: Promise<IParticipant[]>;
+export interface IPagedResult<T> {
+  items: T[];
+  details: {
+    pageIndex: number;
+    pageSize: number;
+    totalCount: number;
+    totalPages: number;
+  };
+}
+
+export interface IModulesLoader {
+  modules: Promise<IModule[]>;
 }
 
 export interface ICoursesLoader {
@@ -104,6 +123,57 @@ export interface ICoursesContext {
   refetch: () => Promise<void>;
 }
 
-export interface IAdminUsersLoader {
-  users: IParticipant[];
+export interface IAdminUsersLoader extends IPagedLoader<IParticipant> {
+  courses: ICourse[];
+}
+
+export interface IAdminCoursesLoader {
+  courses: ICourse[];
+}
+
+export interface IAdminActivitiesLoader {
+  module: IModule;
+  activityTypes: IActivityType[];
+}
+
+export interface IAdminModulesLoader {
+  courseWithModules: ICourse;
+}
+
+export interface IAdminParticipantsLoader {
+  courseWithParticipants: ICourse;
+  pagedResult: IPagedResult<IParticipant>;
+}
+
+export type IPagedLoader<T> = IPagedResult<T>;
+
+export type FormErrorType = Record<string, string>;
+
+export type ApiErrorType = {
+  fieldErrors?: FormErrorType;
+  generalError?: string;
+};
+
+export interface IBasicAction {
+  errors?: ApiErrorType;
+  success?: boolean;
+  entity: Entity;
+  action: Action;
+}
+
+export interface IForm<T> {
+  item: T;
+  onCancel: () => void;
+  errors: FormErrorType;
+}
+
+export interface ITable<T> {
+  items: T[];
+  onEdit: (item: T) => void;
+  onDelete: (item: T) => void;
+}
+
+export interface ConfirmOptions {
+  entity: Entity;
+  onConfirm: () => void;
 }

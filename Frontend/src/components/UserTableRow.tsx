@@ -1,10 +1,10 @@
-import { Chip, IconButton, TableCell, TableRow } from '@mui/material';
+import { Chip, TableCell, TableRow } from '@mui/material';
 import { ReactElement } from 'react';
 import { IParticipant } from '../utilities/types';
 import EmailLink from './EmailLink';
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import EditIcon from '@mui/icons-material/EditOutlined';
 import theme from '../styles/theme';
+import ActionButtons from './ActionButtons';
+import { userChipColor, userFullName, translateRole } from '../utilities/helpers';
 
 interface IUserItem {
   user: IParticipant;
@@ -12,26 +12,17 @@ interface IUserItem {
   onDelete: () => void;
 }
 const UserTableRow = ({ user, onEdit, onDelete }: IUserItem): ReactElement => {
-  const userName = `${user.firstName} ${user.lastName}`;
-  const userRole = user.roles[0];
-  const chipColor = userRole === 'Student' ? 'primary' : 'secondary';
-
   return (
     <TableRow>
-      <TableCell>{userName}</TableCell>
+      <TableCell>{userFullName(user)}</TableCell>
       <TableCell>
         <EmailLink email={user.email} />
       </TableCell>
       <TableCell>
-        <Chip label={userRole} color={chipColor} />
+        <Chip label={translateRole(user.roles[0])} color={userChipColor(user)} />
       </TableCell>
       <TableCell align="right" sx={{ paddingX: theme.spacing(1) }}>
-        <IconButton onClick={onEdit} aria-label="edit">
-          <EditIcon fontSize="small" color="primary" />
-        </IconButton>
-        <IconButton onClick={onDelete} aria-label="delete">
-          <DeleteIcon fontSize="small" color="error" />
-        </IconButton>
+        <ActionButtons onEdit={onEdit} onDelete={onDelete} />
       </TableCell>
     </TableRow>
   );

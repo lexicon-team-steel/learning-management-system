@@ -10,6 +10,8 @@ import { IActivity, ICourse } from '../utilities/types';
 import { formatDate, sortByDate } from '../utilities/helpers';
 import theme from '../styles/theme';
 import LinkCard from '../components/LinkCard';
+import SkeletonTwoCols from '../components/skelotons/SkeletonTwoCols';
+import SkeletonOneCol from '../components/skelotons/SkeltonOneCol';
 
 const DashboardGrid = styled(Box)(({ theme }) => ({
   display: 'grid',
@@ -35,6 +37,7 @@ const DashboardPage = () => {
   const { courses, activities } = useLoaderData();
 
   const title = isTeacher ? 'Mina kurser' : 'Min kurs';
+  const skeleton = isTeacher ? <SkeletonTwoCols /> : <SkeletonOneCol width={300} />;
 
   return (
     <>
@@ -44,7 +47,7 @@ const DashboardPage = () => {
       <DashboardGrid>
         <Card title={title}>
           <CardGrid>
-            <Suspense>
+            <Suspense fallback={skeleton}>
               <Await resolve={courses}>
                 {(courses: ICourse[]) =>
                   courses.map((course) => (
@@ -61,27 +64,39 @@ const DashboardPage = () => {
             </Suspense>
           </CardGrid>
         </Card>
-        <Suspense>
-          <Await resolve={activities}>
-            {(activities: IActivity[]) => {
-              const sortedActivities = sortByDate(activities, 'endDate');
+        <Grid>
+          <Stack gap={2}>
+            <Suspense fallback={<SkeletonOneCol height={200} />}>
+              <Await resolve={activities}>
+                {(activities: IActivity[]) => {
+                  if (!activities || activities.length === 0) {
+                    return <Card title="Kommande aktiviteter">Inga kommande aktiviteter</Card>;
+                  }
 
-              if (!sortedActivities || sortedActivities.length === 0) {
-                return <Card title="Kommande aktiviteter">Inga kommande aktiviteter</Card>;
-              }
-
-              return (
-                <Card title="Kommande aktiviteter">
-                  <CollapsibleList
-                    items={sortedActivities}
-                    keyField="id"
-                    renderItem={(activity: IActivity) => <ActivityItem activity={activity} />}
-                  />
-                </Card>
-              );
-            }}
-          </Await>
-        </Suspense>
+                  const sortedActivities = sortByDate(activities, 'endDate');
+                  return (
+                    <Card title="Kommande aktiviteter">
+                      <CollapsibleList
+                        items={sortedActivities}
+                        keyField="id"
+                        renderItem={(activity: IActivity) => <ActivityItem activity={activity} />}
+                      />
+                    </Card>
+                  );
+                }}
+              </Await>
+            </Suspense>
+            {isTeacher && (
+              <LinkCard
+                title="Snabblänkar"
+                buttons={[
+                  { text: 'Hantera användare', link: '/admin/users' },
+                  { text: 'Hantera kurser', link: '/admin/courses' },
+                ]}
+              />
+            )}
+          </Stack>
+        </Grid>
       </DashboardGrid>
     </>
   );

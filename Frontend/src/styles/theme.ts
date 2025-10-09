@@ -9,6 +9,12 @@ declare module '@mui/material/Typography' {
   }
 }
 
+declare module '@mui/material/Chip' {
+  interface TypographyPropsVariantOverrides {
+    'secondary-link': true;
+  }
+}
+
 declare module '@mui/material/styles' {
   interface Theme {
     layout: {

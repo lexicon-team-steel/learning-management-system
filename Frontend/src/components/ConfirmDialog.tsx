@@ -1,0 +1,63 @@
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { ReactElement } from 'react';
+import { Entity } from '../utilities/types';
+import theme from '../styles/theme';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { translateEntity } from '../utilities/helpers';
+
+interface IConfirmDialog {
+  open: boolean;
+  entity: Entity;
+  onClose: () => void;
+  onConfirm: () => void;
+}
+
+const ConfirmDialog = ({ open, entity, onClose, onConfirm }: IConfirmDialog): ReactElement => {
+  const entitySv = translateEntity[entity] || entity;
+
+  return (
+    <>
+      <Dialog
+        open={open}
+        onClose={onClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        sx={{ '& .MuiPaper-root': { width: '350px' } }}
+      >
+        <HighlightOffIcon
+          sx={{
+            fontSize: '4rem',
+            color: theme.palette.error.main,
+            alignSelf: 'center',
+            pt: 2,
+          }}
+        />
+        <DialogTitle id="alert-dialog-title" sx={{ textAlign: 'center' }}>
+          Ta bort {entitySv}?
+        </DialogTitle>
+        <DialogContent sx={{ textAlign: 'center' }}>
+          <DialogContentText id="alert-dialog-description" fontSize={'0.9rem'}>
+            Bekräfta för att ta bort {entitySv}.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ justifyContent: 'center', pb: 3 }}>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: theme.palette.grey[500],
+              '&:hover': { backgroundColor: theme.palette.grey[600] },
+            }}
+            onClick={onClose}
+          >
+            Avbryt
+          </Button>
+          <Button variant="contained" color="error" onClick={onConfirm}>
+            Bekräfta
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
+};
+
+export default ConfirmDialog;

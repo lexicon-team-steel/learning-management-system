@@ -1,15 +1,17 @@
 import { ReactElement, Suspense } from 'react';
 import { Await, useLoaderData } from 'react-router';
 import { ICourse, IModule, IParticipant } from '../utilities/types';
-import { Box, Grid, Skeleton, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import CollapsibleList from '../components/CollapsibleList';
 import EntityCard from '../components/EntityCard';
 import ParticipantItem from '../components/ParticipantItem';
-import { formatDate } from '../utilities/helpers';
+import { formatDate, sortByDate } from '../utilities/helpers';
 import Card from '../components/Card';
 import theme from '../styles/theme';
 import LinkCard from '../components/LinkCard';
 import { useAuthContext } from '../utilities/hooks/useAuthContext';
+import SkeletonList from '../components/skelotons/SkeletonList';
+import SkeletonOneCol from '../components/skelotons/SkeltonOneCol';
 
 const CoursePage = (): ReactElement => {
   const { course, participants } = useLoaderData();
@@ -19,7 +21,7 @@ const CoursePage = (): ReactElement => {
   return (
     <Grid container spacing={theme.layout.gapLarge}>
       <Grid size={12}>
-        <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
+        <Suspense fallback={<SkeletonOneCol />}>
           <Await resolve={course}>
             {(course: ICourse) => (
               <Card title={course.name} titleVariant="h1">
@@ -32,13 +34,14 @@ const CoursePage = (): ReactElement => {
       <Grid size={8}>
         <Card title="Moduler">
           <Box display="flex" flexDirection="column" gap={theme.layout.gap}>
-            <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
+            <Suspense fallback={<SkeletonList />}>
               <Await resolve={course}>
                 {(resolvedCourse: ICourse) => {
                   if (!resolvedCourse.modules) {
                     return <Typography>Denna kurs har ännu inga moduler.</Typography>;
                   }
-                  return resolvedCourse.modules.map((module: IModule) => (
+                  const sortedModules = sortByDate(resolvedCourse.modules, 'startDate');
+                  return sortedModules.map((module: IModule) => (
                     <EntityCard
                       key={module.id}
                       title={module.name}
@@ -59,7 +62,7 @@ const CoursePage = (): ReactElement => {
       <Grid size={4} spacing={theme.layout.gapLarge}>
         <Box display={'flex'} flexDirection={'column'} gap={theme.layout.gapLarge}>
           <Card title="Kursdeltagare">
-            <Suspense fallback={<Skeleton variant="rounded" height={150} />}>
+            <Suspense fallback={<SkeletonOneCol height={200} />}>
               <Await resolve={participants}>
                 {(resolvedParticipants: IParticipant[]) => (
                   <CollapsibleList
@@ -76,8 +79,8 @@ const CoursePage = (): ReactElement => {
             <LinkCard
               title="Kursadministration"
               buttons={[
-                { text: 'Redigera kurs', link: '/admin/course/:id' },
-                { text: 'Lägg till modul', link: '/admin/modules/add' },
+                { text: 'Hantera kurser', link: '/admin/courses' },
+                { text: 'Hantera moduler', link: '/admin/modules' },
               ]}
             />
           )}

@@ -1,0 +1,28 @@
+import { ReactElement } from 'react';
+import Table from './Table';
+import { Entity, IActivity } from '../utilities/types';
+import ActivityTableRow from './ActivityTableRow';
+
+interface IActivityTableProps {
+  activities: IActivity[];
+  onEdit: (user: IActivity) => void;
+  onDelete: (user: IActivity, entity: Entity) => void;
+}
+
+const ActivityTable = ({ activities, onEdit, onDelete }: IActivityTableProps): ReactElement => (
+  <Table
+    headers={['Aktivitet', 'Aktivitetstyp', 'Datum & Tid', 'Åtgärder']}
+    keyField="id"
+    rows={activities}
+    sortableField="startDate"
+    renderItem={(activity: IActivity) => (
+      <ActivityTableRow
+        activity={activity}
+        onEdit={() => onEdit(activity)}
+        onDelete={() => onDelete(activity, 'activity')}
+      />
+    )}
+  ></Table>
+);
+
+export default ActivityTable;
