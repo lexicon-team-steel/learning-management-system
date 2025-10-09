@@ -49,8 +49,9 @@ const DashboardPage = () => {
           <CardGrid>
             <Suspense fallback={skeleton}>
               <Await resolve={courses}>
-                {(courses: ICourse[]) =>
-                  courses.map((course) => (
+                {(courses: ICourse[]) => {
+                  const sortedCourses = sortByDate(courses, 'startDate');
+                  return sortedCourses.map((course) => (
                     <EntityCard
                       key={course.id}
                       title={course.name}
@@ -58,8 +59,8 @@ const DashboardPage = () => {
                       date={{ start: formatDate(course.startDate) }}
                       link={`/courses/${course.id}`}
                     />
-                  ))
-                }
+                  ));
+                }}
               </Await>
             </Suspense>
           </CardGrid>

@@ -16,6 +16,7 @@ import { adminItems, baseMainItems, NavItem } from '../utilities/navigationConst
 import { useAuthContext } from '../utilities/hooks/useAuthContext';
 import { useCoursesContext } from '../utilities/hooks/useCoursesContext';
 import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
+import { sortByDate } from '../utilities/helpers';
 
 interface StyledListItemButtonProps {
   active?: boolean;
@@ -77,6 +78,8 @@ const Sidebar = (): ReactElement => {
   const { isTeacher } = useAuthContext();
   const { courses, loading } = useCoursesContext();
 
+  const sortedCourses = sortByDate(courses, 'startDate');
+
   const renderNavItems = (items: NavItem[]) =>
     items.map(({ text, icon, path }) => (
       <ListItem key={text} disablePadding>
@@ -94,8 +97,8 @@ const Sidebar = (): ReactElement => {
         <List>
           {renderNavItems(baseMainItems)}
           {!loading &&
-            courses.length > 0 &&
-            courses.map((c) => (
+            sortedCourses.length > 0 &&
+            sortedCourses.map((c) => (
               <ListItem key={c.id} disablePadding>
                 <StyledListItemButton
                   active={location.pathname.startsWith(`/courses/${c.id}`)}
